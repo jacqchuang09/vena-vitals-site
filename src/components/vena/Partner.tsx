@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { BarChart3, ClipboardCheck, FileText, Hospital, ShieldCheck, Users } from "lucide-react";
+import { BarChart3, ClipboardCheck, FileText, Hospital, Users } from "lucide-react";
 import { TiltCard } from "./TiltCard";
 import { StretchText } from "./StretchText";
 
@@ -76,8 +75,6 @@ const audiences = [
 ];
 
 export function Partner() {
-  const [sent, setSent] = useState(false);
-
   return (
     <>
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
@@ -284,90 +281,41 @@ export function Partner() {
         </div>
       </section>
 
+      {/* Closing CTA. There's a single lead form site-wide (/contact); this
+          page makes the case and hands off to it rather than carrying its own
+          duplicate form. */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20">
-        <div className="container-x grid gap-8 md:grid-cols-[0.62fr_1.38fr] md:items-center">
-          <div className="mx-auto max-w-[320px] text-center reveal md:text-left">
-            <div className="flex items-start gap-3">
-              <ShieldCheck size={21} className="mt-1 shrink-0 text-[color:var(--accent)]" />
-              <div>
-                <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-                  Get started
-                </div>
-                <StretchText
-                  as="h2"
-                  className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-                  segments={[
-                    { text: "Start an evaluation " },
-                    { text: "conversation.", className: "text-[color:var(--accent)]" },
-                  ]}
-                />
-              </div>
+        <div className="container-x">
+          <div className="mx-auto max-w-[560px] text-center reveal">
+            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+              Get started
             </div>
-          </div>
-
-          <div className="reveal rounded-[32px] bg-[color:var(--ink)] p-6 md:p-7">
-            {sent ? (
-              <div className="rounded-[28px] bg-[color:var(--ink-2)] p-8">
-                <div className="font-display text-2xl font-bold text-[color:var(--paper)]">
-                  Request received.
-                </div>
-                <p className="mt-3 max-w-[440px] text-sm leading-relaxed text-[color:var(--paper)]">
-                  A member of the team will follow up with pilot and evidence packet details.
-                </p>
-              </div>
-            ) : (
-              <form
-                className="grid gap-4"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  setSent(true);
-                }}
+            <StretchText
+              as="h2"
+              className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+              segments={[
+                { text: "Start an evaluation " },
+                { text: "conversation.", className: "text-[color:var(--accent)]" },
+              ]}
+            />
+            <p className="mx-auto mt-5 max-w-[440px] text-xs leading-relaxed text-[color:var(--paper)]">
+              Tell us about your facility and evaluation interest, and the team will follow up with
+              pilot and evidence-packet details.
+            </p>
+            <div className="mt-9">
+              <Link
+                to="/contact"
+                className="group inline-flex items-center gap-3 rounded-full bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
               >
-                <div className="grid gap-3 md:grid-cols-2">
-                  {["Name", "Organization", "Role", "Email"].map((field) => (
-                    <label
-                      key={field}
-                      className="grid gap-2 text-[11px] font-semibold tracking-normal text-[color:var(--mute)]"
-                    >
-                      {field}
-                      <input
-                        required
-                        className="rounded-[18px] border border-[color:var(--line)] bg-[color:var(--ink-2)] px-4 py-3 text-sm tracking-normal text-[color:var(--paper)] outline-none transition placeholder:text-[color:var(--mute)] focus:border-[color:var(--accent)] focus:bg-[color:var(--ink)]"
-                        placeholder={
-                          field === "Role" ? "Anesthesiology, admin, research..." : field
-                        }
-                      />
-                    </label>
-                  ))}
-                </div>
-                <label className="grid gap-2 text-[11px] font-semibold tracking-normal text-[color:var(--mute)]">
-                  Phone
-                  <input
-                    className="rounded-[18px] border border-[color:var(--line)] bg-[color:var(--ink-2)] px-4 py-3 text-sm tracking-normal text-[color:var(--paper)] outline-none transition placeholder:text-[color:var(--mute)] focus:border-[color:var(--accent)] focus:bg-[color:var(--ink)]"
-                    placeholder="Optional"
-                  />
-                </label>
-                <label className="grid gap-2 text-[11px] font-semibold tracking-normal text-[color:var(--mute)]">
-                  Message
-                  <textarea
-                    rows={4}
-                    className="rounded-[22px] border border-[color:var(--line)] bg-[color:var(--ink-2)] px-4 py-3 text-sm tracking-normal text-[color:var(--paper)] outline-none transition placeholder:text-[color:var(--mute)] focus:border-[color:var(--accent)] focus:bg-[color:var(--ink)]"
-                    placeholder="Tell us about your facility or evaluation interest."
-                  />
-                </label>
-                <div className="flex flex-wrap items-center justify-between gap-4 pt-1">
-                  <p className="max-w-[360px] text-[11px] leading-relaxed text-[color:var(--mute)]">
-                    We will use this to follow up about evaluation fit and evidence materials.
-                  </p>
-                  <button
-                    type="submit"
-                    className="bg-[color:var(--paper)] px-6 py-3.5 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
-                  >
-                    Send request
-                  </button>
-                </div>
-              </form>
-            )}
+                Request a demo{" "}
+                <span
+                  aria-hidden
+                  className="inline-block transition-transform group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
