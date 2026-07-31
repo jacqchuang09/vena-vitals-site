@@ -7,6 +7,11 @@
 # Netlify picks that up without a manual `publish` dir.
 [build]
   command = "npm run build"
+  # Static client assets land in dist/ (per Nitro's netlify-preset manifest,
+  # publicDir = dist). Without this, Netlify publishes the repo root, which has
+  # no index.html and 404s every route. The SSR function is emitted to
+  # .netlify/functions-internal/ and Netlify picks it up automatically.
+  publish = "dist"
 
 [build.environment]
   # Pin a modern Node — Netlify's default can lag behind what the toolchain needs.

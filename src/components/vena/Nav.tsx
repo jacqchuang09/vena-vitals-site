@@ -22,8 +22,8 @@ const solutionsGroups = [
   {
     title: "Future settings",
     items: [
-      { to: "/solutions/home-monitoring", label: "Home monitoring", desc: "Outside the hospital" },
       { to: "/solutions/sleep-medicine", label: "Sleep Medicine", desc: "Research direction" },
+      { to: "/solutions/home-monitoring", label: "Home monitoring", desc: "Outside the hospital" },
     ],
   },
 ] as const;
@@ -37,8 +37,8 @@ const mobileLinks = [
   { to: "/clinical-evidence", label: "Clinical Evidence" },
   { to: "/solutions/anesthesiology", label: "Anesthesiology" },
   { to: "/solutions/critical-care", label: "ICU" },
-  { to: "/solutions/home-monitoring", label: "Home Monitoring" },
   { to: "/solutions/sleep-medicine", label: "Sleep Medicine" },
+  { to: "/solutions/home-monitoring", label: "Home Monitoring" },
   { to: "/partner-with-us", label: "Partner With Us" },
   { to: "/about", label: "About" },
   { to: "/news", label: "News" },
