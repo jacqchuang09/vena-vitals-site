@@ -1,0 +1,15 @@
+# Netlify deploy config for the Vēna Vitals site.
+#
+# This is a TanStack Start (SSR) app built by Vite + Nitro, not a static site.
+# On Netlify's build infra Nitro detects the platform automatically, but the
+# preset is pinned here so the output is unambiguous. Nitro's `netlify` preset
+# emits the serverless function + static client assets and wires the routing;
+# Netlify picks that up without a manual `publish` dir.
+[build]
+  command = "npm run build"
+
+[build.environment]
+  # Pin a modern Node — Netlify's default can lag behind what the toolchain needs.
+  NODE_VERSION = "20"
+  # Force the Netlify output target for the Nitro build.
+  NITRO_PRESET = "netlify"

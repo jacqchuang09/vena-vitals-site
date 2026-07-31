@@ -1,0 +1,438 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "Inter", system-ui, sans-serif;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+:root {
+  --ink: #ffffff;
+  --ink-2: #f6f6f6;
+  --page: #fbfbfb;
+  --paper: #2b2b2b;
+  --mute: #999999;
+  --line: rgba(43, 43, 43, 0.12);
+  --accent: #d84a4a;
+  --accent-soft: #f7dddd;
+
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --border: var(--line);
+  --ring: var(--accent);
+
+  /* Fixed nav height (matches Nav's h-28 / md:h-36), in rem so it tracks the
+     root font-scale. Used to center each section's content below the nav. */
+  --nav-h: 7rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --nav-h: 9rem;
+  }
+}
+
+/* Offset every full-height section by the nav height so its content is
+   vertically centered in the band from the bottom of the nav to the section's
+   end, rather than behind the fixed nav. Unlayered, so it wins over the
+   Tailwind padding utilities. */
+section.min-h-screen {
+  padding-top: var(--nav-h);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    box-sizing: border-box;
+    min-width: 0;
+  }
+  html {
+    scroll-behavior: auto;
+    scroll-padding-block: 0;
+    scroll-snap-type: y mandatory;
+    overscroll-behavior-y: contain;
+    background: var(--ink);
+  }
+  body {
+    background-color: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--ink);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+  article,
+  figure,
+  form,
+  table {
+    border-radius: var(--radius-xl);
+  }
+  input,
+  select,
+  textarea {
+    border-radius: var(--radius-lg);
+  }
+  button {
+    border-radius: 9999px;
+  }
+  a[class*="inline-flex"][class*="px-"] {
+    border-radius: 9999px;
+  }
+  main > section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  footer {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+@utility section-shell {
+  width: min(100% - 2rem, 1280px);
+  margin-inline: auto;
+  border-radius: 48px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(43, 43, 43, 0.045);
+  @media (min-width: 768px) {
+    width: min(100% - 4rem, 1280px);
+    border-radius: 56px;
+  }
+}
+
+/* Shrink content by scaling the text down (not by narrowing columns), so
+   mockups like the tablet keep their real size. Scales all rem-based text and
+   spacing; px-fixed values are unaffected. */
+html {
+  font-size: 90%;
+}
+
+@utility container-x {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Full-width variant (no max-width) for the nav bar and footer, which should
+   span the whole viewport rather than the narrower content column. */
+@utility container-wide {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Continuous horizontal scroll for the company-moments marquee. The track
+   holds two copies of the list, so -50% lands on a seamless loop point. */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Dock-style hover for the company-moments scroll: the hovered card lifts and
+   grows while its immediate neighbours slide outward, so the gaps are kept and
+   nothing overlaps. Transforms only, so the marquee animation is undisturbed. */
+.moment-card {
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+.moment-card:hover {
+  transform: translateY(-14px) scale(1.06);
+  z-index: 10;
+}
+/* every card after the hovered one shifts right… */
+.moment-card:hover ~ .moment-card {
+  transform: translateX(30px);
+}
+/* …and every card before it shifts left, so all gaps stay equal. */
+.moment-card:has(~ .moment-card:hover) {
+  transform: translateX(-30px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .moment-card,
+  .moment-card:hover,
+  .moment-card:hover ~ .moment-card,
+  .moment-card:has(~ .moment-card:hover) {
+    transform: none;
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0;
+  color: var(--mute);
+}
+
+@utility section-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-size: clamp(28px, 3.2vw, 44px);
+}
+
+@utility hero-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-size: clamp(32px, 3.6vw, 48px);
+}
+
+@utility stat-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 42px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+}
+@keyframes wave-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes signal-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-680px);
+  }
+}
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes story-timeline {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes signal-path-dash {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -260;
+  }
+}
+@keyframes signal-pulse-travel {
+  0% {
+    left: 9%;
+    top: 52%;
+  }
+  34% {
+    left: 43%;
+    top: 28%;
+  }
+  68% {
+    left: 69%;
+    top: 61%;
+  }
+  100% {
+    left: 90%;
+    top: 46%;
+  }
+}
+@keyframes evidence-draw {
+  from {
+    stroke-dashoffset: 900;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes device-stream {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -180;
+  }
+}
+@keyframes sensor-hero-loop {
+  0% {
+    transform: translateX(2rem) translateY(0) rotate(-0.35deg) scale(1);
+  }
+  25% {
+    transform: translateX(2.2rem) translateY(-0.35rem) rotate(0.15deg) scale(1.015);
+  }
+  50% {
+    transform: translateX(1.9rem) translateY(0.1rem) rotate(0.35deg) scale(1.01);
+  }
+  75% {
+    transform: translateX(2.15rem) translateY(0.32rem) rotate(-0.1deg) scale(1.018);
+  }
+  100% {
+    transform: translateX(2rem) translateY(0) rotate(-0.35deg) scale(1);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.hairline {
+  border-top: 1px solid color-mix(in srgb, var(--line) 24%, transparent);
+}
+.hairline-b {
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 24%, transparent);
+}
+
+.waveform-line {
+  animation: signal-drift 7s linear infinite;
+}
+
+.logo-marquee {
+  animation: logo-marquee 45s linear infinite;
+}
+
+.story-timeline {
+  animation: story-timeline 28s linear infinite;
+}
+
+.signal-path-line {
+  animation: signal-path-dash 7s linear infinite;
+}
+
+.signal-pulse {
+  animation: signal-pulse-travel 5.5s cubic-bezier(0.45, 0, 0.25, 1) infinite alternate;
+}
+
+.device-stream-line {
+  stroke-dasharray: 14 18;
+  animation: device-stream 3.2s linear infinite;
+}
+
+.sensor-hero-motion {
+  animation: sensor-hero-loop 8s linear infinite;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.evidence-wave {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+}
+
+.is-in .evidence-wave-reference {
+  animation: evidence-draw 1.8s ease forwards;
+}
+
+.is-in .evidence-wave-vena {
+  animation: evidence-draw 2.2s 0.35s ease forwards;
+}
+
+.reveal:hover .waveform-line,
+.group:hover .waveform-line {
+  animation-duration: 3.8s;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .logo-marquee {
+    animation: none;
+  }
+  html {
+    scroll-snap-type: none;
+  }
+}
