@@ -260,7 +260,9 @@ export function SensorExploded() {
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // Phones fall back to the static, unpinned layout too — the pinned stage
+    // doesn't fit a narrow column and scroll-jacking is poor UX on touch.
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 767px)");
     const sync = () => setReduced(mq.matches);
     sync();
     mq.addEventListener("change", sync);
@@ -348,13 +350,30 @@ export function SensorExploded() {
     return `translate(-50%,-50%) translateZ(${(fromCentre * SPREAD_PX).toFixed(2)}px)`;
   };
 
+  // Static mode (phone / reduced-motion): the scroll loop writes plane
+  // transforms/opacity imperatively during the brief non-reduced first frame,
+  // and React won't overwrite an unchanged style prop — so reset each plane to
+  // its resting, fully-visible position when static mode engages.
+  useEffect(() => {
+    if (!reduced) return;
+    planeRefs.current.forEach((el, i) => {
+      if (el) {
+        el.style.opacity = "";
+        el.style.transform = restingTransform(i);
+      }
+    });
+  }, [reduced]);
+
   return (
     <section className="relative bg-[color:var(--ink)] hairline-b">
       <div ref={trackRef} style={reduced ? undefined : { height: `calc(100vh + ${SCROLL_VH}vh)` }}>
         <div
           className={
             reduced
-              ? "py-16 md:py-20"
+              ? // Static/mobile: the standard section shell so it centers like
+                // every sibling section and overflow-hidden clips the isometric
+                // stage's horizontal bleed.
+                "flex min-h-screen items-center overflow-hidden py-16 md:py-20"
               : "sticky top-0 flex h-screen items-center overflow-hidden pt-[var(--nav-h)] pb-10"
           }
         >

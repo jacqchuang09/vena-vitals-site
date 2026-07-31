@@ -176,7 +176,9 @@ function StorySection() {
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // Also treat phones as "static": scroll-jacking a pinned window is poor UX
+    // on touch, and the pinned layout doesn't fit a narrow single column.
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 767px)");
     const sync = () => setReduced(mq.matches);
     sync();
     mq.addEventListener("change", sync);
@@ -270,6 +272,20 @@ function StorySection() {
     };
   }, [reduced]);
 
+  // Static mode (phone / reduced-motion): clear any inline transforms and
+  // opacities the scroll loop wrote during the brief non-reduced first frame,
+  // so entries render at their natural flow position and full opacity.
+  useEffect(() => {
+    if (!reduced) return;
+    itemRefs.current.forEach((el) => {
+      if (el) {
+        el.style.opacity = "";
+        el.style.transform = "";
+      }
+    });
+    if (listRef.current) listRef.current.style.transform = "";
+  }, [reduced]);
+
   return (
     <section className="relative bg-[color:var(--ink-2)] hairline-b">
       <div
@@ -327,16 +343,18 @@ function StorySection() {
               <div className="absolute bottom-0 left-[7px] top-0 w-px bg-[color:var(--line)] md:left-1/2 md:-translate-x-1/2" />
               <div
                 ref={fillRef}
-                style={{ transform: "scaleY(0)" }}
+                // Static mode shows every entry at once, so the accent rail runs
+                // full height; the scroll loop drives it otherwise.
+                style={{ transform: reduced ? "scaleY(1)" : "scaleY(0)" }}
                 className="absolute bottom-0 left-[7px] top-0 w-px origin-top bg-[color:var(--accent)] md:left-1/2 md:-translate-x-1/2"
               />
               <div
                 ref={windowRef}
-                className={`h-[330px] overflow-hidden md:h-[400px] ${
+                className={
                   reduced
                     ? ""
-                    : "[mask-image:linear-gradient(to_bottom,transparent_0,#000_5%,#000_92%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0,#000_5%,#000_92%,transparent_100%)]"
-                }`}
+                    : "h-[330px] overflow-hidden md:h-[400px] [mask-image:linear-gradient(to_bottom,transparent_0,#000_5%,#000_92%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0,#000_5%,#000_92%,transparent_100%)]"
+                }
               >
                 {/* Leading pad so the first entry starts below the frame and
                     pops in on scroll, rather than sitting there at rest. */}

@@ -12,12 +12,8 @@ const quotes = [
     role: "User research",
     text: "A great advantage to not have to insert invasive monitoring.",
   },
-  {
-    name: "Ray Liu",
-    role: "CEO",
-    img: "/assets/team/ray.jpg",
-    text: "Everyone's blood pressure is changing constantly, but we've only had two tools to measure it: one is uncomfortable and inaccurate, the other is invasive and risky.",
-  },
+  // [EDIT NEEDED: third testimonial. The Ray Liu / CEO quote was removed at the
+  // team's request — leaving this slot blank until a replacement is approved.]
 ];
 
 export function Testimonials() {
