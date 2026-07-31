@@ -50,8 +50,13 @@ export function SolutionWindows({
   const [feature, ...rest] = windows;
 
   return (
-    <div className="mt-24 reveal">
+    <div className="reveal">
       <div className="max-w-[560px]">
+        {/* Eyebrow was being passed in but never rendered — every other section
+            on the site leads with one. */}
+        <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+          {eyebrow}
+        </div>
         <StretchText
           as="h2"
           className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
