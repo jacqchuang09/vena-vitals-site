@@ -48,6 +48,7 @@ const mobileLinks = [
 export function Nav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [pastHero, setPastHero] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   // White over full-bleed dark heroes (home video, About team photo), red once
@@ -64,6 +65,7 @@ export function Nav() {
     const onScroll = () => {
       const threshold = darkHero ? window.innerHeight - 90 : -1;
       setPastHero(window.scrollY > threshold);
+      setScrolled(window.scrollY > 8);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -76,7 +78,18 @@ export function Nav() {
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-50 transition-all duration-500">
+      {/* White background once the page starts scrolling. Gated on pastHero too:
+          over the dark home/About heroes the links are white, so a white bar
+          there would hide them — it only appears after the hero, where the links
+          have turned accent-red. On light pages pastHero is true from the top,
+          so `scrolled` is what holds it back until the user actually scrolls. */}
+      <header
+        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${
+          scrolled && pastHero
+            ? "bg-white/90 shadow-[0_1px_0_rgba(43,43,43,0.06)] backdrop-blur-xl"
+            : ""
+        }`}
+      >
         <div className="container-x flex h-28 items-center justify-between md:h-36">
           <Link to="/" onClick={goTop} className="shrink-0">
             <img
