@@ -12,8 +12,14 @@ const quotes = [
     role: "User research",
     text: "A great advantage to not have to insert invasive monitoring.",
   },
-  // [EDIT NEEDED: third testimonial. The Ray Liu / CEO quote was removed at the
-  // team's request — leaving this slot blank until a replacement is approved.]
+  // Placeholder third slot — keeps the 3-up layout balanced. The Ray Liu / CEO
+  // quote was removed at the team's request.
+  // [EDIT NEEDED: approved third testimonial to replace this placeholder.]
+  {
+    name: null,
+    role: null,
+    text: null,
+  },
 ];
 
 export function Testimonials() {
@@ -35,13 +41,13 @@ export function Testimonials() {
         </div>
 
         <div className="mx-auto mt-12 grid max-w-[900px] grid-cols-1 gap-12 sm:grid-cols-3 md:mt-14">
-          {quotes.map((q) => (
-            <figure key={q.name} className="reveal flex flex-col items-center text-center">
+          {quotes.map((q, i) => (
+            <figure key={q.name ?? i} className="reveal flex flex-col items-center text-center">
               <span className="relative grid aspect-square w-24 place-items-center overflow-hidden rounded-full bg-[color:var(--ink)] shadow-[0_10px_30px_-12px_rgba(43,43,43,0.3)] ring-1 ring-[color:var(--line)] md:w-28">
                 {"img" in q ? (
                   <img
                     src={q.img}
-                    alt={q.name}
+                    alt={q.name ?? ""}
                     className="h-full w-full object-cover object-top"
                     loading="lazy"
                   />
@@ -55,17 +61,25 @@ export function Testimonials() {
                 )}
               </span>
               <blockquote className="mt-6 max-w-[280px]">
-                <p className="text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
-                  &ldquo;{q.text}&rdquo;
-                </p>
-                <figcaption className="mt-4">
-                  <div className="font-display text-sm font-bold tracking-tight text-[color:var(--paper)]">
-                    {q.name}
-                  </div>
-                  <div className="mt-1 text-[11px] leading-snug text-[color:var(--paper)]/60">
-                    {q.role}
-                  </div>
-                </figcaption>
+                {q.text ? (
+                  <>
+                    <p className="text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
+                      &ldquo;{q.text}&rdquo;
+                    </p>
+                    <figcaption className="mt-4">
+                      <div className="font-display text-sm font-bold tracking-tight text-[color:var(--paper)]">
+                        {q.name}
+                      </div>
+                      <div className="mt-1 text-[11px] leading-snug text-[color:var(--paper)]/60">
+                        {q.role}
+                      </div>
+                    </figcaption>
+                  </>
+                ) : (
+                  <p className="text-xs leading-relaxed text-[color:var(--accent)] md:text-[13px]">
+                    Testimonial to confirm.
+                  </p>
+                )}
               </blockquote>
             </figure>
           ))}
