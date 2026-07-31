@@ -178,7 +178,7 @@ const overviewPoints = [
   {
     icon: HeartPulse,
     title: "Beat-to-beat resolution",
-    body: "Every heartbeat, not every few minutes. Continuous BP trends without the lag of cuff inflation cycles, so pressure drops are visible as they happen, not after the next reading.",
+    body: "Every heartbeat, not every few minutes. Continuous trends instead of waiting between intermittent cuff readings, so pressure drops are visible as they happen, not after the next cycle.",
   },
   {
     icon: Check,
@@ -188,7 +188,7 @@ const overviewPoints = [
   {
     icon: Target,
     title: "Wearable form factor",
-    body: "Soft sensor, foot placement. Applied over the dorsalis pedis artery and kept entirely out of the surgical field. No occupied arm, no cuff interference, no tethered catheter.",
+    body: "Soft sensor, foot placement. Applied over the dorsalis pedis artery and kept entirely out of the surgical field. No occupied arm, no tethered catheter.",
   },
 ];
 
@@ -222,9 +222,9 @@ export function HomeOverview() {
           />
           <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
             VeriTrack is a soft, wearable sensor that adheres to the foot and measures blood
-            pressure with every heartbeat. No cuff cycles, no needle. It delivers the continuous
-            hemodynamic visibility of an arterial line without the procedural risk, placement delay,
-            or invasive cannulation.
+            pressure with every heartbeat. Noninvasive, without an arterial line. It delivers the
+            continuous hemodynamic visibility of an arterial line without the procedural risk,
+            placement delay, or invasive cannulation.
           </p>
           <div className="mx-auto mt-6 grid max-w-[440px] gap-4 text-left md:mx-0">
             {overviewPoints.map((point) => {

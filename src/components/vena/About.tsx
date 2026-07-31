@@ -140,7 +140,7 @@ const milestones = [
   {
     marker: "510(k)",
     title: "FDA submission",
-    desc: "Regulatory submission for the continuous, cuffless blood-pressure monitoring system.",
+    desc: "Regulatory submission for the continuous, noninvasive blood-pressure monitoring system.",
   },
   {
     marker: "Next",
@@ -434,7 +434,7 @@ export function About() {
               ]}
             />
             <p className="mx-auto mt-5 max-w-[440px] text-sm leading-relaxed text-white/85">
-              Vena Vitals is building a soft, skin-worn sensor for continuous, cuffless blood
+              Vena Vitals is building a soft, skin-worn sensor for continuous, noninvasive blood
               pressure monitoring.
             </p>
           </div>

@@ -13,7 +13,7 @@ const stats: Stat[] = [
   { target: 1000, suffix: "+", l: "blood pressure pulse events captured each hour" },
   { target: 3, prefix: "<", suffix: " mmHg", l: "Mean error in validation studies" },
   { target: 24, suffix: "/7", l: "Skin-worn comfort, day and night" },
-  { target: 0, l: "Cuff inflations during monitoring" },
+  { target: 0, l: "Needle sticks to apply it" },
 ];
 
 function StatNumber({ target, prefix = "", suffix = "" }: Stat) {
@@ -46,8 +46,8 @@ const capabilities = [
   },
   {
     n: "02",
-    t: "No cuff inflation",
-    d: "The sensor is worn on the skin and avoids repeated cuff cycles during monitoring.",
+    t: "Continuous, not intermittent",
+    d: "Worn on the skin, the sensor tracks pressure continuously rather than in the periodic snapshots a standard cuff provides.",
   },
   {
     n: "03",

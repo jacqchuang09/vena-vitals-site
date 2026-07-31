@@ -21,8 +21,8 @@ export function Hero() {
             <span className="text-[color:var(--accent)]">Blood pressure.</span>
           </h1>
           <p className="mx-auto mt-7 max-w-[440px] text-sm leading-relaxed text-white [text-shadow:0_1px_14px_rgba(0,0,0,0.65)] lg:mx-0">
-            Beat-to-beat arterial pressure from a soft sensor the size of a bandage. No cuff, no
-            arterial line.
+            Beat-to-beat arterial pressure from a soft sensor the size of a bandage. Continuous and
+            noninvasive, without an arterial line.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">

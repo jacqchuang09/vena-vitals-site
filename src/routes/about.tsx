@@ -9,7 +9,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Vēna Vitals is developing a soft, skin-worn sensor for continuous, cuffless blood pressure monitoring.",
+          "Vēna Vitals is developing a soft, skin-worn sensor for continuous, noninvasive blood pressure monitoring.",
       },
       { property: "og:title", content: "About | Vēna Vitals" },
       {

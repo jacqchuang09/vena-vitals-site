@@ -93,11 +93,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Vēna Vitals | Continuous, cuffless blood pressure" },
+      { title: "Vēna Vitals | Continuous, noninvasive blood pressure" },
       {
         name: "description",
         content:
-          "A soft, skin-worn capacitive sensor that reads beat-to-beat blood pressure and vitals around the clock. No cuff, no catheter, no clinic.",
+          "A soft, skin-worn capacitive sensor that reads beat-to-beat blood pressure and vitals around the clock. Noninvasive, no catheter, no clinic.",
       },
       { property: "og:site_name", content: "Vēna Vitals" },
       { property: "og:type", content: "website" },

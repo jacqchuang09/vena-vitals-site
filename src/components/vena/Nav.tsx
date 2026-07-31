@@ -192,7 +192,7 @@ export function Nav() {
           </nav>
           <div className="mt-12 flex flex-wrap items-center justify-between gap-6 eyebrow">
             <span>vēna vitals © {new Date().getFullYear()}</span>
-            <span>continuous · cuffless · beat-to-beat</span>
+            <span>continuous · noninvasive · beat-to-beat</span>
           </div>
         </div>
       </div>

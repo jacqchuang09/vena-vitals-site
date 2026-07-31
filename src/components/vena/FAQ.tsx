@@ -1,8 +1,12 @@
 import { useState } from "react";
 
+// [EDIT NEEDED: add a calibration FAQ. The device requires calibration, so a
+// clear Q&A on how/when it is calibrated (and against what reference) should be
+// added here once the team confirms the details. Avoid any "no cuff / cuffless"
+// framing — the device is noninvasive and continuous, but not cuff-free.]
 const items = [
   {
-    q: "How does Vēna measure blood pressure without a cuff?",
+    q: "How does Vēna measure blood pressure continuously?",
     a: "A soft sensor is worn over an arterial site, such as the wrist or foot. The sensor detects pulse-related pressure changes and converts them into systolic, diastolic, and mean arterial pressure trends.",
   },
   {
