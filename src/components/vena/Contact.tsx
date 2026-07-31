@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, Linkedin, Mail } from "lucide-react";
-import { TiltCard } from "./TiltCard";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { StretchText } from "./StretchText";
 
 type FormState = {
@@ -175,62 +174,6 @@ export function Contact() {
                 </div>
               </form>
             )}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20">
-        <div className="container-x grid gap-6 md:grid-cols-[0.9fr_1.1fr] md:items-center">
-          <div className="mx-auto max-w-[340px] text-center reveal md:mx-0 md:text-left">
-            <StretchText
-              as="h2"
-              className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-              segments={[{ text: "A focused follow-up, not a sales maze." }]}
-            />
-            <p className="mt-5 text-sm leading-relaxed text-[color:var(--mute)]">
-              The team can route your request to clinical, research, pilot, or partnership context.
-            </p>
-          </div>
-
-          <div className="reveal grid gap-4">
-            <TiltCard className="rounded-[30px] bg-white p-6">
-              <h3 className="font-display text-lg font-bold tracking-tight text-[color:var(--paper)]">
-                Typical response
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-[color:var(--mute)]">
-                We aim to reply within one business day with the right next step or person.
-              </p>
-            </TiltCard>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <TiltCard
-                as="a"
-                href="mailto:INFO@VENAVITALS.COM"
-                className="group rounded-[30px] bg-white p-6 transition hover:shadow-[0_18px_60px_rgba(43,43,43,0.06)]"
-              >
-                <Mail size={18} className="text-[color:var(--accent)]" />
-                <div className="mt-5 font-display text-base font-bold tracking-tight text-[color:var(--paper)]">
-                  Email
-                </div>
-                <p className="mt-2 text-xs leading-relaxed text-[color:var(--mute)]">
-                  INFO@VENAVITALS.COM
-                </p>
-              </TiltCard>
-              <TiltCard
-                as="a"
-                href="https://www.linkedin.com/company/vena-vitals"
-                target="_blank"
-                rel="noreferrer"
-                className="group rounded-[30px] bg-white p-6 transition hover:shadow-[0_18px_60px_rgba(43,43,43,0.06)]"
-              >
-                <Linkedin size={18} className="text-[color:var(--accent)]" />
-                <div className="mt-5 font-display text-base font-bold tracking-tight text-[color:var(--paper)]">
-                  LinkedIn
-                </div>
-                <p className="mt-2 text-xs leading-relaxed text-[color:var(--mute)]">
-                  Vena Vitals company page
-                </p>
-              </TiltCard>
-            </div>
           </div>
         </div>
       </section>

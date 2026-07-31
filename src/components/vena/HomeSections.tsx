@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   Bluetooth,
@@ -429,14 +430,50 @@ export function HomeEvidenceStrip() {
 // Full-bleed company video. Named HomeVideo for historical reasons — it now
 // renders on the About page only, ahead of the careers CTA.
 export function HomeVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Play when the section scrolls into view, pause when it leaves. Starts muted
+  // because browsers block autoplay with sound — controls stay on so the viewer
+  // can unmute. Once they interact (unmute/scrub) we stop auto-pausing so we
+  // don't fight the user.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    let userEngaged = false;
+    const markEngaged = () => {
+      userEngaged = true;
+    };
+    video.addEventListener("volumechange", markEngaged);
+    video.addEventListener("seeking", markEngaged);
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else if (!userEngaged) {
+          video.pause();
+        }
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(video);
+    return () => {
+      io.disconnect();
+      video.removeEventListener("volumechange", markEngaged);
+      video.removeEventListener("seeking", markEngaged);
+    };
+  }, []);
+
   return (
     // The video fills the whole viewport and the headline sits over it, bottom
     // left. No container, no frame.
     <section className="relative flex min-h-screen items-end overflow-hidden bg-black hairline-b">
       <video
+        ref={videoRef}
         src="/assets/home/meet-vena.mp4"
         poster="/assets/home/meet-vena-poster.jpg"
         controls
+        muted
         playsInline
         preload="metadata"
         className="absolute inset-0 h-full w-full object-cover"
