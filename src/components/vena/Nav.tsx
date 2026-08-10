@@ -86,16 +86,16 @@ export function Nav() {
       <header
         className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${
           scrolled && pastHero
-            ? "bg-white/90 shadow-[0_1px_0_rgba(43,43,43,0.06)] backdrop-blur-xl"
+            ? "bg-white/90 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.18)] backdrop-blur-xl"
             : ""
         }`}
       >
-        <div className="container-x flex h-28 items-center justify-between md:h-36">
+        <div className="container-x flex h-20 items-center justify-between md:h-24">
           <Link to="/" onClick={goTop} className="shrink-0">
             <img
               src="/assets/brand/venavitals-logo.png"
               alt="Vēna Vitals"
-              className="h-24 w-auto object-contain md:h-32"
+              className="h-16 w-auto object-contain md:h-20"
             />
           </Link>
 

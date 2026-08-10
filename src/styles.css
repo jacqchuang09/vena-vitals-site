@@ -39,14 +39,14 @@
   --border: var(--line);
   --ring: var(--accent);
 
-  /* Fixed nav height (matches Nav's h-28 / md:h-36), in rem so it tracks the
+  /* Fixed nav height (matches Nav's h-20 / md:h-24), in rem so it tracks the
      root font-scale. Used to center each section's content below the nav. */
-  --nav-h: 7rem;
+  --nav-h: 5rem;
 }
 
 @media (min-width: 768px) {
   :root {
-    --nav-h: 9rem;
+    --nav-h: 6rem;
   }
 }
 
