@@ -66,12 +66,15 @@ section.min-h-screen {
   }
 }
 
-/* On short windows a full-viewport section can be taller than the window, so
-   its content overflows and (with the tall centering padding) gets cut off.
-   Below this height, let sections size to their content and shrink the top
-   clearance to just the nav plus a little — the page then flows like a normal
-   scrolling site and everything fits, whatever the window size. */
+/* The full-viewport scroll-snap is kept everywhere it works. But on short
+   windows a section can be taller than the window, and mandatory snap then
+   traps its middle/bottom out of reach. Below this height only, turn snap off
+   and let sections size to their content with a smaller top clearance, so the
+   page flows like a normal scrolling site and everything fits. */
 @media (max-height: 760px) {
+  html {
+    scroll-snap-type: none;
+  }
   section.min-h-screen {
     min-height: 0;
     padding-top: calc(var(--nav-h) + 1.5rem);
@@ -87,11 +90,7 @@ section.min-h-screen {
   html {
     scroll-behavior: auto;
     scroll-padding-block: 0;
-    /* Proximity, not mandatory: sections gently settle at their top when the
-       user stops nearby, but you can rest anywhere and scroll freely. Mandatory
-       snap traps content on windows shorter than a section (common on Windows
-       laptops), making the middle/bottom unreachable. */
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
     overscroll-behavior-y: contain;
     background: var(--ink);
   }
@@ -132,9 +131,11 @@ section.min-h-screen {
   }
   main > section {
     scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   footer {
     scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 }
 
