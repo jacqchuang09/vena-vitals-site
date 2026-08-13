@@ -3,21 +3,26 @@ import { BarChart3, ClipboardCheck, FileText, Hospital, Users } from "lucide-rea
 import { TiltCard } from "./TiltCard";
 import { StretchText } from "./StretchText";
 
+// These previously held internal instructions for whoever wrote the page
+// ("Frame the value around…", "Give value-analysis committees…"). Rewritten as
+// visitor-facing descriptions of what the evaluation provides.
+// [EDIT NEEDED: confirm the economic framing and that a spec sheet / evidence
+// summary / regulatory-status language are available to share.]
 const economicPoints = [
   {
     icon: BarChart3,
-    title: "Economic case",
-    body: "Frame the value around missed hypotension, arterial-line procedure burden, nursing workflow, and consumable use. Add literature citations where available.",
+    title: "The economic case",
+    body: "We help frame the value for your setting — missed-hypotension risk, arterial-line procedure burden, nursing workflow, and consumable use.",
   },
   {
     icon: ClipboardCheck,
-    title: "Workflow case",
-    body: "Show how setup, placement confirmation, calibration, and monitoring fit into perioperative workflow without replacing the whole monitor stack.",
+    title: "The workflow case",
+    body: "VeriTrack adds continuous pressure to the perioperative workflow — setup, placement, calibration, and monitoring — without replacing your existing monitor stack.",
   },
   {
     icon: FileText,
-    title: "Internal assets",
-    body: "Give value-analysis committees a spec sheet, evidence summary, and regulatory status language.",
+    title: "Committee materials",
+    body: "For value-analysis committees, we can provide a spec sheet, an evidence summary, and current regulatory-status language.",
   },
 ];
 
@@ -32,29 +37,37 @@ const pilotSteps = [
   ["04", "Review", "Return summary data, workflow findings, and next-step recommendations."],
 ];
 
+// These were internal planning notes, not answers a partner would read
+// (e.g. "Public claims should follow approved 510(k) pending language",
+// "…shown in the deck… framed as roadmap unless confirmed"). Rewritten as
+// honest, visitor-facing answers.
+// [EDIT NEEDED: confirm the integration roadmap and consumable configuration
+// before these are treated as final public statements.]
 const faqs = [
   [
     "Regulatory status",
-    "VeriTrack is an investigational device. Public claims should follow approved 510(k) pending language.",
+    "VeriTrack is an investigational device. Commercial availability is subject to regulatory clearance.",
   ],
   [
     "Integration",
-    "Bluetooth to tablet is shown in the deck. Bedside monitor, health record, and dashboard integration should be framed as roadmap unless confirmed.",
+    "The sensor streams over Bluetooth to a tablet today. Bedside-monitor, health-record, and dashboard integrations are on the product roadmap.",
   ],
   [
     "Training",
-    "Evaluation planning should include placement, signal confirmation, calibration, and troubleshooting workflow.",
+    "Evaluation includes training on placement, signal confirmation, calibration, and troubleshooting.",
   ],
   [
     "Consumables",
-    "Clarify reusable and single-use components once product configuration is finalized.",
+    "Reusable and single-use component details are shared as the product configuration is finalized.",
   ],
   [
     "Data and privacy",
-    "Pilot planning should define data export, storage, access, and institutional privacy review.",
+    "Each pilot defines data export, storage, access, and institutional privacy review up front.",
   ],
 ];
 
+// [VERIFY] confirm each institution is an active/authorized site and that Vēna
+// has permission to display its name before launch.
 const logos = [
   { name: "University of California, Irvine", href: "https://www.uci.edu/" },
   { name: "University of Vermont", href: "https://www.uvm.edu/" },
@@ -192,8 +205,8 @@ export function Partner() {
               ]}
             />
             <p className="mx-auto mt-5 max-w-[290px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
-              A pilot should be concrete enough for hospital teams to understand timeline, support,
-              data outputs, and what success looks like.
+              A structured pilot gives your team a clear timeline, hands-on support, defined data
+              outputs, and a shared definition of success.
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-4">
@@ -260,7 +273,7 @@ export function Partner() {
               ]}
             />
             <p className="mx-auto mt-5 max-w-[290px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
-              Keep this focused on evaluation logistics and approved regulatory language.
+              What teams ask most when scoping an evaluation.
             </p>
           </div>
           <div className="reveal rounded-[32px] bg-[color:var(--ink-2)] p-5 md:p-6">
