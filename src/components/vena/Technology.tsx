@@ -375,11 +375,13 @@ export function Technology() {
 
           <div className="mx-auto mt-10 grid max-w-[1000px] items-stretch gap-5 md:mt-12 md:grid-cols-2">
             <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
-              <div className="flex flex-1 items-center justify-center bg-white p-4">
+              <div className="flex flex-1 items-center justify-center overflow-hidden bg-white p-4">
+                {/* Slow push-in so the still feels alive beside the app video.
+                    Presentation motion only — the display is not animated. */}
                 <img
                   src="/assets/technology/philips-monitor.webp"
                   alt="A standard multi-parameter bedside patient monitor"
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-contain [animation:slow-zoom_16s_ease-in-out_infinite_alternate] motion-reduce:[animation:none]"
                   loading="lazy"
                 />
               </div>
