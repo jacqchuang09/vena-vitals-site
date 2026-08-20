@@ -399,7 +399,7 @@ export function Technology() {
                   <StandardMonitorMock />
                 </div>
               </div>
-              <figcaption className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--paper)]/60">
+              <figcaption className="px-5 py-4 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--paper)]/60">
                 The bedside monitor you already use
               </figcaption>
             </figure>
@@ -418,8 +418,8 @@ export function Technology() {
                   </div>
                 </div>
               </div>
-              <figcaption className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--accent)]">
-                VeriTrack — continuous BP, in large type
+              <figcaption className="px-5 py-4 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--accent)]">
+                VeriTrack: continuous BP, in large type
               </figcaption>
             </figure>
           </div>
