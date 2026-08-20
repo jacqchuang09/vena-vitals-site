@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { ScrollProgress } from "@/components/vena/ScrollProgress";
 import { Nav } from "@/components/vena/Nav";
 import { Footer } from "@/components/vena/Footer";
 
@@ -191,7 +190,6 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ScrollToTop />
       <div className="relative">
-        <ScrollProgress />
         <Nav />
         <main>
           <Outlet />
