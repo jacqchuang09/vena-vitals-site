@@ -5,6 +5,8 @@ import { TiltCard } from "./TiltCard";
 import { SignalJourney } from "./SignalJourney";
 import { SensorExploded } from "./SensorExploded";
 import { SignalGraphs, CountUpStat, StatStrip } from "./SignalGraphs";
+import { MonitorMock } from "./MonitorMock";
+import { StandardMonitorMock } from "./StandardMonitorMock";
 
 const advantages = [
   {
@@ -347,11 +349,11 @@ export function Technology() {
         </div>
       </section>
 
-      {/* At a glance — VeriTrack's dedicated BP readout beside the multi-parameter
-          monitor at the bedside. Both are real: the tablet is a recording of the
-          actual VeriTrack app; the monitor photo was supplied by the team.
-          [VERIFY: the team is choosing to show a competitor's branded monitor
-          here — confirm that's intended before launch.] */}
+      {/* At a glance — VeriTrack's dedicated BP readout beside a generic,
+          unbranded multi-parameter monitor. Both are stylized SVG/CSS mocks
+          (MonitorMock = the VeriTrack app; StandardMonitorMock = an illustrative
+          standard monitor, no brand marks), so there's no competitor product or
+          fabricated real-device readout involved. */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
         <div className="container-x">
           <div className="mx-auto max-w-[560px] text-center reveal">
@@ -375,13 +377,8 @@ export function Technology() {
 
           <div className="mx-auto mt-10 grid max-w-[1000px] items-stretch gap-5 md:mt-12 md:grid-cols-2">
             <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
-              <div className="flex flex-1 items-center justify-center bg-white p-4">
-                <img
-                  src="/assets/technology/philips-monitor.webp"
-                  alt="A standard multi-parameter bedside patient monitor"
-                  className="h-full w-full object-contain"
-                  loading="lazy"
-                />
+              <div className="flex flex-1 items-center justify-center bg-[color:var(--ink)] p-5 md:p-7">
+                <StandardMonitorMock />
               </div>
               <figcaption className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--paper)]/60">
                 The bedside monitor you already use
@@ -389,16 +386,10 @@ export function Technology() {
             </figure>
 
             <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
-              <div className="flex flex-1 items-center justify-center bg-black p-2 md:p-3">
-                <video
-                  src="/assets/technology/veritrack-app-monitor.mp4"
-                  className="h-full w-full rounded-[14px] object-contain"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                />
+              <div className="flex flex-1 items-center justify-center bg-[color:var(--ink)] p-5 md:p-7">
+                <div className="w-full max-w-[460px] overflow-hidden rounded-[14px] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.7)] ring-1 ring-black/40">
+                  <MonitorMock />
+                </div>
               </div>
               <figcaption className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--accent)]">
                 VeriTrack — continuous BP, in large type

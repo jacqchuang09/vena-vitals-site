@@ -190,17 +190,6 @@ html {
   }
 }
 
-/* Gentle push-in used on the static monitor photo so it feels alive next to
-   the live app video, without fabricating a moving display. */
-@keyframes slow-zoom {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.06);
-  }
-}
-
 /* Dock-style hover for the company-moments scroll: the hovered card lifts and
    grows while its immediate neighbours slide outward, so the gaps are kept and
    nothing overlaps. Transforms only, so the marquee animation is undisturbed. */
