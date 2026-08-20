@@ -19,7 +19,7 @@ const journeySteps = [
   {
     step: "03",
     title: "Stream",
-    body: "The sensor pairs to the bedside iPad monitor over Bluetooth, with no cables between the patient and the display. Signal quality is confirmed on screen before incision.",
+    body: "Streams to the bedside iPad over Bluetooth, no cables to the patient, signal confirmed before incision.",
     visual: "/assets/home/journey-stream.mp4",
     fit: "h-full w-full object-cover object-center scale-[1.4]",
   },

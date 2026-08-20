@@ -253,7 +253,7 @@ export function StandardMonitorMock() {
 
           {/* Waveforms + right numeric stack */}
           <div className="grid grid-cols-[1.55fr_1fr]">
-            <div className="flex h-[128px] flex-col md:h-[150px]">
+            <div className="flex h-[196px] flex-col md:h-[244px]">
               {WAVES.map((w, i) => (
                 <Wave key={w.key} def={w} dur={`${6 + i * 0.5}s`} />
               ))}
