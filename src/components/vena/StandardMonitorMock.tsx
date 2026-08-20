@@ -1,141 +1,202 @@
 import { useEffect, useState } from "react";
 
 // A generic, unbranded multi-parameter bedside monitor, built from SVG + CSS.
-// It stands in for "the crowded standard monitor" next to VeriTrack's clean
-// readout — deliberately dense (six waveforms, many small numbers) to make the
-// contrast. It is an illustrative stylization, not a depiction of any real
-// product, and carries no brand marks or trademark.
+// Modelled on the dense layout of a high-end anesthesia monitor (bed strip,
+// four labelled waveforms, a right-hand numeric stack, an anesthetic-gas band,
+// a mini-trend row, and a soft-button toolbar) so it reads as "the crowded
+// standard monitor" beside VeriTrack's clean readout. It is an illustrative
+// stylization — no brand marks, no trademark, not a real device's output.
 
-const COLORS = {
-  ecg: "#3fd757",
-  pleth: "#2fd4d4",
-  abp: "#ff5c5c",
-  pap: "#ecd23a",
-  cvp: "#57a8ff",
-  co2: "#e7e7e7",
+const C = {
+  ecg: "#74c043",
+  pleth: "#37b9da",
+  abp: "#ff3535",
+  co2: "#c9c9c9",
+  white: "#f2f2f2",
+  nbp: "#e163cf",
+  o2: "#74c043",
+  n2o: "#6f97e6",
+  bis: "#f2cf28",
+  amber: "#e9b83a",
+  cyanTab: "#37b9da",
 };
 
-const W = 1360; // wide, scrolled by the shared `waveform-line` animation (-680px)
+const W = 1360; // scrolled by the shared `waveform-line` animation (-680px)
 
-// Each generator returns an SVG path across width W with `n` identical beats, so
-// the -680px scroll (half of W) loops seamlessly. viewBox height is 40.
 function ecg(n = 16) {
   const s = W / n;
-  const b = 27;
+  const b = 23;
   let d = `M0 ${b}`;
   for (let i = 0; i < n; i++) {
     const x = i * s;
-    d += ` L${x + s * 0.14} ${b}`;
-    d += ` Q${x + s * 0.19} ${b - 4} ${x + s * 0.24} ${b}`; // P
-    d += ` L${x + s * 0.31} ${b} L${x + s * 0.34} ${b + 4} L${x + s * 0.37} ${b - 20}`; // QR
-    d += ` L${x + s * 0.4} ${b + 7} L${x + s * 0.43} ${b}`; // S
-    d += ` Q${x + s * 0.56} ${b - 6} ${x + s * 0.69} ${b}`; // T
+    d += ` L${x + s * 0.16} ${b}`;
+    d += ` q${s * 0.03} -3 ${s * 0.06} 0`; // P
+    d += ` L${x + s * 0.3} ${b} L${x + s * 0.33} ${b + 3} L${x + s * 0.35} ${b - 18} L${x + s * 0.37} ${b + 6} L${x + s * 0.4} ${b}`; // QRS
+    d += ` q${s * 0.09} -4 ${s * 0.18} 0`; // T
     d += ` L${x + s} ${b}`;
   }
   return d;
 }
-function pulse(n: number, base: number, amp: number, notch = true) {
+function pulseWave(n: number, base: number, amp: number) {
   const s = W / n;
   let d = `M0 ${base}`;
   for (let i = 0; i < n; i++) {
     const x = i * s;
-    d += ` C${x + s * 0.08} ${base - amp}, ${x + s * 0.22} ${base - amp}, ${x + s * 0.33} ${base - amp * 0.55}`;
-    if (notch) {
-      d += ` C${x + s * 0.42} ${base - amp * 0.3}, ${x + s * 0.46} ${base - amp * 0.45}, ${x + s * 0.55} ${base - amp * 0.38}`;
-    }
+    d += ` C${x + s * 0.08} ${base - amp}, ${x + s * 0.22} ${base - amp}, ${x + s * 0.34} ${base - amp * 0.5}`;
+    d += ` C${x + s * 0.42} ${base - amp * 0.28}, ${x + s * 0.47} ${base - amp * 0.44}, ${x + s * 0.55} ${base - amp * 0.36}`;
     d += ` C${x + s * 0.74} ${base - amp * 0.12}, ${x + s * 0.9} ${base}, ${x + s} ${base}`;
-  }
-  return d;
-}
-function cvp(n = 16) {
-  const s = W / n;
-  const b = 26;
-  let d = `M0 ${b}`;
-  for (let i = 0; i < n; i++) {
-    const x = i * s;
-    d += ` Q${x + s * 0.12} ${b - 5} ${x + s * 0.25} ${b - 2}`;
-    d += ` Q${x + s * 0.38} ${b + 1} ${x + s * 0.5} ${b - 4}`;
-    d += ` Q${x + s * 0.7} ${b - 1} ${x + s} ${b}`;
   }
   return d;
 }
 function co2(n = 8) {
   const s = W / n;
-  const b = 34;
-  const top = 13;
+  const b = 30;
+  const top = 9;
   let d = `M0 ${b}`;
   for (let i = 0; i < n; i++) {
     const x = i * s;
-    d += ` L${x + s * 0.12} ${b} L${x + s * 0.2} ${top + 3} L${x + s * 0.6} ${top} L${x + s * 0.63} ${b} L${x + s} ${b}`;
+    d += ` L${x + s * 0.14} ${b} C${x + s * 0.18} ${top + 2} ${x + s * 0.22} ${top} ${x + s * 0.28} ${top}`;
+    d += ` L${x + s * 0.58} ${top - 1} C${x + s * 0.6} ${top - 1} ${x + s * 0.62} ${b} ${x + s * 0.64} ${b}`;
+    d += ` L${x + s} ${b}`;
   }
   return d;
 }
 
-const WAVES: { key: keyof typeof COLORS; label: string; d: string; sw?: number }[] = [
-  { key: "ecg", label: "II", d: ecg() },
-  { key: "pleth", label: "Pleth", d: pulse(16, 30, 19) },
-  { key: "abp", label: "ABP", d: pulse(16, 31, 22) },
-  { key: "pap", label: "PAP", d: pulse(16, 33, 12) },
-  { key: "cvp", label: "CVP", d: cvp() },
-  { key: "co2", label: "CO₂", d: co2(), sw: 1.6 },
+type WaveDef = { key: keyof typeof C; label: string; d: string; fill?: boolean; scale: string[] };
+const WAVES: WaveDef[] = [
+  { key: "ecg", label: "II", d: ecg(), scale: [] },
+  { key: "pleth", label: "Pleth", d: pulseWave(16, 30, 20), scale: [] },
+  { key: "abp", label: "ABP", d: pulseWave(16, 31, 22), scale: ["150", "75", "0"] },
+  { key: "co2", label: "CO₂", d: co2(), fill: true, scale: ["30", "15", "0"] },
 ];
 
-function Wave({ color, d, dur, sw = 1.8 }: { color: string; d: string; dur: string; sw?: number }) {
+function Wave({ def, dur }: { def: WaveDef; dur: string }) {
+  const color = C[def.key];
   return (
-    <div className="h-[26px] overflow-hidden md:h-[30px]">
-      <svg
-        viewBox="0 0 1360 40"
-        preserveAspectRatio="none"
-        className="waveform-line h-full w-[1360px]"
-        style={{ animationDuration: dur }}
-        aria-hidden
+    <div className="relative flex-1 border-b border-white/[0.04]">
+      <span
+        className="absolute left-1 top-1 z-10 text-[5px] font-semibold md:text-[6px]"
+        style={{ color }}
       >
-        <path
-          d={d}
-          fill="none"
-          stroke={color}
-          strokeWidth={sw}
-          strokeLinejoin="round"
-          strokeLinecap="round"
-        />
-      </svg>
+        {def.label}
+      </span>
+      {def.scale.length > 0 ? (
+        <div className="absolute left-1 top-4 z-10 flex flex-col gap-1 text-[3.5px] text-white/30 md:text-[4.5px]">
+          {def.scale.map((v) => (
+            <span key={v}>{v}</span>
+          ))}
+        </div>
+      ) : null}
+      <div className="h-full overflow-hidden">
+        <svg
+          viewBox="0 0 1360 40"
+          preserveAspectRatio="none"
+          className="waveform-line h-full w-[1360px]"
+          style={{ animationDuration: dur }}
+          aria-hidden
+        >
+          {def.fill ? (
+            <path d={`${def.d} L1360 40 L0 40 Z`} fill={color} fillOpacity="0.5" stroke="none" />
+          ) : null}
+          <path
+            d={def.d}
+            fill="none"
+            stroke={color}
+            strokeWidth="1.7"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
     </div>
   );
 }
 
-// One numeric parameter block: big value(s), small range, small label.
-function Param({
-  color,
-  value,
-  sub,
+// Numeric readout: label + tiny range on the left, big value on the right.
+function Num({
   label,
+  value,
+  range,
+  color,
+  big = false,
 }: {
-  color: string;
-  value: string;
-  sub?: string;
   label: string;
+  value: string;
+  range?: string;
+  color: string;
+  big?: boolean;
 }) {
   return (
-    <div className="flex items-start justify-between gap-1 border-b border-white/5 px-2 py-1 last:border-b-0">
-      <div className="min-w-0">
-        <div
-          className="text-[6px] font-semibold uppercase tracking-wide md:text-[7px]"
-          style={{ color }}
-        >
+    <div className="flex items-center justify-between gap-1 leading-none">
+      <div className="flex flex-col gap-[1px]">
+        <span className="text-[5px] font-semibold md:text-[6.5px]" style={{ color }}>
           {label}
+        </span>
+        {range ? (
+          <span className="whitespace-pre text-[3.5px] text-white/30 md:text-[4.5px]">{range}</span>
+        ) : null}
+      </div>
+      <span
+        className={`font-display font-bold tabular-nums ${big ? "text-[15px] md:text-[19px]" : "text-[12px] md:text-[15px]"}`}
+        style={{ color }}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
+
+// Small gas/index block for the middle band: label(s) stacked, values stacked.
+function Gas({ color, rows }: { color: string; rows: [string, string][] }) {
+  return (
+    <div className="flex flex-col justify-center gap-[2px] leading-none">
+      {rows.map(([label, value], i) => (
+        <div key={i} className="flex items-baseline gap-1">
+          <span className="w-8 text-[4.5px] font-semibold md:w-9 md:text-[5.5px]" style={{ color }}>
+            {label}
+          </span>
+          <span
+            className="font-display text-[9px] font-bold tabular-nums md:text-[11px]"
+            style={{ color }}
+          >
+            {value}
+          </span>
         </div>
-        <div
-          className="font-display text-[15px] font-bold leading-none tabular-nums md:text-[19px]"
+      ))}
+    </div>
+  );
+}
+
+function Trend({
+  label,
+  value,
+  color,
+  bar,
+}: {
+  label: string;
+  value: string;
+  color: string;
+  bar?: boolean;
+}) {
+  return (
+    <div className="flex flex-col gap-[1px] border-l border-white/[0.05] px-1.5 leading-none first:border-l-0">
+      <span className="text-[4px] font-semibold md:text-[5px]" style={{ color }}>
+        {label}
+      </span>
+      <div className="flex items-center gap-1">
+        <span aria-hidden style={{ color }}>
+          →
+        </span>
+        {bar ? (
+          <span className="h-2 w-4 rounded-[1px]" style={{ background: color, opacity: 0.85 }} />
+        ) : null}
+        <span
+          className="font-display text-[8px] font-bold tabular-nums md:text-[10px]"
           style={{ color }}
         >
           {value}
-        </div>
+        </span>
       </div>
-      {sub ? (
-        <div className="whitespace-pre text-right text-[6px] leading-tight text-white/35 md:text-[7px]">
-          {sub}
-        </div>
-      ) : null}
     </div>
   );
 }
@@ -145,95 +206,159 @@ const drift = (n: number, step: number, lo: number, hi: number) =>
   clamp(n + Math.round((Math.random() - 0.5) * 2 * step), lo, hi);
 
 export function StandardMonitorMock() {
-  const [hr, setHr] = useState(60);
-  const [abp, setAbp] = useState({ s: 120, d: 70 });
+  const [hr, setHr] = useState(80);
+  const [abp, setAbp] = useState({ s: 121, d: 82 });
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = window.setInterval(() => {
-      setHr((p) => drift(p, 2, 55, 66));
-      setAbp((p) => ({ s: drift(p.s, 3, 112, 128), d: drift(p.d, 2, 64, 76) }));
+      setHr((p) => drift(p, 2, 74, 86));
+      setAbp((p) => ({ s: drift(p.s, 3, 114, 128), d: drift(p.d, 2, 76, 88) }));
     }, 2800);
     return () => window.clearInterval(id);
   }, []);
-  const map = Math.round(abp.d + (abp.s - abp.d) / 3);
+  const abpm = Math.round(abp.d + (abp.s - abp.d) / 3);
+
+  const beds = ["Bed 1", "Bed 2", "Bed 3", "Bed 4", "Bed 5", "Bed 6", "Bed 7", "Bed 8"];
 
   return (
-    <div className="mx-auto w-full max-w-[460px]">
+    <div className="mx-auto w-full max-w-[500px]">
       {/* Bezel — no brand marks */}
-      <div className="rounded-[14px] bg-gradient-to-b from-[#26262a] to-[#111113] p-2 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.7)] ring-1 ring-black/50 md:rounded-[16px] md:p-2.5">
+      <div className="rounded-[14px] bg-gradient-to-b from-[#2a2a2e] to-[#0f0f11] p-2 shadow-[0_22px_54px_-24px_rgba(0,0,0,0.75)] ring-1 ring-black/50 md:rounded-[18px] md:p-2.5">
         {/* Screen */}
-        <div className="overflow-hidden rounded-[7px] bg-[#050607]">
-          {/* Top status bar */}
-          <div className="flex items-center justify-between bg-[#0c0d10] px-2 py-1 text-[6px] text-white/45 md:text-[7px]">
-            <span>Adult</span>
-            <span className="text-white/30">Monitoring</span>
-            <span>Profiles</span>
+        <div className="overflow-hidden rounded-[6px] bg-black text-white">
+          {/* Bed strip */}
+          <div className="flex gap-px bg-[#111] px-1 pt-1">
+            {beds.map((b, i) => (
+              <span
+                key={b}
+                className={`flex-1 truncate rounded-t-[2px] px-1 py-[2px] text-center text-[4.5px] font-semibold md:text-[5.5px] ${
+                  i === 3
+                    ? "bg-[#e9b83a] text-black"
+                    : i === 6
+                      ? "bg-[#37b9da] text-black"
+                      : "bg-white/10 text-white/60"
+                }`}
+              >
+                {b}
+              </span>
+            ))}
+          </div>
+          {/* Status bar */}
+          <div className="flex items-center justify-between bg-[#0c0c0c] px-1.5 py-[2px] text-[4.5px] text-white/55 md:text-[5.5px]">
+            <span>Bed 4 · Adult</span>
+            <span>Doe, John</span>
+            <span className="hidden sm:inline">Profiles</span>
+            <span>Horizon</span>
           </div>
 
+          {/* Waveforms + right numeric stack */}
           <div className="grid grid-cols-[1.55fr_1fr]">
-            {/* Waveforms */}
-            <div className="flex flex-col gap-1 border-r border-white/5 p-1.5">
+            <div className="flex h-[128px] flex-col md:h-[150px]">
               {WAVES.map((w, i) => (
-                <div key={w.key} className="relative">
-                  <span
-                    className="absolute left-1 top-0 z-10 text-[5.5px] font-semibold md:text-[6.5px]"
-                    style={{ color: COLORS[w.key] }}
-                  >
-                    {w.label}
-                  </span>
-                  <Wave color={COLORS[w.key]} d={w.d} sw={w.sw} dur={`${6 + i * 0.6}s`} />
-                </div>
+                <Wave key={w.key} def={w} dur={`${6 + i * 0.5}s`} />
               ))}
             </div>
-
-            {/* Parameters */}
-            <div className="flex flex-col">
-              <Param color={COLORS.ecg} value={String(hr)} sub={"120\n50"} label="HR" />
-              <Param color={COLORS.pleth} value="95" sub={"Pulse 60"} label="SpO₂" />
-              <Param color={COLORS.abp} value={`${abp.s}/${abp.d}`} sub={`(${map})`} label="ABP" />
-              <Param color={COLORS.pap} value="28/15" sub={"(21)"} label="PAP" />
-              <Param color={COLORS.cvp} value="(9)" sub={"mmHg"} label="CVP" />
-              <Param color={COLORS.co2} value="30" sub={"awRR 30"} label="etCO₂" />
+            <div className="flex flex-col justify-between border-l border-white/[0.06] px-1.5 py-1">
+              <div className="grid grid-cols-2 gap-x-2">
+                <Num label="HR" range={"120\n50"} value={String(hr)} color={C.ecg} big />
+                <Num label="Pulse" value="80" color={C.pleth} big />
+              </div>
+              <div className="grid grid-cols-2 gap-x-2">
+                <Num label="SpO₂" range={"100\n90"} value="98" color={C.pleth} big />
+                <Num label="Perf" value="2.1" color={C.pleth} />
+              </div>
+              <Num
+                label="ABP"
+                range={"160\n90"}
+                value={`${abp.s}/${abp.d} (${abpm})`}
+                color={C.abp}
+              />
+              <div className="grid grid-cols-2 gap-x-2">
+                <Num label="etCO₂" range={"60\n25"} value="29" color={C.white} />
+                <Num label="awRR" range={"40\n8"} value="13" color={C.white} />
+              </div>
             </div>
           </div>
 
-          {/* Bottom strip: NBP + score + clock */}
-          <div className="flex items-center justify-between border-t border-white/5 bg-[#0a0b0e] px-2 py-1">
-            <div>
-              <div className="text-[5.5px] font-semibold text-[#ff8fa0] md:text-[6.5px]">NBP</div>
-              <div className="font-display text-[13px] font-bold leading-none tabular-nums text-[#ff8fa0] md:text-[16px]">
-                120/80 <span className="text-[9px] md:text-[11px]">(90)</span>
+          {/* Anesthetic-gas + NBP band */}
+          <div className="flex items-stretch justify-between border-t border-white/[0.06] bg-[#080808] px-1.5 py-1">
+            <div className="leading-none">
+              <span className="text-[4.5px] font-semibold md:text-[5.5px]" style={{ color: C.nbp }}>
+                NBP · Pulse 91
+              </span>
+              <div
+                className="font-display text-[13px] font-bold tabular-nums md:text-[16px]"
+                style={{ color: C.nbp }}
+              >
+                125/80 <span className="text-[9px] md:text-[11px]">(88)</span>
               </div>
             </div>
-            <div className="text-center">
-              <div className="text-[5.5px] font-semibold text-[#3fd757] md:text-[6.5px]">
-                STIndx
-              </div>
-              <div className="font-display text-[13px] font-bold leading-none tabular-nums text-[#3fd757] md:text-[16px]">
-                1.7
-              </div>
+            <Gas
+              color={C.nbp}
+              rows={[
+                ["etISO", "1.80"],
+                ["inISO", "2.00"],
+              ]}
+            />
+            <Gas
+              color={C.o2}
+              rows={[
+                ["etO₂", "29"],
+                ["inO₂", "33"],
+              ]}
+            />
+            <Gas
+              color={C.n2o}
+              rows={[
+                ["etN₂O", "64"],
+                ["inN₂O", "65"],
+              ]}
+            />
+            <div className="flex items-center gap-1.5">
+              <Num label="BIS" range={"70\n20"} value="51" color={C.bis} big />
+              <Gas
+                color={C.bis}
+                rows={[
+                  ["SQI", "69"],
+                  ["EMG", "28"],
+                ]}
+              />
             </div>
-            <div className="font-display text-[16px] font-bold leading-none tabular-nums text-white/85 md:text-[20px]">
-              18:51
-            </div>
+          </div>
+
+          {/* Mini-trend row */}
+          <div className="flex items-stretch justify-between border-t border-white/[0.06] bg-[#0a0a0a] py-1">
+            <Trend label="HR" value="80" color={C.ecg} bar />
+            <Trend label="SpO₂" value="98" color={C.pleth} />
+            <Trend label="ABPm" value="98" color={C.abp} bar />
+            <Trend label="PAPm" value="15" color={C.bis} />
+            <Trend label="etCO₂" value="29" color={C.white} />
+            <Trend label="Tcore" value="39.6" color={C.abp} bar />
           </div>
 
           {/* Soft-button toolbar */}
-          <div className="flex items-stretch gap-px bg-[#0c0d10] px-1 py-0.5 text-[5px] text-white/40 md:text-[6px]">
+          <div className="flex items-stretch gap-px bg-[#111] px-1 py-1 text-[4px] text-white/45 md:text-[5px]">
             {[
-              "Silence",
-              "Alarms",
-              "Suspend",
-              "Zero",
-              "Enter Values",
-              "Recorder",
-              "Trend",
-              "Main Setup",
-            ].map((t, i) => (
+              ["Silence", "amber"],
+              ["Alarms Off", "amber"],
+              ["Start/Stop", ""],
+              ["Stop All", ""],
+              ["Zero", ""],
+              ["Suppress", ""],
+              ["Recordings", ""],
+              ["Vitals Trend", ""],
+              ["End Case", ""],
+              ["Main Setup", "blue"],
+              ["Main Screen", "blue"],
+            ].map(([t, kind]) => (
               <span
                 key={t}
-                className={`flex-1 rounded-[3px] px-0.5 py-1 text-center ${
-                  i === 0 ? "bg-[#f0c33a] font-semibold text-black" : "bg-white/5"
+                className={`flex-1 rounded-[2px] px-0.5 py-1 text-center leading-tight ${
+                  kind === "amber"
+                    ? "bg-[#e9b83a] font-semibold text-black"
+                    : kind === "blue"
+                      ? "bg-[#2f6ad0] font-semibold text-white"
+                      : "bg-white/[0.06]"
                 }`}
               >
                 {t}
