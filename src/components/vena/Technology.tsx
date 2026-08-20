@@ -387,8 +387,16 @@ export function Technology() {
 
             <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
               <div className="flex flex-1 items-center justify-center bg-[color:var(--ink)] p-5 md:p-7">
-                <div className="w-full max-w-[460px] overflow-hidden rounded-[14px] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.7)] ring-1 ring-black/40">
-                  <MonitorMock />
+                {/* iPad frame around the app screen */}
+                <div className="relative w-full max-w-[460px] rounded-[24px] bg-gradient-to-b from-[#2a2a2e] to-[#141416] p-2.5 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/50 md:rounded-[28px] md:p-3">
+                  {/* front camera on the short edge */}
+                  <span
+                    aria-hidden
+                    className="absolute left-[7px] top-1/2 z-10 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/20 md:left-2"
+                  />
+                  <div className="overflow-hidden rounded-[16px] bg-[#0b0d12] md:rounded-[20px]">
+                    <MonitorMock />
+                  </div>
                 </div>
               </div>
               <figcaption className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--accent)]">

@@ -221,7 +221,7 @@ export function StandardMonitorMock() {
   const beds = ["Bed 1", "Bed 2", "Bed 3", "Bed 4", "Bed 5", "Bed 6", "Bed 7", "Bed 8"];
 
   return (
-    <div className="mx-auto w-full max-w-[500px]">
+    <div className="mx-auto w-full max-w-[460px]">
       {/* Bezel — no brand marks */}
       <div className="rounded-[14px] bg-gradient-to-b from-[#2a2a2e] to-[#0f0f11] p-2 shadow-[0_22px_54px_-24px_rgba(0,0,0,0.75)] ring-1 ring-black/50 md:rounded-[18px] md:p-2.5">
         {/* Screen */}
@@ -366,6 +366,12 @@ export function StandardMonitorMock() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* White stand/base sticking out below the monitor, like the product shot */}
+      <div aria-hidden className="mx-auto flex w-[48%] flex-col items-center">
+        <div className="h-2 w-9 bg-[#17171a] md:h-3 md:w-12" />
+        <div className="h-3.5 w-full rounded-[8px] bg-gradient-to-b from-[#eeece8] to-[#c9c7c2] shadow-[0_14px_26px_-12px_rgba(0,0,0,0.4)] md:h-5" />
       </div>
     </div>
   );
