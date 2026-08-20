@@ -50,6 +50,10 @@ export function Nav() {
   const [pastHero, setPastHero] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Force the Solutions dropdown closed right after picking an item (the cursor
+  // often stays over it, and CSS hover alone would keep it open). Reset on
+  // mouse-leave so hovering back in reopens it normally.
+  const [solutionsClosed, setSolutionsClosed] = useState(false);
 
   // White over full-bleed dark heroes (home video, About team photo), red once
   // the nav passes them. Other pages are light, so the nav is red from the top.
@@ -111,7 +115,11 @@ export function Nav() {
           <nav className="hidden items-center gap-7 lg:flex">
             {links.map((l) =>
               l.to === "/solutions" ? (
-                <div key={l.to} className="group relative">
+                <div
+                  key={l.to}
+                  className="group relative"
+                  onMouseLeave={() => setSolutionsClosed(false)}
+                >
                   {/* Not a link — Solutions has no landing page, it only opens
                       this panel. Kept as a button so it stays keyboard
                       reachable, with the panel shown on focus-within too. */}
@@ -131,7 +139,13 @@ export function Nav() {
                     />
                   </button>
                   {/* Hover bridge + panel */}
-                  <div className="invisible absolute left-1/2 top-full z-50 w-[440px] -translate-x-1/2 pt-4 opacity-0 transition duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                  <div
+                    className={`absolute left-1/2 top-full z-50 w-[440px] -translate-x-1/2 pt-4 transition duration-200 ${
+                      solutionsClosed
+                        ? "invisible opacity-0"
+                        : "invisible opacity-0 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"
+                    }`}
+                  >
                     <div className="grid grid-cols-2 gap-2 rounded-2xl border border-[color:var(--line)] bg-[color:var(--ink)]/95 p-3 shadow-[0_24px_70px_rgba(0,0,0,0.5)] backdrop-blur-xl">
                       {solutionsGroups.map((group) => (
                         <div key={group.title} className="p-2">
@@ -143,7 +157,11 @@ export function Nav() {
                                 <Link
                                   key={item.to}
                                   to={item.to}
-                                  onClick={goTop}
+                                  onClick={(e) => {
+                                    setSolutionsClosed(true);
+                                    e.currentTarget.blur();
+                                    goTop();
+                                  }}
                                   aria-current={active ? "page" : undefined}
                                   className={`group/item rounded-xl px-3 py-2 transition hover:bg-[color:var(--line)] ${
                                     active ? "bg-[color:var(--accent-soft)]" : ""
