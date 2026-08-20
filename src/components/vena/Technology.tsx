@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { BatteryLow, Check, Factory, Gauge, Radar, Repeat, ShieldCheck, X } from "lucide-react";
+import {
+  BatteryLow,
+  Bluetooth,
+  Check,
+  Factory,
+  Gauge,
+  Radar,
+  Repeat,
+  ShieldCheck,
+  X,
+} from "lucide-react";
 import { StretchText } from "./StretchText";
 import { TiltCard } from "./TiltCard";
 import { SignalJourney } from "./SignalJourney";
@@ -33,6 +43,13 @@ const advantages = [
     icon: Repeat,
     title: "Robustness",
     points: ["Wrinkled structures enable repeated bending, flexing, and stretching"],
+  },
+  {
+    icon: Bluetooth,
+    title: "Wireless, no cables",
+    points: [
+      "Streams over Bluetooth to the bedside iPad monitor. Nothing tethered to the patient, nothing crossing the surgical field.",
+    ],
   },
   {
     icon: Factory,
@@ -69,9 +86,9 @@ const comparison: [
   ["Waveform output", [true, "Yes"], [true, "Yes"], [false, "No"]],
   [
     "Cable-free",
-    [true, "Yes — Bluetooth wireless"],
-    [false, "No — pressure tubing to transducer"],
-    [false, "No — cuff tubing to machine"],
+    [true, "Yes, Bluetooth wireless"],
+    [false, "No, pressure tubing to transducer"],
+    [false, "No, cuff tubing to machine"],
   ],
   [
     "High-BMI / hypertensive patients",
