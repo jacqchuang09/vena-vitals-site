@@ -48,7 +48,7 @@ const advantages = [
     icon: Bluetooth,
     title: "Wireless, no cables",
     points: [
-      "Streams over Bluetooth to the bedside iPad monitor. Nothing tethered to the patient, nothing crossing the surgical field.",
+      "Streams over Bluetooth to the bedside iPad monitor. Nothing tethered to the patient, nothing crossing the surgical field",
     ],
   },
   {
