@@ -7,17 +7,18 @@ import { StretchText } from "./StretchText";
 // walks the highlight down the layer list as it goes.
 //
 // The frames were extracted from a supplied product animation (an AI-rendered
-// exploded view of the device) into public/assets/technology/wearable-frames.
+// exploded view of the device, shot on a white sweep) into
+// public/assets/technology/wearable-frames.
 // [VERIFY] the layer names/order below with the Vena Vitals team; several are
 // inferred, and the ones marked "To confirm" are not documented in this repo.
 
-const FRAME_COUNT = 120;
+const FRAME_COUNT = 121;
 const FRAME_W = 900;
-const FRAME_H = 675;
+const FRAME_H = 506; // 16:9 source
 const framePath = (n: number) =>
   `/assets/technology/wearable-frames/f${String(n).padStart(3, "0")}.jpg`;
 // A well-separated frame, shown static under reduced-motion / on phones.
-const STATIC_FRAME = framePath(96);
+const STATIC_FRAME = framePath(100);
 
 const layers = [
   {
@@ -164,9 +165,10 @@ export function SensorExploded() {
   }, [reduced]);
 
   return (
-    // Full-bleed dark section: the frames sit on pure black, so a black section
-    // lets the device merge into the background with empty space to its left.
-    <section className="relative bg-black">
+    // Full-bleed white section: the frames were shot on a white sweep whose
+    // corners are pure #fff, so a pure-white section lets the device merge into
+    // the background seamlessly, with open space to its left.
+    <section className="relative bg-[color:var(--ink)]">
       <div ref={trackRef} style={reduced ? undefined : { height: `calc(100vh + ${SCROLL_VH}vh)` }}>
         <div
           className={
@@ -182,33 +184,33 @@ export function SensorExploded() {
               </div>
               <StretchText
                 as="h2"
-                className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-white"
+                className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
                 segments={[
                   { text: "Layers between " },
                   { text: "skin and signal.", className: "text-[color:var(--accent)]" },
                 ]}
               />
-              <p className="mt-5 max-w-[340px] text-xs leading-relaxed text-white/60 md:text-[13px]">
+              <p className="mt-5 max-w-[340px] text-xs leading-relaxed text-[color:var(--paper)]/70 md:text-[13px]">
                 The VeriTrack wearable holds a soft capacitive stack against an arterial site.
                 Scroll to pull it apart.
               </p>
 
-              <ol className="mt-8 divide-y divide-white/10 text-left">
+              <ol className="mt-8 divide-y divide-[color:var(--line)] text-left">
                 {layers.map((l, i) => (
                   <li
                     key={l.name}
                     className={`flex gap-4 py-3 transition-opacity duration-300 first:pt-0 last:pb-0 ${
-                      i === active ? "opacity-100" : "opacity-40"
+                      i === active ? "opacity-100" : "opacity-45"
                     }`}
                   >
                     <span className="mt-0.5 font-mono text-[11px] text-[color:var(--accent)]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span>
-                      <span className="block font-display text-[13px] font-bold leading-tight tracking-tight text-white">
+                      <span className="block font-display text-[13px] font-bold leading-tight tracking-tight text-[color:var(--paper)]">
                         {l.name}
                       </span>
-                      <span className="mt-1 block text-[11px] leading-snug text-white/60">
+                      <span className="mt-1 block text-[11px] leading-snug text-[color:var(--paper)]/70">
                         {l.detail}
                         {!l.confirmed && (
                           <span className="text-[color:var(--accent)]"> To confirm.</span>
@@ -221,10 +223,9 @@ export function SensorExploded() {
             </div>
 
             {/* Exploded-view frame sequence, scrubbed by scroll. No frame or
-                rounding — the frames' shadow floor is crushed to pure #000 at
-                extraction time, so their background is identical to the section
-                and the device blends in seamlessly with no visible rectangle. */}
-            <div className="reveal relative aspect-[4/3] w-full overflow-hidden">
+                rounding — the frames' white sweep matches the white section
+                exactly, so the device blends in seamlessly with no rectangle. */}
+            <div className="reveal relative aspect-[16/9] w-full overflow-hidden">
               {reduced ? (
                 <img
                   src={STATIC_FRAME}
