@@ -68,10 +68,10 @@ const comparison: [
   ["Requires arm access", [true, "No"], [false, "Yes"], [false, "Yes"]],
   ["Waveform output", [true, "Yes"], [true, "Yes"], [false, "No"]],
   [
-    "Connectivity",
-    [true, "Wireless, Bluetooth to tablet"],
-    [false, "Wired to bedside monitor"],
-    [false, "Wired to bedside monitor"],
+    "Cable-free",
+    [true, "Yes — Bluetooth wireless"],
+    [false, "No — pressure tubing to transducer"],
+    [false, "No — cuff tubing to machine"],
   ],
   [
     "High-BMI / hypertensive patients",
