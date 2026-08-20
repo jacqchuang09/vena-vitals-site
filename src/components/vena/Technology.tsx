@@ -347,6 +347,67 @@ export function Technology() {
         </div>
       </section>
 
+      {/* At a glance — VeriTrack's dedicated BP readout beside the multi-parameter
+          monitor at the bedside. Both are real: the tablet is a recording of the
+          actual VeriTrack app; the monitor photo was supplied by the team.
+          [VERIFY: the team is choosing to show a competitor's branded monitor
+          here — confirm that's intended before launch.] */}
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+        <div className="container-x">
+          <div className="mx-auto max-w-[560px] text-center reveal">
+            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+              At a glance
+            </div>
+            <StretchText
+              as="h2"
+              className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+              segments={[
+                { text: "Blood pressure, " },
+                { text: "front and center.", className: "text-[color:var(--accent)]" },
+              ]}
+            />
+            <p className="mx-auto mt-5 max-w-[460px] text-xs leading-relaxed text-[color:var(--paper)]/70 md:text-[13px]">
+              VeriTrack shows systolic, diastolic, and mean arterial pressure in large, dedicated
+              type on the bedside tablet, right alongside the multi-parameter monitors anesthesia
+              teams already watch.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 grid max-w-[1000px] items-stretch gap-5 md:mt-12 md:grid-cols-2">
+            <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
+              <div className="flex flex-1 items-center justify-center bg-white p-4">
+                <img
+                  src="/assets/technology/philips-monitor.webp"
+                  alt="A standard multi-parameter bedside patient monitor"
+                  className="h-full w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--paper)]/60">
+                The bedside monitor you already use
+              </figcaption>
+            </figure>
+
+            <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
+              <div className="flex flex-1 items-center justify-center bg-black p-2 md:p-3">
+                <video
+                  src="/assets/technology/veritrack-app-monitor.mp4"
+                  className="h-full w-full rounded-[14px] object-contain"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
+              </div>
+              <figcaption className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--accent)]">
+                VeriTrack — continuous BP, in large type
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
         <div className="container-x">
           <div className="mx-auto max-w-[560px] text-center reveal">
