@@ -445,7 +445,7 @@ export function Technology() {
             <table className="w-full min-w-[680px] border-collapse text-left text-[11px]">
               <thead>
                 <tr className="border-b border-[color:var(--line)]">
-                  <th className="py-2.5 pr-3" />
+                  <th className="py-2.5 pl-2 pr-3" />
                   <th className="rounded-t-[14px] bg-[color:var(--accent-soft)] px-3 py-2.5 text-center font-display text-[13px] font-bold tracking-tight text-[color:var(--accent)]">
                     VeriTrack
                   </th>
@@ -463,7 +463,7 @@ export function Technology() {
                     key={row}
                     className="group border-b border-[color:var(--line)] transition-colors last:border-b-0 hover:bg-[color:var(--ink-2)]"
                   >
-                    <th className="py-2.5 pr-3 align-top text-[10.5px] font-semibold tracking-normal text-[color:var(--paper)] transition-colors group-hover:text-[color:var(--accent)]">
+                    <th className="py-2.5 pl-2 pr-3 align-top text-[10.5px] font-semibold tracking-normal text-[color:var(--paper)] transition-colors group-hover:text-[color:var(--accent)]">
                       {row}
                     </th>
                     <CompareCell cell={vt} highlight />
