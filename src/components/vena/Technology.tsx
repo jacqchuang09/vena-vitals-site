@@ -395,7 +395,9 @@ export function Technology() {
           <div className="mx-auto mt-10 grid max-w-[1000px] items-stretch gap-5 md:mt-12 md:grid-cols-2">
             <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
               <div className="flex flex-1 items-center justify-center bg-[color:var(--ink)] p-5 md:p-7">
-                <StandardMonitorMock />
+                <div className="w-full max-w-[460px] scale-90">
+                  <StandardMonitorMock />
+                </div>
               </div>
               <figcaption className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--paper)]/60">
                 The bedside monitor you already use
@@ -405,7 +407,7 @@ export function Technology() {
             <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
               <div className="flex flex-1 items-center justify-center bg-[color:var(--ink)] p-5 md:p-7">
                 {/* iPad frame around the app screen */}
-                <div className="relative w-full max-w-[460px] rounded-[24px] bg-gradient-to-b from-[#2a2a2e] to-[#141416] p-2.5 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/50 md:rounded-[28px] md:p-3">
+                <div className="relative w-full max-w-[460px] scale-90 rounded-[24px] bg-gradient-to-b from-[#2a2a2e] to-[#141416] p-2.5 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/50 md:rounded-[28px] md:p-3">
                   {/* front camera on the short edge */}
                   <span
                     aria-hidden
