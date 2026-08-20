@@ -221,18 +221,10 @@ export function SensorExploded() {
             </div>
 
             {/* Exploded-view frame sequence, scrubbed by scroll. No frame or
-                rounding — the black frames bleed straight into the black
-                section so the device floats on the right. The radial mask
-                feathers the frame edges (which aren't quite pure black) into
-                the section so no rectangle shows. */}
-            <div
-              className="reveal relative aspect-[4/3] w-full overflow-hidden"
-              style={{
-                maskImage: "radial-gradient(125% 125% at 50% 50%, #000 82%, transparent 100%)",
-                WebkitMaskImage:
-                  "radial-gradient(125% 125% at 50% 50%, #000 82%, transparent 100%)",
-              }}
-            >
+                rounding — the frames' shadow floor is crushed to pure #000 at
+                extraction time, so their background is identical to the section
+                and the device blends in seamlessly with no visible rectangle. */}
+            <div className="reveal relative aspect-[4/3] w-full overflow-hidden">
               {reduced ? (
                 <img
                   src={STATIC_FRAME}
