@@ -56,6 +56,15 @@ export function Nav() {
   const darkHero = pathname === "/" || pathname === "/about";
   const navColor = pastHero ? "text-[color:var(--accent)]" : "text-white";
 
+  // Which nav item is the current page, so it can be marked "you are here".
+  // Solutions is a dropdown with no page of its own, so it's active on any of
+  // its setting subpages.
+  const isActive = (to: string) =>
+    to === "/solutions" ? pathname.startsWith("/solutions/") : pathname === to;
+  // Persistent accent underline under the active item (an active-tab marker).
+  const activeUnderline =
+    "after:absolute after:-bottom-2 after:left-0 after:h-[2.5px] after:w-full after:rounded-full after:bg-[color:var(--accent)]";
+
   const goTop = () => {
     setOpen(false);
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
@@ -109,7 +118,10 @@ export function Nav() {
                   <button
                     type="button"
                     aria-haspopup="true"
-                    className={`inline-flex cursor-default items-center gap-1 text-sm font-semibold ${navColor}`}
+                    aria-current={isActive(l.to) ? "page" : undefined}
+                    className={`relative inline-flex cursor-default items-center gap-1 text-sm font-semibold ${navColor} ${
+                      isActive(l.to) ? activeUnderline : ""
+                    }`}
                   >
                     {l.label}
                     <ChevronDown
@@ -125,21 +137,33 @@ export function Nav() {
                         <div key={group.title} className="p-2">
                           <div className="eyebrow mb-2 text-[color:var(--mute)]">{group.title}</div>
                           <div className="flex flex-col gap-1">
-                            {group.items.map((item) => (
-                              <Link
-                                key={item.to}
-                                to={item.to}
-                                onClick={goTop}
-                                className="group/item rounded-xl px-3 py-2 transition hover:bg-[color:var(--line)]"
-                              >
-                                <div className="text-sm font-semibold text-[color:var(--paper)] transition group-hover/item:text-[color:var(--accent)]">
-                                  {item.label}
-                                </div>
-                                <div className="text-[11px] text-[color:var(--mute)]">
-                                  {item.desc}
-                                </div>
-                              </Link>
-                            ))}
+                            {group.items.map((item) => {
+                              const active = pathname === item.to;
+                              return (
+                                <Link
+                                  key={item.to}
+                                  to={item.to}
+                                  onClick={goTop}
+                                  aria-current={active ? "page" : undefined}
+                                  className={`group/item rounded-xl px-3 py-2 transition hover:bg-[color:var(--line)] ${
+                                    active ? "bg-[color:var(--accent-soft)]" : ""
+                                  }`}
+                                >
+                                  <div
+                                    className={`text-sm font-semibold transition group-hover/item:text-[color:var(--accent)] ${
+                                      active
+                                        ? "text-[color:var(--accent)]"
+                                        : "text-[color:var(--paper)]"
+                                    }`}
+                                  >
+                                    {item.label}
+                                  </div>
+                                  <div className="text-[11px] text-[color:var(--mute)]">
+                                    {item.desc}
+                                  </div>
+                                </Link>
+                              );
+                            })}
                           </div>
                         </div>
                       ))}
@@ -151,7 +175,10 @@ export function Nav() {
                   key={l.to}
                   to={l.to}
                   onClick={goTop}
-                  className={`text-sm font-semibold transition hover:opacity-70 ${navColor}`}
+                  aria-current={isActive(l.to) ? "page" : undefined}
+                  className={`relative text-sm font-semibold transition hover:opacity-70 ${navColor} ${
+                    isActive(l.to) ? activeUnderline : ""
+                  }`}
                 >
                   {l.label}
                 </Link>
@@ -179,29 +206,45 @@ export function Nav() {
         <div className="relative h-full flex flex-col justify-center container-x pt-20">
           <div className="eyebrow mb-10">[ Navigate ]</div>
           <nav className="flex flex-col">
-            {mobileLinks.map((l, i) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={goTop}
-                className="group block py-4 md:py-5 hairline-b"
-                style={{
-                  transitionDelay: open ? `${i * 50}ms` : "0ms",
-                  opacity: open ? 1 : 0,
-                  transform: open ? "translateY(0)" : "translateY(20px)",
-                  transition: "opacity 0.6s ease, transform 0.6s ease",
-                }}
-              >
-                <div className="flex items-baseline justify-between gap-6">
-                  <span className="font-display font-bold text-[clamp(32px,6vw,72px)] leading-none tracking-tight text-[color:var(--paper)] group-hover:text-[color:var(--paper)] transition-colors">
-                    {l.label}
-                  </span>
-                  <span className="eyebrow opacity-50 group-hover:opacity-100 transition">
-                    0{i + 1}
-                  </span>
-                </div>
-              </Link>
-            ))}
+            {mobileLinks.map((l, i) => {
+              const active = pathname === l.to;
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={goTop}
+                  aria-current={active ? "page" : undefined}
+                  className="group block py-4 md:py-5 hairline-b"
+                  style={{
+                    transitionDelay: open ? `${i * 50}ms` : "0ms",
+                    opacity: open ? 1 : 0,
+                    transform: open ? "translateY(0)" : "translateY(20px)",
+                    transition: "opacity 0.6s ease, transform 0.6s ease",
+                  }}
+                >
+                  <div className="flex items-baseline justify-between gap-6">
+                    <span
+                      className={`flex items-center gap-4 font-display font-bold text-[clamp(32px,6vw,72px)] leading-none tracking-tight transition-colors ${
+                        active ? "text-[color:var(--accent)]" : "text-[color:var(--paper)]"
+                      }`}
+                    >
+                      {/* Accent bar on the current page, so "you are here" is
+                          obvious in the drawer too. */}
+                      {active ? (
+                        <span
+                          aria-hidden
+                          className="h-6 w-1.5 rounded-full bg-[color:var(--accent)] md:h-8"
+                        />
+                      ) : null}
+                      {l.label}
+                    </span>
+                    <span className="eyebrow opacity-50 group-hover:opacity-100 transition">
+                      0{i + 1}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </nav>
           <div className="mt-12 flex flex-wrap items-center justify-between gap-6 eyebrow">
             <span>vēna vitals © {new Date().getFullYear()}</span>
