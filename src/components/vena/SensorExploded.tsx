@@ -164,7 +164,9 @@ export function SensorExploded() {
   }, [reduced]);
 
   return (
-    <section className="relative bg-[color:var(--ink)] hairline-b">
+    // Full-bleed dark section: the frames sit on pure black, so a black section
+    // lets the device merge into the background with empty space to its left.
+    <section className="relative bg-black">
       <div ref={trackRef} style={reduced ? undefined : { height: `calc(100vh + ${SCROLL_VH}vh)` }}>
         <div
           className={
@@ -173,40 +175,40 @@ export function SensorExploded() {
               : "sticky top-0 flex h-screen items-center overflow-hidden pt-[var(--nav-h)] pb-10"
           }
         >
-          <div className="container-x grid w-full gap-10 md:grid-cols-[0.72fr_1.28fr] md:items-center">
+          <div className="container-x grid w-full gap-10 md:grid-cols-[0.7fr_1.3fr] md:items-center">
             <div className="mx-auto max-w-[400px] text-center reveal md:mx-0 md:text-left">
               <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
                 Inside the wearable
               </div>
               <StretchText
                 as="h2"
-                className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+                className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-white"
                 segments={[
                   { text: "Layers between " },
                   { text: "skin and signal.", className: "text-[color:var(--accent)]" },
                 ]}
               />
-              <p className="mt-5 max-w-[340px] text-xs leading-relaxed text-[color:var(--paper)]/70 md:text-[13px]">
+              <p className="mt-5 max-w-[340px] text-xs leading-relaxed text-white/60 md:text-[13px]">
                 The VeriTrack wearable holds a soft capacitive stack against an arterial site.
                 Scroll to pull it apart.
               </p>
 
-              <ol className="mt-8 divide-y divide-[color:var(--line)] text-left">
+              <ol className="mt-8 divide-y divide-white/10 text-left">
                 {layers.map((l, i) => (
                   <li
                     key={l.name}
                     className={`flex gap-4 py-3 transition-opacity duration-300 first:pt-0 last:pb-0 ${
-                      i === active ? "opacity-100" : "opacity-45"
+                      i === active ? "opacity-100" : "opacity-40"
                     }`}
                   >
                     <span className="mt-0.5 font-mono text-[11px] text-[color:var(--accent)]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span>
-                      <span className="block font-display text-[13px] font-bold leading-tight tracking-tight text-[color:var(--paper)]">
+                      <span className="block font-display text-[13px] font-bold leading-tight tracking-tight text-white">
                         {l.name}
                       </span>
-                      <span className="mt-1 block text-[11px] leading-snug text-[color:var(--paper)]/70">
+                      <span className="mt-1 block text-[11px] leading-snug text-white/60">
                         {l.detail}
                         {!l.confirmed && (
                           <span className="text-[color:var(--accent)]"> To confirm.</span>
@@ -218,13 +220,24 @@ export function SensorExploded() {
               </ol>
             </div>
 
-            {/* Exploded-view frame sequence, scrubbed by scroll. */}
-            <div className="reveal relative aspect-[4/3] w-full overflow-hidden rounded-[24px] bg-black">
+            {/* Exploded-view frame sequence, scrubbed by scroll. No frame or
+                rounding — the black frames bleed straight into the black
+                section so the device floats on the right. The radial mask
+                feathers the frame edges (which aren't quite pure black) into
+                the section so no rectangle shows. */}
+            <div
+              className="reveal relative aspect-[4/3] w-full overflow-hidden"
+              style={{
+                maskImage: "radial-gradient(125% 125% at 50% 50%, #000 82%, transparent 100%)",
+                WebkitMaskImage:
+                  "radial-gradient(125% 125% at 50% 50%, #000 82%, transparent 100%)",
+              }}
+            >
               {reduced ? (
                 <img
                   src={STATIC_FRAME}
                   alt="The VeriTrack wearable, shown as an exploded view of its layers"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
                   loading="lazy"
                 />
               ) : (
@@ -233,7 +246,7 @@ export function SensorExploded() {
                   width={FRAME_W}
                   height={FRAME_H}
                   aria-hidden
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
                 />
               )}
             </div>
