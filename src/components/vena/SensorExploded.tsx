@@ -15,8 +15,12 @@ import { StretchText } from "./StretchText";
 const FRAME_COUNT = 121;
 const FRAME_W = 900;
 const FRAME_H = 506; // 16:9 source
+// The frame files reuse the same names across footage swaps, so bump this
+// whenever the frame contents change — it busts browser / CDN caches that would
+// otherwise keep serving the previous footage under the identical filenames.
+const FRAME_VERSION = 2;
 const framePath = (n: number) =>
-  `/assets/technology/wearable-frames/f${String(n).padStart(3, "0")}.jpg`;
+  `/assets/technology/wearable-frames/f${String(n).padStart(3, "0")}.jpg?v=${FRAME_VERSION}`;
 // A well-separated frame, shown static under reduced-motion / on phones.
 const STATIC_FRAME = framePath(100);
 
