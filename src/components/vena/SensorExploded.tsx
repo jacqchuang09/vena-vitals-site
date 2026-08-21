@@ -13,12 +13,12 @@ import { StretchText } from "./StretchText";
 // inferred, and the ones marked "To confirm" are not documented in this repo.
 
 const FRAME_COUNT = 121;
-const FRAME_W = 900;
-const FRAME_H = 506; // 16:9 source
+const FRAME_W = 660; // 16:9 source, side-cropped to the device (white margins trimmed)
+const FRAME_H = 506;
 // The frame files reuse the same names across footage swaps, so bump this
 // whenever the frame contents change — it busts browser / CDN caches that would
 // otherwise keep serving the previous footage under the identical filenames.
-const FRAME_VERSION = 2;
+const FRAME_VERSION = 3;
 const framePath = (n: number) =>
   `/assets/technology/wearable-frames/f${String(n).padStart(3, "0")}.jpg?v=${FRAME_VERSION}`;
 // A well-separated frame, shown static under reduced-motion / on phones.
@@ -228,8 +228,10 @@ export function SensorExploded() {
 
             {/* Exploded-view frame sequence, scrubbed by scroll. No frame or
                 rounding — the frames' white sweep matches the white section
-                exactly, so the device blends in seamlessly with no rectangle. */}
-            <div className="reveal relative aspect-[16/9] w-full overflow-hidden">
+                exactly, so the device blends in seamlessly with no rectangle.
+                Frames are side-cropped to the device so it fills the panel
+                top-to-bottom; the panel bleeds to the right edge for scale. */}
+            <div className="reveal relative aspect-[660/506] w-full overflow-hidden md:-mr-[calc(2.5rem+max(0px,(100vw-1080px)/2))]">
               {reduced ? (
                 <img
                   src={STATIC_FRAME}
