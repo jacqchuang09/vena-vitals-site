@@ -46,7 +46,7 @@ function Page() {
         fitEyebrow: "How VeriTrack fits",
         fitTitle: "Apply in pre-op, out of the surgical field",
         fitBody:
-          "The soft sensor is placed on the foot, over the dorsalis pedis artery and away from the surgical field. It streams beat-to-beat arterial pressure to the bedside tablet from induction through emergence, then peels off cleanly.",
+          "The soft wrap fits around the foot, seating the sensor over the dorsalis pedis artery and away from the surgical field. The sensor streams beat-to-beat arterial pressure to the bedside iPad from induction through emergence, and the wrap comes off cleanly at the end of the case.",
         windowsEyebrow: "In the operating room",
         windowsTitle: "Continuous pressure, in the room.",
         windowsBody:

@@ -3,6 +3,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
 
 const links = [
+  { to: "/", label: "Home" },
   { to: "/technology", label: "Technology" },
   { to: "/clinical-evidence", label: "Clinical Evidence" },
   { to: "/solutions", label: "Solutions" },
@@ -112,7 +113,7 @@ export function Nav() {
             />
           </Link>
 
-          <nav className="hidden items-center gap-7 lg:flex">
+          <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
             {links.map((l) =>
               l.to === "/solutions" ? (
                 <div

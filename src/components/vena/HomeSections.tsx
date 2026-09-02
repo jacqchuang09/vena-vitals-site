@@ -20,7 +20,7 @@ const howSteps = [
   {
     icon: MoveDown,
     title: "Apply",
-    body: "The soft sensor is placed over the dorsalis pedis artery on the foot.",
+    body: "The soft wrap fits around the foot, seating the sensor over the dorsalis pedis artery.",
   },
   {
     icon: ScanLine,
@@ -30,7 +30,7 @@ const howSteps = [
   {
     icon: Bluetooth,
     title: "Stream",
-    body: "Blood pressure trends stream over Bluetooth to a bedside tablet.",
+    body: "The sensor streams blood pressure trends over Bluetooth to the bedside iPad.",
   },
 ];
 
@@ -184,12 +184,12 @@ const overviewPoints = [
   {
     icon: Check,
     title: "Non-invasive placement",
-    body: "No cannulation, no infection risk. Applied like a bandage and removed cleanly after the case. No arterial access, no line-care burden, no procedural delay.",
+    body: "No cannulation, no infection risk. Wrapped on in seconds and removed cleanly after the case. No arterial access, no line-care burden, no procedural delay.",
   },
   {
     icon: Target,
-    title: "Wearable form factor",
-    body: "Soft sensor, foot placement. Applied over the dorsalis pedis artery and kept entirely out of the surgical field. No occupied arm, no tethered catheter.",
+    title: "Wireless",
+    body: "A soft wrap on the foot, with the sensor streaming over Bluetooth to the bedside iPad. Nothing tethering the patient to the monitor, no occupied arm, no catheter, and entirely out of the surgical field.",
   },
 ];
 
@@ -222,9 +222,9 @@ export function HomeOverview() {
             ]}
           />
           <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
-            VeriTrack is a soft, wearable sensor that adheres to the foot and measures blood
-            pressure with every heartbeat. Noninvasive, without an arterial line. It delivers the
-            continuous hemodynamic visibility of an arterial line without the procedural risk,
+            VeriTrack is a soft, wireless wearable that wraps around the foot. Its sensor seats over
+            the dorsalis pedis artery and measures blood pressure with every heartbeat, delivering
+            the continuous hemodynamic visibility of an arterial line without the procedural risk,
             placement delay, or invasive cannulation.
           </p>
           <div className="mx-auto mt-6 grid max-w-[440px] gap-4 text-left md:mx-0">

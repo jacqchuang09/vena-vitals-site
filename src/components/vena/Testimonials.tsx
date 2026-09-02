@@ -1,24 +1,16 @@
 import { StretchText } from "./StretchText";
 
+// Only attributed, approved quotes belong here. An unnamed "Anesthesiologist,
+// user research" quote and an empty third slot used to sit beside Rinehart to
+// balance a 3-up grid; both read as filler, so the section now shows however
+// many real quotes exist and the layout adapts to the count.
+// [EDIT NEEDED: add further approved, attributed testimonials here.]
 const quotes = [
   {
     name: "Joseph Rinehart, MD",
     role: "Anesthesiology, Clinical Advisor",
     img: "/assets/clinical/joseph.jpeg",
     text: "A thin bandage-like patch for monitoring blood pressure continuously could revolutionize not just in-hospital monitoring, but outpatient monitoring as well; this is an exciting concept!",
-  },
-  {
-    name: "Anesthesiologist",
-    role: "User research",
-    text: "A great advantage to not have to insert invasive monitoring.",
-  },
-  // Placeholder third slot — keeps the 3-up layout balanced. The Ray Liu / CEO
-  // quote was removed at the team's request.
-  // [EDIT NEEDED: approved third testimonial to replace this placeholder.]
-  {
-    name: null,
-    role: null,
-    text: null,
   },
 ];
 
@@ -35,12 +27,16 @@ export function Testimonials() {
             className="font-display text-[clamp(22px,2.55vw,34px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
             segments={[
               { text: "From the " },
-              { text: "experts.", className: "text-[color:var(--accent)]" },
+              { text: "field.", className: "text-[color:var(--accent)]" },
             ]}
           />
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-[900px] grid-cols-1 gap-12 sm:grid-cols-3 md:mt-14">
+        <div
+          className={`mx-auto mt-12 grid grid-cols-1 gap-12 md:mt-14 ${
+            quotes.length > 1 ? "max-w-[900px] sm:grid-cols-3" : "max-w-[560px]"
+          }`}
+        >
           {quotes.map((q, i) => (
             <figure key={q.name ?? i} className="reveal flex flex-col items-center text-center">
               <span className="relative grid aspect-square w-24 place-items-center overflow-hidden rounded-full bg-[color:var(--ink)] shadow-[0_10px_30px_-12px_rgba(43,43,43,0.3)] ring-1 ring-[color:var(--line)] md:w-28">
@@ -60,26 +56,18 @@ export function Testimonials() {
                   </span>
                 )}
               </span>
-              <blockquote className="mt-6 max-w-[280px]">
-                {q.text ? (
-                  <>
-                    <p className="text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
-                      &ldquo;{q.text}&rdquo;
-                    </p>
-                    <figcaption className="mt-4">
-                      <div className="font-display text-sm font-bold tracking-tight text-[color:var(--paper)]">
-                        {q.name}
-                      </div>
-                      <div className="mt-1 text-[11px] leading-snug text-[color:var(--paper)]/60">
-                        {q.role}
-                      </div>
-                    </figcaption>
-                  </>
-                ) : (
-                  <p className="text-xs leading-relaxed text-[color:var(--accent)] md:text-[13px]">
-                    Testimonial to confirm.
-                  </p>
-                )}
+              <blockquote className="mt-6 max-w-[320px]">
+                <p className="text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
+                  &ldquo;{q.text}&rdquo;
+                </p>
+                <figcaption className="mt-4">
+                  <div className="font-display text-sm font-bold tracking-tight text-[color:var(--paper)]">
+                    {q.name}
+                  </div>
+                  <div className="mt-1 text-[11px] leading-snug text-[color:var(--paper)]/60">
+                    {q.role}
+                  </div>
+                </figcaption>
               </blockquote>
             </figure>
           ))}

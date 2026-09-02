@@ -19,7 +19,7 @@ const items = [
   },
   {
     q: "How does the data reach the chart?",
-    a: "The sensor sends data wirelessly to a phone or bedside gateway. From there, readings can be forwarded to a monitor, dashboard, health record workflow, or research database.",
+    a: "The sensor sends data over Bluetooth to the bedside iPad. From there, readings can be forwarded to a monitor, dashboard, health record workflow, or research database.",
   },
   {
     q: "What is the regulatory status?",

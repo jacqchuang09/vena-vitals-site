@@ -13,6 +13,7 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
   --color-border: var(--border);
   --color-ring: var(--ring);
   --font-display: "Inter", system-ui, sans-serif;
@@ -33,6 +34,10 @@
   --line: rgba(43, 43, 43, 0.12);
   --accent: #d84a4a;
   --accent-soft: #f7dddd;
+  /* "Good" green, for win-state marks only. The brand accent is red, which
+     reads as a warning next to a checkmark, so affirmative marks use this
+     instead. Dark enough for AA contrast on the white --ink background. */
+  --ok: #0f7a4a;
 
   --background: var(--ink);
   --foreground: var(--paper);

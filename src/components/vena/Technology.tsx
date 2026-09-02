@@ -80,9 +80,12 @@ const comparison: [
   ],
   ["Invasive", [true, "No"], [false, "Yes, arterial catheter"], [true, "No"]],
   ["Setup time", [true, "Under 5 minutes"], [false, "5-20 minutes"], [true, "Under 1 minute"]],
-  ["Complication risk", [true, "None"], [false, "10-13%"], [true, "None"]],
-  ["Infection risk", [true, "None"], [false, "0.6% per placement"], [true, "None"]],
-  ["Requires arm access", [true, "No"], [false, "Yes"], [false, "Yes"]],
+  [
+    "Complication & infection risk",
+    [true, "None"],
+    [false, "10-13% complications, 0.6% infection"],
+    [true, "None"],
+  ],
   ["Waveform output", [true, "Yes"], [true, "Yes"], [false, "No"]],
   [
     "Cable-free",
@@ -91,22 +94,16 @@ const comparison: [
     [false, "No, cuff tubing to machine"],
   ],
   [
+    "Arm access & surgical field",
+    [true, "Neither, foot placement"],
+    [false, "Arm dependency, tubing in the field"],
+    [false, "Occupies the arm, repeated inflation"],
+  ],
+  [
     "High-BMI / hypertensive patients",
     [true, "Validated (BMI 17-48)"],
     [true, "Yes"],
     [false, "Limited accuracy"],
-  ],
-  [
-    "Surgical field disruption",
-    [true, "None, foot placement"],
-    [false, "Potential arm dependency"],
-    [false, "Repeated cuff inflation"],
-  ],
-  [
-    "Patient comfort",
-    [true, "Minimal"],
-    [false, "Procedural pain"],
-    [false, "Arm pain from inflation"],
   ],
   [
     "Accuracy vs. arterial line",
@@ -184,7 +181,7 @@ function CompareCell({
     <td className={`px-3 py-2.5 align-top ${highlight ? "bg-[color:var(--accent-soft)]/55" : ""}`}>
       <div className="flex items-start gap-1.5">
         {ok === true ? (
-          <Check size={14} className="mt-0.5 shrink-0 text-[color:var(--accent)]" aria-hidden />
+          <Check size={14} className="mt-0.5 shrink-0 text-[color:var(--ok)]" aria-hidden />
         ) : ok === false ? (
           <X size={14} className="mt-0.5 shrink-0 text-[color:var(--mute)]" aria-hidden />
         ) : (
@@ -212,13 +209,14 @@ export function Technology() {
               className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
               segments={[
                 { text: "Arterial-line insight. " },
-                { text: "Bandage form factor.", className: "text-[color:var(--accent)]" },
+                { text: "No needle.", className: "text-[color:var(--accent)]" },
               ]}
             />
             <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
               VeriTrack is built on a soft capacitive sensing stack developed at UC Irvine and
               grounded in peer-reviewed materials science. It captures beat-to-beat arterial
-              pressure without puncturing skin, inflating a cuff, or occupying the arm.
+              pressure without puncturing skin, inflating a cuff, or occupying the arm, and streams
+              it wirelessly to the bedside iPad.
             </p>
           </div>
           <MediaFrame className="reveal md:pr-4">
@@ -260,12 +258,14 @@ export function Technology() {
               ]}
             />
             <p className="mt-5 text-xs leading-relaxed text-white/85 md:text-[13px]">
-              The VeriTrack sensor sits over the dorsalis pedis artery on the foot. Its soft,
-              stretchable material detects the subtle deflections of the artery beneath the skin
-              with every heartbeat, converting that motion into a continuous blood pressure
-              waveform: systolic, diastolic, and mean arterial pressure, beat to beat. It moves with
-              the patient through position changes and motion without losing signal. Biocompatible
-              materials mean no skin irritation over the course of a case.
+              The VeriTrack wrap fits around the foot, holding its sensor over the dorsalis pedis
+              artery. The sensor's soft, stretchable material detects the subtle deflections of the
+              artery beneath the skin with every heartbeat, converting that motion into a continuous
+              blood pressure waveform: systolic, diastolic, and mean arterial pressure, beat to
+              beat. The sensor sends that waveform to the bedside iPad over Bluetooth, so no cable
+              runs from the patient to the display. It moves with the patient through position
+              changes and motion without losing signal. Biocompatible materials mean no skin
+              irritation over the course of a case.
             </p>
             <TechnicalDetail />
           </div>
