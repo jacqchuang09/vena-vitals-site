@@ -13,7 +13,6 @@ import {
 import { StretchText } from "./StretchText";
 import { TiltCard } from "./TiltCard";
 import { SignalJourney } from "./SignalJourney";
-import { SensorExploded } from "./SensorExploded";
 import { SignalGraphs, CountUpStat, StatStrip } from "./SignalGraphs";
 import { MonitorMock } from "./MonitorMock";
 import { StandardMonitorMock } from "./StandardMonitorMock";
@@ -311,10 +310,6 @@ export function Technology() {
           </div>
         </div>
       </section>
-
-      {/* Exploded view — renders its own section shell because the pinned stage
-          needs a tall scroll track and no overflow-hidden ancestor. */}
-      <SensorExploded />
 
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
         <div className="container-x">

@@ -295,7 +295,7 @@ export function SignalGraphs() {
       onPointerDown={handleScrub}
       onPointerLeave={() => setScrub(null)}
       style={{ touchAction: "pan-y" }}
-      className="reveal group relative cursor-ew-resize touch-pan-y select-none rounded-[20px] bg-white p-3 transition-shadow duration-200 hover:shadow-[0_18px_50px_rgba(43,43,43,0.10)] md:p-4"
+      className="reveal group relative cursor-ew-resize touch-pan-y select-none p-3 md:p-4"
     >
       {/* affordance hint — fades out while scrubbing */}
       <div
@@ -306,7 +306,7 @@ export function SignalGraphs() {
         <span aria-hidden>⇆</span> Drag to scrub
       </div>
       <div className="grid grid-cols-[0.94fr_1.06fr] items-center gap-3 md:gap-4">
-        <div className="rounded-[12px] bg-white p-1">
+        <div className="p-1">
           <Surface3D amp={amp} />
         </div>
         <div className="grid grid-cols-2 gap-x-2 gap-y-1">

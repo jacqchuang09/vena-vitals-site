@@ -109,7 +109,7 @@ export function Nav() {
             <img
               src="/assets/brand/venavitals-logo.png"
               alt="Vēna Vitals"
-              className="h-[64px] w-auto object-contain md:h-[80px]"
+              className="h-[72px] w-auto object-contain md:h-[90px]"
             />
           </Link>
 
