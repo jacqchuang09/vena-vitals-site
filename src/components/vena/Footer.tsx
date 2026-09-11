@@ -25,9 +25,8 @@ const columns = [
       { to: "/contact", label: "Request a Demo" },
       { href: "mailto:INFO@VENAVITALS.COM", label: "Email" },
       { href: "https://www.linkedin.com/company/vena-vitals", label: "LinkedIn" },
-      { href: "https://www.venavitals.com/", label: "Official site" },
-      { href: "https://www.venavitals.com/privacy-policy", label: "Privacy" },
-      { href: "https://www.venavitals.com/terms-and-conditions", label: "Conflict disclosure" },
+      { href: "https://www.venavitals.com/privacy-policy", label: "Privacy Policy" },
+      { href: "https://www.venavitals.com/terms-and-conditions", label: "FCOI Policy" },
     ],
   },
 ] as const;
