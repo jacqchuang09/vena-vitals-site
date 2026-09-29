@@ -107,9 +107,9 @@ export function Nav() {
         <div className="container-x flex h-20 items-center justify-between md:h-24">
           <Link to="/" onClick={goTop} className="shrink-0">
             <img
-              src="/assets/brand/venavitals-logo.png"
+              src="/assets/brand/venavitals-logo-horizontal.png"
               alt="Vēna Vitals"
-              className="h-[72px] w-auto object-contain md:h-[90px]"
+              className="h-[32px] w-auto object-contain md:h-[38px]"
             />
           </Link>
 

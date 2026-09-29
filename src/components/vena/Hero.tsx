@@ -14,32 +14,29 @@ export function Hero() {
       <div className="relative container-x flex min-h-[100svh] flex-col justify-end pt-40 pb-28 md:pb-36">
         <div className="max-w-[560px] text-center reveal lg:text-left">
           <h1 className="hero-heading text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.6)]">
-            Continuous.
+            Advancing Continuous
             <br />
-            Non-invasive.
-            <br />
-            <span className="text-[color:var(--accent)]">Blood pressure.</span>
+            <span className="text-[color:var(--accent)]">Blood Pressure Monitoring</span>
           </h1>
           <p className="mx-auto mt-7 max-w-[440px] text-sm leading-relaxed text-white [text-shadow:0_1px_14px_rgba(0,0,0,0.65)] lg:mx-0">
-            Beat-to-beat arterial pressure from a soft wearable that wraps around the foot. No cuff,
-            no arterial line.
+            Wearable non-invasive patient monitoring with beat-to-beat resolution.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
             <Link
-              to="/contact"
+              to="/clinical-evidence"
               className="group inline-flex items-center gap-3 bg-[color:var(--accent)] text-white px-6 py-4 text-xs font-semibold tracking-normal hover:bg-[color:var(--accent)]/90 transition-colors"
             >
-              Request a demo
+              See the data
               <span aria-hidden className="transition-transform group-hover:translate-x-1">
                 →
               </span>
             </Link>
             <Link
-              to="/clinical-evidence"
+              to="/contact"
               className="group inline-flex items-center gap-3 bg-neutral-600/85 text-white px-6 py-4 text-xs font-semibold tracking-normal backdrop-blur-sm hover:bg-neutral-500/85 transition-colors"
             >
-              See the evidence{" "}
+              Contact us{" "}
               <span
                 aria-hidden
                 className="inline-block transition-transform group-hover:translate-x-1"

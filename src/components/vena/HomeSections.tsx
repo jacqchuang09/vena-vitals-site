@@ -93,14 +93,14 @@ export function HomeProblem() {
         <div className="grid gap-8 md:grid-cols-[0.86fr_1.14fr] md:items-center">
           <div className="mx-auto max-w-[420px] text-center reveal md:mx-0 md:text-left">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              The Problem
+              Problem &amp; Solution
             </div>
             <StretchText
               as="h2"
               className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
               segments={[
-                { text: "Blood pressure is continuous. " },
-                { text: "Monitoring is not.", className: "text-[color:var(--accent)]" },
+                { text: "Blood pressure insights every second, " },
+                { text: "not intermittently.", className: "text-[color:var(--accent)]" },
               ]}
             />
             <p className="mx-auto mt-5 max-w-[400px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
@@ -110,14 +110,6 @@ export function HomeProblem() {
               beat-to-beat data, but carries a 10-13% complication rate, a 0.6% infection risk, and
               a 5 to 20 minute placement time that delays the start of surgery.
             </p>
-            <blockquote className="mx-auto mt-6 max-w-[400px] border-l-2 border-[color:var(--accent)] pl-4 text-left md:mx-0">
-              <p className="font-display text-sm italic leading-relaxed text-[color:var(--paper)] md:text-base">
-                “It's very binary... there's nothing really in between.”
-              </p>
-              <footer className="mt-2 text-[11px] text-[color:var(--mute)]">
-                Anesthesiologist · inVibe survey, n=22
-              </footer>
-            </blockquote>
           </div>
 
           {/* Right-aligned in its column so the frame's right edge lines up with
