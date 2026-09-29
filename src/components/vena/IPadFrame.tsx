@@ -11,7 +11,7 @@ import type { ReactNode } from "react";
  *   bezel            3.7% of width, uniform on all four sides
  *   volume buttons   top edge, 8.0% to 17.0% from the left corner
  *   power button     left edge, 7.3% to 14.0% down from the top corner
- *   front camera     left bezel, 42% down
+ *   front camera     left bezel, centred on both axes
  *   screen corners   1.6% of screen width, much squarer than the outer shell
  *   outer corners    5.5% of width
  *
@@ -53,10 +53,11 @@ export function IPadFrame({
           Percentage padding resolves against width on every side, which is
           what keeps the bezel square all the way round. */}
       <div className="relative rounded-[28px] bg-gradient-to-b from-[#2a2a2e] to-[#141416] p-[3.7%] shadow-[0_40px_90px_rgba(0,0,0,0.4)] ring-1 ring-black/50 md:rounded-[30px]">
-        {/* Front camera, on the left bezel rather than the long top edge. */}
+        {/* Front camera: on the left bezel rather than the long top edge, and
+            centred on that edge, halfway down and halfway through the bezel. */}
         <span
           aria-hidden
-          className="absolute left-[1.85%] top-[42%] z-10 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/20"
+          className="absolute left-[1.85%] top-1/2 z-10 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/20"
         />
         <div
           className={`overflow-hidden rounded-[8px] bg-[#0b0d12] md:rounded-[10px] ${screenClassName}`}
