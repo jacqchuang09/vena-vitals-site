@@ -130,7 +130,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
                 className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
               />
             </div>
-            <div className="mx-auto mt-10 max-w-[1040px]">
+            <div className="mt-10">
               <StudyCarousel slides={content.figures.slides} footnote={content.figures.footnote} />
             </div>
           </div>

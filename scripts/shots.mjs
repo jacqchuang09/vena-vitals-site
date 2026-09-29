@@ -37,6 +37,7 @@ const TARGETS = [
   { name: "tech-sensing", path: "/technology", w: 1440, h: 900, scroll: 1850 },
   { name: "clinical", path: "/clinical-evidence", w: 1440, h: 900 },
   { name: "periop-figures", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 900 },
+  { name: "periop-figures-phone", path: "/solutions/anesthesiology", w: 390, h: 780, scroll: 700 },
   { name: "periop-collab", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 1800 },
   { name: "anesthesiology", path: "/solutions/anesthesiology", w: 1440, h: 900 },
   { name: "partner", path: "/partner-with-us", w: 1440, h: 900 },
