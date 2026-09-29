@@ -1,0 +1,256 @@
+import { Link } from "@tanstack/react-router";
+import { BarChart3, ClipboardCheck, FileText, Users } from "lucide-react";
+import { TiltCard } from "../TiltCard";
+import { StretchText } from "../StretchText";
+
+/**
+ * Sections taken off the Partner With Us page on 29 Sep 2026, kept so they can
+ * be put back rather than rewritten. The page now runs its hero and the
+ * closing CTA, nothing between.
+ *
+ * Removed: "The economic case", "How it works" (the four pilot steps),
+ * "Clinical sites" (the six institution tiles) and the pilot FAQ.
+ *
+ * To restore, import the ones you want into ../Partner.tsx and drop them back
+ * between the hero and the closing CTA. Each is a whole <section>, so order is
+ * the only thing to decide. Note that Partner.tsx now alternates its two
+ * remaining sections white then off-white; putting sections back means
+ * checking that alternation again.
+ *
+ * Two things in here were never cleared for publication and are flagged in
+ * place below: the economic framing and committee materials, and the six
+ * clinical-site names.
+ *
+ * Sections parked from other pages: ./perioperative-sections.ts,
+ * ./sleep-sections.ts, ../TechnologyArchive.tsx
+ */
+
+// [EDIT NEEDED: confirm the economic framing and that a spec sheet / evidence
+// summary / regulatory-status language are available to share.]
+const economicPoints = [
+  {
+    icon: BarChart3,
+    title: "The economic case",
+    body: "We help frame the value for your setting \u2014 missed-hypotension risk, arterial-line procedure burden, nursing workflow, and consumable use.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "The workflow case",
+    body: "VeriTrack adds continuous pressure to the perioperative workflow \u2014 setup, placement, calibration, and monitoring \u2014 without replacing your existing monitor stack.",
+  },
+  {
+    icon: FileText,
+    title: "Committee materials",
+    body: "For value-analysis committees, we can provide a spec sheet, an evidence summary, and current regulatory-status language.",
+  },
+];
+
+const pilotSteps = [
+  ["01", "Scope", "Confirm setting, patient population, endpoints, and review pathway."],
+  [
+    "02",
+    "Prepare",
+    "Train clinical users, confirm data flow, and align review board or evaluation needs.",
+  ],
+  ["03", "Run", "Support placement workflow, data capture, and weekly check-ins."],
+  ["04", "Review", "Return summary data, workflow findings, and next-step recommendations."],
+];
+
+// [EDIT NEEDED: confirm the integration roadmap and consumable configuration
+// before these are treated as final public statements.]
+const faqs = [
+  [
+    "Regulatory status",
+    "VeriTrack is an investigational device. Commercial availability is subject to regulatory clearance.",
+  ],
+  [
+    "Integration",
+    "The sensor streams over Bluetooth to a tablet today. Bedside-monitor, health-record, and dashboard integrations are on the product roadmap.",
+  ],
+  [
+    "Training",
+    "Evaluation includes training on placement, signal confirmation, calibration, and troubleshooting.",
+  ],
+  [
+    "Consumables",
+    "Reusable and single-use component details are shared as the product configuration is finalized.",
+  ],
+  [
+    "Data and privacy",
+    "Each pilot defines data export, storage, access, and institutional privacy review up front.",
+  ],
+];
+
+// [VERIFY] confirm each institution is an active/authorized site and that V\u0113na
+// has permission to display its name before launch.
+const logos = [
+  { name: "University of California, Irvine", href: "https://www.uci.edu/" },
+  { name: "University of Vermont", href: "https://www.uvm.edu/" },
+  { name: "Hoag", href: "https://www.hoag.org/" },
+  { name: "University of California San Francisco", href: "https://www.ucsf.edu/" },
+  { name: "Henry Ford", href: "https://www.henryford.com/" },
+  { name: "Arkansas Heart", href: "https://www.arheart.com/" },
+];
+
+export function PartnerEconomicCase() {
+  return (
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
+      <div className="container-x">
+        <div className="mx-auto max-w-[500px] text-center reveal">
+          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+            The economic case
+          </div>
+          <StretchText
+            as="h2"
+            className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+            segments={[
+              { text: "Build the case for " },
+              { text: "your site.", className: "text-[color:var(--accent)]" },
+            ]}
+          />
+        </div>
+        <div className="mx-auto mt-10 grid max-w-[980px] gap-4 md:grid-cols-3">
+          {economicPoints.map((point) => {
+            const Icon = point.icon;
+            return (
+              <TiltCard
+                as="article"
+                key={point.title}
+                className="reveal rounded-[30px] bg-[color:var(--ink)] p-6 md:p-7"
+              >
+                <div className="flex h-10 w-10 items-center justify-center border border-[color:var(--line)] text-[color:var(--accent)]">
+                  <Icon size={18} aria-hidden />
+                </div>
+                <h3 className="mt-6 font-display text-base font-bold leading-tight tracking-tight text-[color:var(--paper)]">
+                  {point.title}
+                </h3>
+                <p className="mt-3 text-[11px] leading-relaxed text-[color:var(--paper)]">
+                  {point.body}
+                </p>
+              </TiltCard>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function PartnerPilotSteps() {
+  return (
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+      <div className="container-x grid gap-8 md:grid-cols-[0.58fr_1.42fr] md:items-center">
+        <div className="mx-auto max-w-[320px] text-center reveal md:text-left">
+          <div className="mx-auto flex h-11 w-11 items-center justify-center border border-[color:var(--line)] text-[color:var(--accent)] md:mx-0">
+            <Users size={20} aria-hidden />
+          </div>
+          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+            How it works
+          </div>
+          <StretchText
+            as="h2"
+            className="mt-6 font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+            segments={[
+              { text: "The evaluation " },
+              { text: "program.", className: "text-[color:var(--accent)]" },
+            ]}
+          />
+          <p className="mx-auto mt-5 max-w-[290px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
+            A structured pilot gives your team a clear timeline, hands-on support, defined data
+            outputs, and a shared definition of success.
+          </p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-4">
+          {pilotSteps.map(([n, title, body]) => (
+            <TiltCard key={title} className="reveal rounded-[28px] bg-[color:var(--ink-2)] p-5">
+              <div className="font-mono text-xs text-[color:var(--accent)]">{n}</div>
+              <div className="mt-4 font-display text-base tracking-tight text-[color:var(--paper)]">
+                {title}
+              </div>
+              <p className="mt-3 text-xs leading-relaxed text-[color:var(--paper)]">{body}</p>
+            </TiltCard>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function PartnerClinicalSites() {
+  return (
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
+      <div className="container-x grid gap-8 md:grid-cols-[0.32fr_1fr] md:items-center">
+        <div className="mx-auto max-w-[280px] text-center reveal md:text-left">
+          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+            Clinical sites
+          </div>
+          <StretchText
+            as="h2"
+            className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+            segments={[
+              { text: "Studied with " },
+              { text: "clinical teams.", className: "text-[color:var(--accent)]" },
+            ]}
+          />
+          <p className="mx-auto mt-5 max-w-[260px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
+            Use these names only after partner and team approval.
+          </p>
+        </div>
+        <div className="reveal grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+          {logos.map((logo) => (
+            <TiltCard
+              as="a"
+              key={logo.name}
+              href={logo.href}
+              target="_blank"
+              rel="noreferrer"
+              className="flex min-h-24 items-center justify-center rounded-[24px] bg-[color:var(--ink)] px-4 text-center text-xs font-semibold tracking-normal text-[color:var(--paper)]"
+            >
+              {logo.name}
+            </TiltCard>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function PartnerFaq() {
+  return (
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+      <div className="container-x grid gap-8 md:grid-cols-[0.58fr_1.42fr] md:items-center">
+        <div className="mx-auto max-w-[320px] text-center reveal md:text-left">
+          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+            FAQ
+          </div>
+          <StretchText
+            as="h2"
+            className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+            segments={[
+              { text: "Common pilot " },
+              { text: "questions.", className: "text-[color:var(--accent)]" },
+            ]}
+          />
+          <p className="mx-auto mt-5 max-w-[290px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
+            What teams ask most when scoping an evaluation.
+          </p>
+        </div>
+        <div className="reveal rounded-[32px] bg-[color:var(--ink-2)] p-5 md:p-6">
+          {faqs.map(([q, a]) => (
+            <details
+              key={q}
+              className="group border-b border-[color:var(--line)] py-3 last:border-b-0"
+            >
+              <summary className="cursor-pointer list-none font-display text-sm tracking-tight text-[color:var(--paper)] transition group-open:text-[color:var(--accent)]">
+                {q}
+              </summary>
+              <p className="mt-3 max-w-2xl text-xs leading-relaxed text-[color:var(--paper)]">
+                {a}
+              </p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
