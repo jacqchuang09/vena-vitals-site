@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ClinicalCollaborators } from "./ClinicalCollaborators";
+import { StudyCarousel, type StudySlide } from "./StudyCarousel";
 import { SolutionWindows, type SolutionWindow } from "./SolutionWindows";
 import { StretchText } from "./StretchText";
 import { TiltCard } from "./TiltCard";
@@ -15,20 +16,30 @@ export type SolutionDetailContent = {
   showHeroButton?: boolean;
   /** Advisor names to feature on this page. Omit for no collaborators section. */
   collaborators?: readonly string[];
-  sectionEyebrow: string;
-  sectionTitle: string;
+  /** Study figures shown as a carousel directly under the hero. */
+  figures?: {
+    eyebrow: string;
+    title: string;
+    titleAccent?: string;
+    footnote?: string;
+    slides: StudySlide[];
+  };
+  /** Pain points. Omit `cards` to drop the section. */
+  sectionEyebrow?: string;
+  sectionTitle?: string;
   sectionAccent?: string;
-  cards: Array<{ title: string; body: string }>;
-  fitEyebrow: string;
-  fitTitle: string;
+  cards?: Array<{ title: string; body: string }>;
+  /** How it fits. Omit `fitTitle` to drop the section. */
+  fitEyebrow?: string;
+  fitTitle?: string;
   fitAccent?: string;
-  fitBody: string;
+  fitBody?: string;
   windowsEyebrow?: string;
   windowsTitle?: string;
   windowsBody?: string;
   windows?: SolutionWindow[];
-  noteTitle: string;
-  noteBody: string;
+  noteTitle?: string;
+  noteBody?: string;
   cta: string;
   ctaAccent?: string;
 };
@@ -108,74 +119,96 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
         </div>
       </section>
 
-      {/* Pain points */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
-        <div className="container-x grid gap-10 md:grid-cols-[0.58fr_1.42fr] md:items-center">
-          <div className="mx-auto max-w-[390px] text-center reveal md:mx-0 md:text-left">
-            <Eyebrow>{content.sectionEyebrow}</Eyebrow>
-            <Heading
-              text={content.sectionTitle}
-              accent={content.sectionAccent}
-              className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-            />
+      {content.figures ? (
+        <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+          <div className="container-x">
+            <div className="mx-auto max-w-[620px] text-center reveal">
+              <Eyebrow>{content.figures.eyebrow}</Eyebrow>
+              <Heading
+                text={content.figures.title}
+                accent={content.figures.titleAccent}
+                className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+              />
+            </div>
+            <div className="mx-auto mt-10 max-w-[1040px]">
+              <StudyCarousel slides={content.figures.slides} footnote={content.figures.footnote} />
+            </div>
           </div>
+        </section>
+      ) : null}
 
-          <div className="grid gap-4 md:grid-cols-3">
-            {content.cards.map((card, i) => (
-              <TiltCard
-                as="article"
-                key={card.title}
-                className="reveal rounded-[30px] bg-[color:var(--ink)] p-6 md:p-7"
-              >
-                <div className="font-mono text-xs text-[color:var(--accent)]">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <h3 className="mt-6 font-display text-base font-bold leading-tight tracking-tight text-[color:var(--paper)]">
-                  {card.title}
-                </h3>
-                <p className="mt-3 text-xs leading-relaxed text-[color:var(--paper)]">
-                  {card.body}
-                </p>
-              </TiltCard>
-            ))}
+      {/* Pain points */}
+      {content.cards?.length ? (
+        <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
+          <div className="container-x grid gap-10 md:grid-cols-[0.58fr_1.42fr] md:items-center">
+            <div className="mx-auto max-w-[390px] text-center reveal md:mx-0 md:text-left">
+              <Eyebrow>{content.sectionEyebrow ?? ""}</Eyebrow>
+              <Heading
+                text={content.sectionTitle ?? ""}
+                accent={content.sectionAccent}
+                className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+              />
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {content.cards.map((card, i) => (
+                <TiltCard
+                  as="article"
+                  key={card.title}
+                  className="reveal rounded-[30px] bg-[color:var(--ink)] p-6 md:p-7"
+                >
+                  <div className="font-mono text-xs text-[color:var(--accent)]">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <h3 className="mt-6 font-display text-base font-bold leading-tight tracking-tight text-[color:var(--paper)]">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-xs leading-relaxed text-[color:var(--paper)]">
+                    {card.body}
+                  </p>
+                </TiltCard>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       {/* How it fits */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
-        <div className="container-x grid gap-10 md:grid-cols-[0.86fr_1.14fr] md:items-center">
-          <div className="mx-auto max-w-[440px] text-center reveal md:mx-0 md:text-left">
-            <Eyebrow>{content.fitEyebrow}</Eyebrow>
-            <Heading
-              text={content.fitTitle}
-              accent={content.fitAccent}
-              className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-            />
-            <p className="mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
-              {content.fitBody}
-            </p>
-          </div>
+      {content.fitTitle ? (
+        <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+          <div className="container-x grid gap-10 md:grid-cols-[0.86fr_1.14fr] md:items-center">
+            <div className="mx-auto max-w-[440px] text-center reveal md:mx-0 md:text-left">
+              <Eyebrow>{content.fitEyebrow ?? ""}</Eyebrow>
+              <Heading
+                text={content.fitTitle ?? ""}
+                accent={content.fitAccent}
+                className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+              />
+              <p className="mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
+                {content.fitBody}
+              </p>
+            </div>
 
-          <div className="reveal rounded-[32px] bg-[color:var(--ink-2)] p-7 md:p-9">
-            <h3 className="font-display text-base font-bold leading-tight tracking-tight text-[color:var(--paper)]">
-              {content.noteTitle}
-            </h3>
-            <p className="mt-3 text-xs leading-relaxed text-[color:var(--paper)]/70 md:text-[13px]">
-              {content.noteBody}
-            </p>
-            <Link
-              to="/clinical-evidence"
-              className="group mt-6 inline-flex items-center gap-1.5 text-[11px] font-semibold text-[color:var(--accent)] transition-opacity hover:opacity-80"
-            >
-              See the clinical studies
-              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
-                →
-              </span>
-            </Link>
+            <div className="reveal rounded-[32px] bg-[color:var(--ink-2)] p-7 md:p-9">
+              <h3 className="font-display text-base font-bold leading-tight tracking-tight text-[color:var(--paper)]">
+                {content.noteTitle}
+              </h3>
+              <p className="mt-3 text-xs leading-relaxed text-[color:var(--paper)]/70 md:text-[13px]">
+                {content.noteBody}
+              </p>
+              <Link
+                to="/clinical-evidence"
+                className="group mt-6 inline-flex items-center gap-1.5 text-[11px] font-semibold text-[color:var(--accent)] transition-opacity hover:opacity-80"
+              >
+                See the clinical studies
+                <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+                  →
+                </span>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       {content.collaborators?.length ? (
         <ClinicalCollaborators names={content.collaborators} />
@@ -187,7 +220,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
           <div className="container-x">
             <SolutionWindows
               eyebrow={content.windowsEyebrow ?? "In this setting"}
-              title={content.windowsTitle ?? content.fitTitle}
+              title={content.windowsTitle ?? content.fitTitle ?? ""}
               body={content.windowsBody}
               windows={content.windows}
             />

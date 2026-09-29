@@ -30,47 +30,42 @@ function Page() {
         button: "Request a Demo",
         showHeroButton: false,
         collaborators: ["Joseph Rinehart, MD"],
-        sectionEyebrow: "Pain points",
-        sectionTitle: "Why the current choice is",
-        sectionAccent: "difficult.",
-        cards: [
-          {
-            title: "A-line delay",
-            body: "Placing a line can take unpredictable time, delaying care when teams need continuous pressure now.",
-          },
-          {
-            title: "A-line risk",
-            body: "Arterial lines are invasive and carry procedure risk, so they are not placed in every case.",
-          },
-          {
-            title: "Cuff blind spots",
-            body: "Lag and minutes between readings can hide blood loss, fluid shifts, and rapid pressure changes.",
-          },
-        ],
-        fitEyebrow: "How VeriTrack fits",
-        fitTitle: "Apply in pre-op,",
-        fitAccent: "out of the surgical field.",
-        fitBody:
-          "The sensor sits on the foot, where placement is simple and out of the way. It is applied before the case and monitors continuously through the case.",
-        windowsEyebrow: "In the operating room",
-        windowsTitle: "Continuous pressure, in the room.",
-        windowsBody:
-          "From placement on the foot to a continuous trace at the bedside, without occupying the arm or sterile field.",
-        windows: [
-          {
-            src: "/assets/operating-room/or-sensor-foot.mp4",
-            label: "Applied to the foot, out of the field",
-            feature: true,
-          },
-          {
-            src: "/assets/operating-room/or-monitor.mp4",
-            label: "Continuous pressure at the bedside",
-          },
-          { src: "/assets/operating-room/or-monitor-2.mp4", label: "Eyes on every beat" },
-        ],
-        noteTitle: "Evidence in this setting",
-        noteBody:
-          "Operating-room validation, motion and artifact comparison, and accuracy snapshots are summarized on Clinical Studies.",
+        figures: {
+          eyebrow: "Operating room data",
+          title: "Measured against the",
+          titleAccent: "arterial line.",
+          footnote: "Research presented at IARS 2024, IARS 2025, ASA 2025, and ASA 2026.",
+          slides: [
+            {
+              src: "/assets/studies/or-data-1.png",
+              alt: "Arterial line and Vena Vitals pressure traces over roughly an hour, plotted one above the other, with calibration points to a blood pressure cuff marked on the lower trace",
+              caption:
+                "Investigational device used in 62 year old male in an endovascular procedure.",
+            },
+            {
+              src: "/assets/studies/or-data-2.png",
+              alt: "Arterial line and Vena Vitals pressure traces plotted one above the other for a craniotomy case",
+              caption:
+                "Investigational device used in 41 year old male in a right frontotemporal craniotomy.",
+            },
+            {
+              src: "/assets/studies/or-data-3.png",
+              alt: "A steep fall and recovery in blood pressure, tracked by both the arterial line and the sensor-derived signal",
+              caption: "The sensor-derived signal responds to rapid changes in blood pressure.",
+            },
+            {
+              src: "/assets/studies/or-data-4.png",
+              alt: "A close view of individual pressure waveforms, showing the systolic upstroke and dicrotic notch resolved by the sensor",
+              caption:
+                "The sensor is able to capture detailed waveform features, as seen in this 43 year old male undergoing a CABG procedure.",
+            },
+            {
+              src: "/assets/studies/or-data-5.png",
+              alt: "Sensor readings plotted against arterial line readings across a wide span of pressures",
+              caption: "The investigational device measures across a wide range of blood pressure.",
+            },
+          ],
+        },
         cta: "Request a demo for your",
         ctaAccent: "operating room.",
       }}
