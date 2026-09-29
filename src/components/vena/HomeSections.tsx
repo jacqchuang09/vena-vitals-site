@@ -35,8 +35,7 @@ const audiences = [
     image: "/assets/home/veritrack-or-foot.jpg",
     imageAlt:
       "The VeriTrack wrap on a patient's foot, draped and positioned clear of the surgical field in an operating room",
-    videoPos: "bottom" as const,
-    videoZoom: "",
+    mediaPos: "bottom" as const,
   },
   {
     tag: "For Researchers",
@@ -44,9 +43,10 @@ const audiences = [
     body: "Studying autonomic response, sleep-disordered breathing, or nocturnal hypertension? VeriTrack enables beat-to-beat BP monitoring outside the hospital.",
     to: "/solutions/sleep-medicine",
     label: "Explore Sleep Research",
-    video: "/assets/home/use-sleep.mp4",
-    videoPos: "top" as const,
-    videoZoom: "",
+    image: "/assets/home/veritrack-home-foot.jpg",
+    imageAlt:
+      "The VeriTrack wrap worn on a foot resting on a sofa at home, with a blanket and a side table in the background",
+    mediaPos: "top" as const,
   },
 ];
 
@@ -502,27 +502,15 @@ export function HomeAudienceCards() {
             const media = (
               <div
                 className={`overflow-hidden rounded-[22px] bg-black ${
-                  audience.videoPos === "bottom" ? "mt-6" : "mb-6"
+                  audience.mediaPos === "bottom" ? "mt-6" : "mb-6"
                 }`}
               >
-                {"image" in audience ? (
-                  <img
-                    src={audience.image}
-                    alt={audience.imageAlt}
-                    className="aspect-video w-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <video
-                    src={audience.video}
-                    className={`aspect-video w-full object-cover ${audience.videoZoom ?? ""}`}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                  />
-                )}
+                <img
+                  src={audience.image}
+                  alt={audience.imageAlt}
+                  className="aspect-video w-full object-cover"
+                  loading="lazy"
+                />
               </div>
             );
             return (
@@ -532,7 +520,7 @@ export function HomeAudienceCards() {
                 to={audience.to}
                 className="group reveal flex flex-col rounded-[32px] bg-[color:var(--ink-2)] p-7 transition hover:bg-[color:var(--accent-soft)] md:p-9"
               >
-                {audience.videoPos === "top" && media}
+                {audience.mediaPos === "top" && media}
                 <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
                   {audience.tag}
                 </div>
@@ -551,7 +539,7 @@ export function HomeAudienceCards() {
                     →
                   </span>
                 </div>
-                {audience.videoPos === "bottom" && <div className="mt-auto">{media}</div>}
+                {audience.mediaPos === "bottom" && <div className="mt-auto">{media}</div>}
               </TiltCard>
             );
           })}
