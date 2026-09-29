@@ -92,6 +92,12 @@ section.min-h-screen {
     box-sizing: border-box;
     min-width: 0;
   }
+  /* Document pages (the policies) set data-snap="off" while they are mounted.
+     They are one long column with nothing to snap to, and mandatory snapping
+     would pull the reader to the footer on the first scroll. */
+  html[data-snap="off"] {
+    scroll-snap-type: none;
+  }
   html {
     scroll-behavior: auto;
     scroll-padding-block: 0;

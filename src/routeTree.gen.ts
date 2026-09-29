@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TechnologyRouteImport } from './routes/technology'
 import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as ProductRouteImport } from './routes/product'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PartnerWithUsRouteImport } from './routes/partner-with-us'
 import { Route as NewsRouteImport } from './routes/news'
+import { Route as FcoiPolicyRouteImport } from './routes/fcoi-policy'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ClinicalEvidenceRouteImport } from './routes/clinical-evidence'
@@ -41,6 +43,11 @@ const ProductRoute = ProductRouteImport.update({
   path: '/product',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnerWithUsRoute = PartnerWithUsRouteImport.update({
   id: '/partner-with-us',
   path: '/partner-with-us',
@@ -49,6 +56,11 @@ const PartnerWithUsRoute = PartnerWithUsRouteImport.update({
 const NewsRoute = NewsRouteImport.update({
   id: '/news',
   path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FcoiPolicyRoute = FcoiPolicyRouteImport.update({
+  id: '/fcoi-policy',
+  path: '/fcoi-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -114,8 +126,10 @@ export interface FileRoutesByFullPath {
   '/clinical-evidence': typeof ClinicalEvidenceRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/fcoi-policy': typeof FcoiPolicyRoute
   '/news': typeof NewsRoute
   '/partner-with-us': typeof PartnerWithUsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/product': typeof ProductRoute
   '/solutions': typeof SolutionsRouteWithChildren
   '/technology': typeof TechnologyRoute
@@ -132,8 +146,10 @@ export interface FileRoutesByTo {
   '/clinical-evidence': typeof ClinicalEvidenceRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/fcoi-policy': typeof FcoiPolicyRoute
   '/news': typeof NewsRoute
   '/partner-with-us': typeof PartnerWithUsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/product': typeof ProductRoute
   '/solutions': typeof SolutionsRouteWithChildren
   '/technology': typeof TechnologyRoute
@@ -151,8 +167,10 @@ export interface FileRoutesById {
   '/clinical-evidence': typeof ClinicalEvidenceRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/fcoi-policy': typeof FcoiPolicyRoute
   '/news': typeof NewsRoute
   '/partner-with-us': typeof PartnerWithUsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/product': typeof ProductRoute
   '/solutions': typeof SolutionsRouteWithChildren
   '/technology': typeof TechnologyRoute
@@ -171,8 +189,10 @@ export interface FileRouteTypes {
     | '/clinical-evidence'
     | '/contact'
     | '/faq'
+    | '/fcoi-policy'
     | '/news'
     | '/partner-with-us'
+    | '/privacy-policy'
     | '/product'
     | '/solutions'
     | '/technology'
@@ -189,8 +209,10 @@ export interface FileRouteTypes {
     | '/clinical-evidence'
     | '/contact'
     | '/faq'
+    | '/fcoi-policy'
     | '/news'
     | '/partner-with-us'
+    | '/privacy-policy'
     | '/product'
     | '/solutions'
     | '/technology'
@@ -207,8 +229,10 @@ export interface FileRouteTypes {
     | '/clinical-evidence'
     | '/contact'
     | '/faq'
+    | '/fcoi-policy'
     | '/news'
     | '/partner-with-us'
+    | '/privacy-policy'
     | '/product'
     | '/solutions'
     | '/technology'
@@ -226,8 +250,10 @@ export interface RootRouteChildren {
   ClinicalEvidenceRoute: typeof ClinicalEvidenceRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  FcoiPolicyRoute: typeof FcoiPolicyRoute
   NewsRoute: typeof NewsRoute
   PartnerWithUsRoute: typeof PartnerWithUsRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProductRoute: typeof ProductRoute
   SolutionsRoute: typeof SolutionsRouteWithChildren
   TechnologyRoute: typeof TechnologyRoute
@@ -256,6 +282,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partner-with-us': {
       id: '/partner-with-us'
       path: '/partner-with-us'
@@ -268,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: '/news'
       fullPath: '/news'
       preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fcoi-policy': {
+      id: '/fcoi-policy'
+      path: '/fcoi-policy'
+      fullPath: '/fcoi-policy'
+      preLoaderRoute: typeof FcoiPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -377,8 +417,10 @@ const rootRouteChildren: RootRouteChildren = {
   ClinicalEvidenceRoute: ClinicalEvidenceRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  FcoiPolicyRoute: FcoiPolicyRoute,
   NewsRoute: NewsRoute,
   PartnerWithUsRoute: PartnerWithUsRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProductRoute: ProductRoute,
   SolutionsRoute: SolutionsRouteWithChildren,
   TechnologyRoute: TechnologyRoute,
