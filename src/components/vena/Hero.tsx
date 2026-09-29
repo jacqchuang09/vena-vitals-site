@@ -24,7 +24,7 @@ export function Hero() {
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
             <Link
-              to="/clinical-evidence"
+              to="/solutions/anesthesiology"
               className="group inline-flex items-center gap-3 bg-[color:var(--accent)] text-white px-6 py-4 text-xs font-semibold tracking-normal hover:bg-[color:var(--accent)]/90 transition-colors"
             >
               See the data

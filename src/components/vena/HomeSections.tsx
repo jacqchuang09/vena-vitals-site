@@ -361,7 +361,7 @@ export function HomeEvidenceStrip() {
               side-by-side operating room comparisons against the arterial line.
             </p>
             <Link
-              to="/clinical-evidence"
+              to="/solutions/anesthesiology"
               className="group mt-4 inline-flex items-center gap-2 bg-[color:var(--paper)] px-4 py-2.5 text-[10px] font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)] md:mt-8 md:gap-3 md:px-6 md:py-4 md:text-xs"
             >
               See the full data{" "}
