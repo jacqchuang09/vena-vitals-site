@@ -345,20 +345,19 @@ export function HomeEvidenceStrip() {
         <div className="grid grid-cols-[0.42fr_1.58fr] items-center gap-4 md:grid-cols-[0.58fr_1.42fr] md:gap-8">
           <div className="mx-auto max-w-[250px] text-left reveal md:max-w-[360px]">
             <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)] md:mb-3 md:text-[11px]">
-              Clinical Evidence
+              Clinical Testing
             </div>
             <StretchText
               as="h2"
               className="font-display text-[clamp(20px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
               segments={[
-                { text: "Validated where it matters: " },
+                { text: "Evaluated where it matters: " },
                 { text: "the operating room.", className: "text-[color:var(--accent)]" },
               ]}
             />
             <p className="mt-3 max-w-[260px] text-[10px] leading-relaxed text-[color:var(--paper)] md:mt-4 md:max-w-[330px] md:text-xs">
-              Sudden fluid shifts and hypotensive dips can happen between cuff readings, invisible
-              until the next cycle. In side-by-side operating room comparisons against the arterial
-              line, VeriTrack tracked rapid blood pressure changes beat for beat.
+              The investigational device tracked rapid blood pressure changes beat for beat in
+              side-by-side operating room comparisons against the arterial line.
             </p>
             <Link
               to="/clinical-evidence"
@@ -382,7 +381,7 @@ export function HomeEvidenceStrip() {
               <SurgeryComparison />
             </div>
             <p className="mt-2.5 text-[9px] leading-relaxed text-[color:var(--mute)] md:mt-3 md:text-[10px]">
-              Patient #UVM005 · 59 year-old male · BMI 32 · Abdominal mass removal, UVM.
+              59 year old subject undergoing abdominal mass removal.
             </p>
             <div className="mt-2 flex flex-wrap gap-2 text-[10px] md:mt-3 md:gap-3 md:text-xs">
               <span className="flex items-center gap-2 rounded-full bg-[color:var(--ink-2)] px-3 py-1.5 text-[color:var(--mute)]">

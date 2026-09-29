@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-// A replica of the UVM005 case figure: arterial line (top) vs Vena Vitals signal
+// A replica of the case figure: arterial line (top) vs Vena Vitals signal
 // (bottom). The A-line shows artifacts, spikes, and a dropout (highlighted in
 // red) where the Vena Vitals signal stays clean. Both bands draw in left-to-right
 // as the section scrolls into view.
