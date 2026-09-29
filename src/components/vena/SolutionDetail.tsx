@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ClinicalCollaborators } from "./ClinicalCollaborators";
 import { StudyFigures, type StudyFigure } from "./StudyFigures";
-import { StudyGallery } from "./StudyGallery";
+import { StudySpread } from "./StudySpread";
 import { SolutionWindows, type SolutionWindow } from "./SolutionWindows";
 import { StretchText } from "./StretchText";
 import { TiltCard } from "./TiltCard";
@@ -27,8 +27,8 @@ export type SolutionDetailContent = {
     footnote?: string;
     slides: StudyFigure[];
   };
-  /** Study figures as a swipeable track. A different instrument from
-      `figures`, for pages whose figures are tall rather than wide. */
+  /** Study figures shown all at once, caption under each. A different
+      instrument from `figures`, for pages with only a couple of figures. */
   gallery?: {
     eyebrow?: string;
     title?: string;
@@ -166,7 +166,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
       ) : null}
 
       {content.gallery ? (
-        <StudyGallery
+        <StudySpread
           background={bg.gallery}
           eyebrow={content.gallery.eyebrow}
           title={content.gallery.title}
