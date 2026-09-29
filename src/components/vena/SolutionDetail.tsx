@@ -52,7 +52,8 @@ export type SolutionDetailContent = {
   windows?: SolutionWindow[];
   noteTitle?: string;
   noteBody?: string;
-  cta: string;
+  /** Closing CTA. Omit to drop the section; the hero keeps its own button. */
+  cta?: string;
   ctaAccent?: string;
 };
 
@@ -120,7 +121,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
     content.fitTitle ? "fit" : null,
     content.collaborators?.length ? "collaborators" : null,
     content.windows?.length ? "windows" : null,
-    "cta",
+    content.cta ? "cta" : null,
   ].filter((k): k is string => k !== null);
   const bg: Record<string, string> = Object.fromEntries(
     present.map((key, i) => [key, i % 2 ? INK_2 : INK]),
@@ -274,23 +275,25 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
       ) : null}
 
       {/* Closing CTA */}
-      <section
-        className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 ${bg.cta}`}
-      >
-        <div className="container-x">
-          <div className="mx-auto max-w-[560px] text-center reveal">
-            <Eyebrow>Get started</Eyebrow>
-            <Heading
-              text={content.cta}
-              accent={content.ctaAccent}
-              className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-            />
-            <div className="mt-9">
-              <DemoButton label={content.button} />
+      {content.cta ? (
+        <section
+          className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 ${bg.cta}`}
+        >
+          <div className="container-x">
+            <div className="mx-auto max-w-[560px] text-center reveal">
+              <Eyebrow>Get started</Eyebrow>
+              <Heading
+                text={content.cta}
+                accent={content.ctaAccent}
+                className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+              />
+              <div className="mt-9">
+                <DemoButton label={content.button} />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
     </>
   );
 }
