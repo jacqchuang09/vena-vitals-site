@@ -55,6 +55,25 @@ export function useCountUp(
   return { ref, value };
 }
 
+/**
+ * Turn the page's scroll-snap off while this page is mounted.
+ *
+ * The site snaps every section to the top of the window, which is right for a
+ * page built from full-screen panels and wrong for anything taller than the
+ * window: mandatory snapping makes the overflow hard to reach, and on a form
+ * that means the fields at the bottom. Pages that are a document or a form
+ * rather than a deck opt out.
+ */
+export function useNoSnap() {
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.snap = "off";
+    return () => {
+      delete root.dataset.snap;
+    };
+  }, []);
+}
+
 export function useReveal() {
   useEffect(() => {
     const els = document.querySelectorAll<HTMLElement>(".reveal");

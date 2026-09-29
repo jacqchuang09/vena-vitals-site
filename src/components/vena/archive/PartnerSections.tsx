@@ -9,7 +9,10 @@ import { StretchText } from "../StretchText";
  * closing CTA, nothing between.
  *
  * Removed: "The economic case", "How it works" (the four pilot steps),
- * "Clinical sites" (the six institution tiles) and the pilot FAQ.
+ * "Clinical sites" (the six institution tiles), the pilot FAQ, and on the same
+ * day the closing "Start an evaluation conversation." CTA, which came off when
+ * the lead form moved onto the page itself. A CTA that sends people to /contact
+ * to find a form is redundant once the form is in the first section.
  *
  * To restore, import the ones you want into ../Partner.tsx and drop them back
  * between the hero and the closing CTA. Each is a whole <section>, so order is
@@ -249,6 +252,46 @@ export function PartnerFaq() {
               </p>
             </details>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function PartnerClosingCta() {
+  return (
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20">
+      <div className="container-x">
+        <div className="mx-auto max-w-[560px] text-center reveal">
+          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+            Get started
+          </div>
+          <StretchText
+            as="h2"
+            className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+            segments={[
+              { text: "Start an evaluation " },
+              { text: "conversation.", className: "text-[color:var(--accent)]" },
+            ]}
+          />
+          <p className="mx-auto mt-5 max-w-[440px] text-xs leading-relaxed text-[color:var(--paper)]">
+            Tell us about your facility and evaluation interest, and the team will follow up with
+            pilot and evidence-packet details.
+          </p>
+          <div className="mt-9">
+            <Link
+              to="/contact"
+              className="group inline-flex items-center gap-3 rounded-full bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
+            >
+              Request a demo{" "}
+              <span
+                aria-hidden
+                className="inline-block transition-transform group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

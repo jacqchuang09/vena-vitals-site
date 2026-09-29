@@ -1,27 +1,20 @@
-import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
+import { useNoSnap } from "./lib";
 import type { LegalDoc } from "./legal-text";
 
 /**
  * A policy document: one long column of text, not a deck of panels.
  *
- * Every other page on this site is full-viewport sections under
+ * Most pages here are full-viewport sections under
  * `scroll-snap-type: y mandatory`. A document is taller than the viewport and
  * has nothing to snap to, and mandatory snapping would drag the reader to the
- * footer as soon as they scrolled, so these pages turn snapping off while they
- * are mounted and put it back on the way out.
+ * footer as soon as they scrolled, so it opts out through useNoSnap.
  *
  * The text itself lives in legal-text.ts, transcribed from the published
  * policies. This component only sets it; it does not author any of it.
  */
 export function LegalPage({ doc, eyebrow = "Legal" }: { doc: LegalDoc; eyebrow?: string }) {
-  useEffect(() => {
-    const root = document.documentElement;
-    root.dataset.snap = "off";
-    return () => {
-      delete root.dataset.snap;
-    };
-  }, []);
+  useNoSnap();
 
   return (
     <article className="bg-[color:var(--ink)] pb-24 pt-[calc(var(--nav-h)+3rem)] md:pb-32 md:pt-[calc(var(--nav-h)+5rem)]">

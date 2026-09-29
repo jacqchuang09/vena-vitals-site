@@ -88,7 +88,7 @@ const TARGETS = [
   { name: "fcoi-mid", path: "/fcoi-policy", w: 1440, h: 900, scroll: 1400 },
   { name: "partner", path: "/partner-with-us", w: 1440, h: 900 },
   { name: "partner-phone", path: "/partner-with-us", w: 390, h: 780 },
-  { name: "partner-cta", path: "/partner-with-us", w: 1440, h: 900, scroll: 900 },
+  { name: "partner-phone-form", path: "/partner-with-us", w: 390, h: 780, scroll: 620 },
   { name: "contact", path: "/contact", w: 1440, h: 900 },
   { name: "footer", path: "/contact", w: 1440, h: 900, scroll: 99999 },
 ];

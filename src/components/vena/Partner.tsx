@@ -1,5 +1,6 @@
-import { Link } from "@tanstack/react-router";
 import { StretchText } from "./StretchText";
+import { useNoSnap } from "./lib";
+import { ContactForm } from "./ContactForm";
 
 // Decomposed from the single "Built for ..." sentence this replaces — no new
 // audiences introduced.
@@ -12,77 +13,64 @@ const audiences = [
 ];
 
 /**
- * Partner With Us: a cover and a closing CTA, nothing between.
+ * Partner With Us: one section, the pitch and the form side by side.
  *
- * The cover carries the site's own type scale, the same sizes the solution
- * heroes use. What makes it its own is the right-hand column: the audiences
- * are set as a ruled index with the numerals at display size in the accent,
- * rather than as small print inside a rounded card. It is the one list on the
- * site that is treated as content instead of as a panel.
+ * The page used to make its case over six screens and then hand off to
+ * /contact to find a form. It is now a single screen with the form in it, so
+ * the ask and the means of answering it are in the same view and there is no
+ * button whose only job is to go looking for the next step.
  *
- * The four sections that used to sit between these two are parked in
- * archive/PartnerSections.tsx.
+ * It is the same ContactForm the /contact page uses, not a second copy.
+ *
+ * The audiences are set with the numerals doing the structural work: each is
+ * at the site's stat size in the soft accent with the label over its right
+ * shoulder, and the rows step in one at a time. No rules.
+ *
+ * Everything that used to sit on this page is parked in
+ * archive/PartnerSections.tsx, including the closing CTA.
  */
 export function Partner() {
+  // The form runs past a phone screen, and mandatory snapping would put
+  // its last fields out of easy reach.
+  useNoSnap();
   return (
-    <>
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
-        <div className="container-x grid gap-10 md:grid-cols-[0.82fr_1.18fr] md:items-center md:gap-14">
-          <div className="mx-auto max-w-[400px] text-center reveal md:mx-0 md:text-left">
-            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Partner with us
-            </div>
-            <StretchText
-              as="h1"
-              className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)] text-balance"
-              segments={[
-                { text: "Bring continuous, noninvasive blood pressure to " },
-                { text: "your facility.", className: "text-[color:var(--accent)]" },
-              ]}
-            />
-            <p className="mx-auto mt-5 max-w-[340px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
-              Evaluate VeriTrack in your operating room or ICU through a structured pilot.
-            </p>
-            <div className="mt-8">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-3 rounded-full bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
-              >
-                Start a pilot conversation{" "}
-                <span
-                  aria-hidden
-                  className="inline-block transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </Link>
-            </div>
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20">
+      <div className="container-x grid gap-10 md:grid-cols-[0.82fr_1.18fr] md:items-center md:gap-12">
+        <div className="mx-auto max-w-[400px] text-center reveal md:mx-0 md:text-left">
+          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+            Partner with us
           </div>
+          <StretchText
+            as="h1"
+            className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)] text-balance"
+            segments={[
+              { text: "Bring continuous, noninvasive blood pressure to " },
+              { text: "your facility.", className: "text-[color:var(--accent)]" },
+            ]}
+          />
+          <p className="mx-auto mt-5 max-w-[340px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
+            Evaluate VeriTrack in your operating room or ICU through a structured pilot. Tell us
+            about your setting and the team will follow up.
+          </p>
 
-          {/* The audiences, with the numerals doing the work instead of a
-              grid of rules. Each number is set at the site's stat size in the
-              soft accent and the label rides over its right shoulder, so the
-              figure reads as the mark and the words read as the content. The
-              rows step in one at a time, which is what gives the block its
-              shape now that nothing is ruled off. */}
-          <div className="reveal">
+          <div className="mt-8">
             <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
               Who this is for
             </div>
-            <ul className="mt-6 space-y-2 md:mt-8 md:space-y-3">
+            <ul className="mt-4 space-y-1 text-left md:mt-5 md:space-y-1.5">
               {audiences.map((a, i) => (
                 <li
                   key={a}
                   style={{ "--step": i } as React.CSSProperties}
-                  className="flex items-center pl-[calc(var(--step)*0.6rem)] md:pl-[calc(var(--step)*1.35rem)]"
+                  className="flex items-center pl-[calc(var(--step)*0.5rem)] md:pl-[calc(var(--step)*0.9rem)]"
                 >
                   <span
                     aria-hidden
-                    className="stat-num select-none tabular-nums text-[color:var(--accent-soft)]"
+                    className="select-none font-display text-[26px] font-bold leading-none tracking-[-0.04em] tabular-nums text-[color:var(--accent-soft)]"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="ml-1 font-display text-[15px] font-bold leading-tight tracking-tight text-[color:var(--paper)] md:-ml-3 md:text-[17px]">
+                  <span className="ml-2.5 font-display text-[14px] font-bold leading-tight tracking-tight text-[color:var(--paper)] md:text-[15px]">
                     {a}
                   </span>
                 </li>
@@ -90,46 +78,9 @@ export function Partner() {
             </ul>
           </div>
         </div>
-      </section>
 
-      {/* Closing CTA. There's a single lead form site-wide (/contact); this
-          page makes the case and hands off to it rather than carrying its own
-          duplicate form. */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20">
-        <div className="container-x">
-          <div className="mx-auto max-w-[560px] text-center reveal">
-            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Get started
-            </div>
-            <StretchText
-              as="h2"
-              className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-              segments={[
-                { text: "Start an evaluation " },
-                { text: "conversation.", className: "text-[color:var(--accent)]" },
-              ]}
-            />
-            <p className="mx-auto mt-5 max-w-[440px] text-xs leading-relaxed text-[color:var(--paper)]">
-              Tell us about your facility and evaluation interest, and the team will follow up with
-              pilot and evidence-packet details.
-            </p>
-            <div className="mt-9">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-3 rounded-full bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
-              >
-                Request a demo{" "}
-                <span
-                  aria-hidden
-                  className="inline-block transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+        <ContactForm />
+      </div>
+    </section>
   );
 }
