@@ -93,7 +93,24 @@ function DemoButton({ label }: { label: string }) {
   );
 }
 
+const INK = "bg-[color:var(--ink)]";
+const INK_2 = "bg-[color:var(--ink-2)]";
+
 export function SolutionDetail({ content }: { content: SolutionDetailContent }) {
+  // The page alternates white and off-white down the stack, which is what
+  // keeps each section reading as its own panel. Which sections render differs
+  // from page to page, so the closing CTA takes whichever background the
+  // section above it does not, rather than a fixed one.
+  const above = [
+    INK, // hero
+    content.figures ? INK_2 : null,
+    content.cards?.length ? INK_2 : null,
+    content.fitTitle ? INK : null,
+    content.collaborators?.length ? INK : null,
+    content.windows?.length ? INK_2 : null,
+  ].filter(Boolean);
+  const ctaBackground = above[above.length - 1] === INK_2 ? INK : INK_2;
+
   return (
     <>
       {/* Hero */}
@@ -221,7 +238,9 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
       ) : null}
 
       {/* Closing CTA */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20">
+      <section
+        className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 ${ctaBackground}`}
+      >
         <div className="container-x">
           <div className="mx-auto max-w-[560px] text-center reveal">
             <Eyebrow>Get started</Eyebrow>

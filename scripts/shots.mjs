@@ -67,6 +67,8 @@ const TARGETS = [
   },
   { name: "periop-figures-phone", path: "/solutions/anesthesiology", w: 390, h: 780, scroll: 780 },
   { name: "periop-collab", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 1800 },
+  { name: "periop-cta", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 2700 },
+  { name: "sleep-cta", path: "/solutions/sleep-medicine", w: 1440, h: 900, scroll: 3600 },
   { name: "anesthesiology", path: "/solutions/anesthesiology", w: 1440, h: 900 },
   { name: "partner", path: "/partner-with-us", w: 1440, h: 900 },
   { name: "contact", path: "/contact", w: 1440, h: 900 },
