@@ -93,10 +93,41 @@ export function HomeProblem() {
               until the next cycle. The alternative, arterial line cannulation, provides continuous,
               beat-to-beat data but comes with significant risks and delays.
             </p>
+            <div className="mx-auto mt-6 grid max-w-[400px] gap-4 md:mx-0">
+              {problemStats.map((card) => {
+                const Icon = card.icon;
+                return (
+                  <TiltCard
+                    key={card.method}
+                    className="rounded-[26px] bg-[color:var(--ink)] p-5 text-left shadow-[0_14px_44px_rgba(43,43,43,0.05)] md:p-6"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Icon size={15} className="text-[color:var(--accent)]" aria-hidden />
+                      <span className="text-[11px] font-semibold uppercase tracking-wide text-[color:var(--paper)]">
+                        {card.method}
+                      </span>
+                    </div>
+                    <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
+                      {card.stats.map((s, i) => (
+                        <div key={i} className="min-w-[90px]">
+                          {s.v ? (
+                            <div className="font-display text-lg font-bold leading-none text-[color:var(--accent)] md:text-xl">
+                              {s.v}
+                            </div>
+                          ) : null}
+                          <div className="mt-1 max-w-[130px] text-[10.5px] leading-snug text-[color:var(--mute)]">
+                            {s.l}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </TiltCard>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Right-aligned in its column so the frame's right edge lines up with
-              the stat cards below it. */}
+          {/* Right-aligned in its column so the frame sits against the section edge. */}
           <div className="reveal mx-auto w-full max-w-[520px] md:ml-auto md:mr-0">
             <IPadFrame>
               <video
@@ -112,39 +143,6 @@ export function HomeProblem() {
               />
             </IPadFrame>
           </div>
-        </div>
-
-        <div className="reveal mt-6 grid gap-4 md:mt-8">
-          {problemStats.map((card) => {
-            const Icon = card.icon;
-            return (
-              <TiltCard
-                key={card.method}
-                className="rounded-[26px] bg-[color:var(--ink)] p-5 shadow-[0_14px_44px_rgba(43,43,43,0.05)] md:p-6"
-              >
-                <div className="flex items-center gap-2">
-                  <Icon size={15} className="text-[color:var(--accent)]" aria-hidden />
-                  <span className="text-[11px] font-semibold uppercase tracking-wide text-[color:var(--paper)]">
-                    {card.method}
-                  </span>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
-                  {card.stats.map((s, i) => (
-                    <div key={i} className="min-w-[90px]">
-                      {s.v ? (
-                        <div className="font-display text-lg font-bold leading-none text-[color:var(--accent)] md:text-xl">
-                          {s.v}
-                        </div>
-                      ) : null}
-                      <div className="mt-1 max-w-[130px] text-[10.5px] leading-snug text-[color:var(--mute)]">
-                        {s.l}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </TiltCard>
-            );
-          })}
         </div>
       </div>
     </section>
@@ -174,16 +172,17 @@ export function HomeOverview() {
     <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
       <div className="container-x grid gap-8 md:grid-cols-[1.14fr_0.86fr] md:items-center">
         <div className="reveal order-last md:order-first">
-          <div className="overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] shadow-[0_24px_70px_-30px_rgba(43,43,43,0.45)] md:rounded-[28px]">
+          <div className="mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-full bg-[color:var(--ink-2)] shadow-[0_30px_70px_-28px_rgba(43,43,43,0.5)] ring-1 ring-[color:var(--line)] md:max-w-[460px]">
             <video
-              src="/assets/technology/setup-veritrack.mp4"
-              className="block aspect-[852/480] w-full object-cover"
+              src="/assets/home/veritrack-placement-circle.mp4"
+              poster="/assets/home/veritrack-placement-circle.jpg"
+              className="block h-full w-full object-cover"
               autoPlay
               muted
               loop
               playsInline
               preload="metadata"
-              aria-label="The VeriTrack wrap being placed on a patient's foot beside the app's placement screen, which confirms signal strength and good placement"
+              aria-label="The VeriTrack wrap being fastened onto a patient's foot"
             />
           </div>
         </div>
