@@ -32,9 +32,11 @@ const audiences = [
     body: "Continuous, non-invasive BP monitoring for the OR and ICU. See the clinical data, waveform accuracy, and use cases.",
     to: "/solutions/anesthesiology",
     label: "View Clinical Data",
-    video: "/assets/home/use-clinical.mp4",
+    image: "/assets/home/veritrack-or-foot.jpg",
+    imageAlt:
+      "The VeriTrack wrap on a patient's foot, draped and positioned clear of the surgical field in an operating room",
     videoPos: "bottom" as const,
-    videoZoom: "scale-110 -translate-x-4",
+    videoZoom: "",
   },
   {
     tag: "For Researchers",
@@ -484,7 +486,7 @@ export function HomeAudienceCards() {
       <div className="container-x">
         <div className="mx-auto max-w-[460px] text-center reveal">
           <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-            Use Cases
+            Areas of Investigation
           </div>
           <StretchText
             as="h2"
@@ -503,15 +505,24 @@ export function HomeAudienceCards() {
                   audience.videoPos === "bottom" ? "mt-6" : "mb-6"
                 }`}
               >
-                <video
-                  src={audience.video}
-                  className={`aspect-video w-full object-cover ${audience.videoZoom ?? ""}`}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                />
+                {"image" in audience ? (
+                  <img
+                    src={audience.image}
+                    alt={audience.imageAlt}
+                    className="aspect-video w-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <video
+                    src={audience.video}
+                    className={`aspect-video w-full object-cover ${audience.videoZoom ?? ""}`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                  />
+                )}
               </div>
             );
             return (

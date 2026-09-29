@@ -32,6 +32,7 @@ const TARGETS = [
   { name: "problem", path: "/", w: 1440, h: 900, scroll: 920 },
   { name: "solution", path: "/", w: 1440, h: 900, scroll: 1850 },
   { name: "evidence", path: "/", w: 1440, h: 900, scroll: 2800 },
+  { name: "usecases", path: "/", w: 1440, h: 900, scroll: 3750 },
   { name: "tech", path: "/technology", w: 1440, h: 900 },
   { name: "tech-specs", path: "/technology", w: 1440, h: 900, scroll: 4600 },
   { name: "clinical", path: "/clinical-evidence", w: 1440, h: 900 },
