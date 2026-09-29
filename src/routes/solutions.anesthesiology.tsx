@@ -22,12 +22,13 @@ function Page() {
   return (
     <SolutionDetail
       content={{
-        eyebrow: "Solutions / Anesthesiology",
-        title: "Every beat of",
-        titleAccent: "every case.",
+        eyebrow: "Perioperative monitoring",
+        title: "Continuous blood pressure,",
+        titleAccent: "evaluated against the arterial line.",
         intro:
-          "Continuous, noninvasive arterial pressure for the operating room, applied to the foot and out of your field.",
+          "Performance has been measured in the operating room on 600+ patients across eight U.S. hospitals.",
         button: "Request a Demo",
+        showHeroButton: false,
         sectionEyebrow: "Pain points",
         sectionTitle: "Why the current choice is",
         sectionAccent: "difficult.",

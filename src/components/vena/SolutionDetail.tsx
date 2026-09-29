@@ -10,6 +10,8 @@ export type SolutionDetailContent = {
   titleAccent?: string;
   intro: string;
   button: string;
+  /** Hero CTA. Defaults to shown; the closing CTA always keeps its button. */
+  showHeroButton?: boolean;
   sectionEyebrow: string;
   sectionTitle: string;
   sectionAccent?: string;
@@ -94,9 +96,11 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
             <p className="mx-auto mt-6 max-w-[460px] text-sm leading-relaxed text-[color:var(--mute)]">
               {content.intro}
             </p>
-            <div className="mt-9">
-              <DemoButton label={content.button} />
-            </div>
+            {content.showHeroButton !== false && (
+              <div className="mt-9">
+                <DemoButton label={content.button} />
+              </div>
+            )}
           </div>
         </div>
       </section>
