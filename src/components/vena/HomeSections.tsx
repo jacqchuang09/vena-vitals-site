@@ -172,15 +172,18 @@ export function HomeOverview() {
     <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
       <div className="container-x grid gap-8 md:grid-cols-[1.14fr_0.86fr] md:items-center">
         <div className="reveal order-last md:order-first">
-          <video
-            src="/assets/untitled-design/8-bounce.mp4"
-            className="mx-auto aspect-video w-full max-w-none scale-[1.1] object-contain mix-blend-multiply brightness-[1.03] contrast-[1.22] saturate-[1.06]"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
+          <div className="overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] shadow-[0_24px_70px_-30px_rgba(43,43,43,0.45)] md:rounded-[28px]">
+            <video
+              src="/assets/technology/setup-veritrack.mp4"
+              className="block aspect-[852/480] w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="The VeriTrack wrap being placed on a patient's foot beside the app's placement screen, which confirms signal strength and good placement"
+            />
+          </div>
         </div>
 
         <div className="mx-auto max-w-[440px] text-center reveal md:mx-0 md:text-left">
@@ -191,8 +194,9 @@ export function HomeOverview() {
             as="h2"
             className="mt-3 font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
             segments={[
-              { text: "Continuous. Non-invasive. " },
-              { text: "Beat-to-beat.", className: "text-[color:var(--accent)]" },
+              { text: "VeriTrack advances continuous " },
+              { text: "beat-to-beat", className: "whitespace-nowrap text-[color:var(--accent)]" },
+              { text: " blood pressure monitoring." },
             ]}
           />
           <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
