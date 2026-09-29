@@ -89,8 +89,7 @@ export function HomeProblem() {
               The standard cuff reads every 3 to 5 minutes. Between readings, a patient can lose
               significant blood volume or undergo a dangerous pressure drop that goes undetected
               until the next cycle. The alternative, arterial line cannulation, provides continuous,
-              beat-to-beat data, but carries a 10-13% complication rate, a 0.6% infection risk, and
-              a 5 to 20 minute placement time that delays the start of surgery.
+              beat-to-beat data but comes with significant risks and delays.
             </p>
           </div>
 
