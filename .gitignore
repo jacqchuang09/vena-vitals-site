@@ -33,3 +33,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Netlify build output (Nitro netlify preset emits the SSR function here)
+.netlify
