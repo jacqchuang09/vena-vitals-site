@@ -112,7 +112,7 @@ export function StudyFigures({
                 const dx = e.changedTouches[0].clientX - from;
                 if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
               }}
-              className="group relative h-[clamp(210px,30vh,300px)] cursor-pointer overflow-hidden rounded-[26px] bg-[color:var(--ink)] p-4 shadow-[0_18px_50px_rgba(43,43,43,0.06)] ring-1 ring-[color:var(--line)] transition-shadow hover:shadow-[0_22px_60px_rgba(43,43,43,0.1)] md:h-[clamp(280px,46vh,430px)] md:p-6"
+              className="group relative h-[clamp(210px,30vh,300px)] cursor-pointer overflow-hidden rounded-none bg-[color:var(--ink)] p-4 shadow-[0_18px_50px_rgba(43,43,43,0.06)] ring-1 ring-[color:var(--line)] transition-shadow hover:shadow-[0_22px_60px_rgba(43,43,43,0.1)] md:h-[clamp(280px,46vh,430px)] md:p-6"
             >
               <div className="relative h-full w-full">
                 {figures.map((f, i) => (
@@ -186,7 +186,7 @@ export function StudyFigures({
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span
-                      className={`block aspect-[16/9] w-full overflow-hidden rounded-[9px] bg-[color:var(--ink)] p-1 transition duration-200 ${
+                      className={`block aspect-[16/9] w-full overflow-hidden rounded-none bg-[color:var(--ink)] p-1 transition duration-200 ${
                         on
                           ? "opacity-100 ring-2 ring-[color:var(--accent)]"
                           : "opacity-55 ring-1 ring-[color:var(--line)] group-hover:opacity-100 group-focus-visible:opacity-100 group-focus-visible:ring-2 group-focus-visible:ring-[color:var(--accent)]/60"

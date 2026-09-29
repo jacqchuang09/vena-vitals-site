@@ -143,7 +143,7 @@ export function Nav() {
                         : "invisible opacity-0 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"
                     }`}
                   >
-                    <div className="flex flex-col gap-0.5 rounded-[18px] border border-[color:var(--line)] bg-[color:var(--ink)]/95 p-2 shadow-[0_1px_2px_rgba(43,43,43,0.05),0_8px_20px_-6px_rgba(43,43,43,0.10),0_28px_56px_-20px_rgba(43,43,43,0.18)] backdrop-blur-xl">
+                    <div className="flex flex-col gap-0.5 rounded-none border border-[color:var(--line)] bg-[color:var(--ink)]/95 p-2 shadow-[0_1px_2px_rgba(43,43,43,0.05),0_8px_20px_-6px_rgba(43,43,43,0.10),0_28px_56px_-20px_rgba(43,43,43,0.18)] backdrop-blur-xl">
                       {studyLinks.map((item) => {
                         const active = pathname === item.to;
                         return (
@@ -156,7 +156,7 @@ export function Nav() {
                               goTop();
                             }}
                             aria-current={active ? "page" : undefined}
-                            className={`group/item rounded-[14px] px-3 py-2.5 transition-colors duration-150 hover:bg-[color:var(--ink-2)] ${
+                            className={`group/item rounded-none px-3 py-2.5 transition-colors duration-150 hover:bg-[color:var(--ink-2)] ${
                               active ? "bg-[color:var(--accent-soft)]" : ""
                             }`}
                           >

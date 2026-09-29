@@ -10,7 +10,7 @@ export type SolutionWindow = {
 function WindowFrame({ src, label, feature = false }: SolutionWindow) {
   return (
     <figure
-      className={`group relative overflow-hidden rounded-[28px] bg-[color:var(--ink)] ${
+      className={`group relative overflow-hidden rounded-none bg-[color:var(--ink)] ${
         feature ? "aspect-video md:aspect-auto md:h-full" : "aspect-video"
       }`}
     >

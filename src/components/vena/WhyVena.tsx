@@ -86,7 +86,7 @@ export function WhyVena() {
               </Link>
             </div>
           </div>
-          <div className="flex aspect-[5/4] items-center justify-center overflow-hidden rounded-[32px] bg-[color:var(--ink)] p-5 text-center text-sm text-[color:var(--mute)] reveal lg:col-span-7">
+          <div className="flex aspect-[5/4] items-center justify-center overflow-hidden rounded-none bg-[color:var(--ink)] p-5 text-center text-sm text-[color:var(--mute)] reveal lg:col-span-7">
             <VisualPlaceholder label="Sensor visual placeholder" className="h-full" />
           </div>
         </div>
@@ -96,7 +96,7 @@ export function WhyVena() {
           {capabilities.map((c) => (
             <TiltCard
               key={c.n}
-              className="group relative rounded-[28px] bg-[color:var(--ink)] p-8 md:p-10 reveal transition-colors duration-300 hover:bg-[color:var(--accent-soft)]"
+              className="group relative rounded-none bg-[color:var(--ink)] p-8 md:p-10 reveal transition-colors duration-300 hover:bg-[color:var(--accent-soft)]"
             >
               <span className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-[color:var(--accent)] transition-transform duration-500 group-hover:scale-x-100" />
               <div className="eyebrow transition-colors group-hover:text-[color:var(--accent)]">
@@ -115,7 +115,7 @@ export function WhyVena() {
           {stats.map((s) => (
             <TiltCard
               key={s.l}
-              className="group min-w-0 rounded-[28px] bg-[color:var(--ink)] p-6 md:p-8 reveal transition-colors hover:bg-[color:var(--accent-soft)]"
+              className="group min-w-0 rounded-none bg-[color:var(--ink)] p-6 md:p-8 reveal transition-colors hover:bg-[color:var(--accent-soft)]"
             >
               <StatNumber {...s} />
               <div className="mt-3 text-xs text-[color:var(--paper)] leading-snug">{s.l}</div>

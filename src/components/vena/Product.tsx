@@ -37,7 +37,7 @@ export function Product() {
           {pieces.map((p, i) => (
             <div
               key={p.title}
-              className={`grid overflow-hidden rounded-[32px] bg-[color:var(--ink-2)] md:grid-cols-12 ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
+              className={`grid overflow-hidden rounded-none bg-[color:var(--ink-2)] md:grid-cols-12 ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
             >
               <div className="relative aspect-[16/10] [direction:ltr] md:col-span-6 md:min-h-[420px] md:aspect-auto">
                 <div className="absolute inset-0 flex items-center justify-center bg-[color:var(--ink)] text-center text-sm text-[color:var(--mute)]">

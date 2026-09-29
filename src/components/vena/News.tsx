@@ -94,7 +94,7 @@ export function News() {
               <TiltCard
                 as="article"
                 key={update.title}
-                className="reveal rounded-[30px] bg-[color:var(--ink)] p-6 md:p-7"
+                className="reveal rounded-none bg-[color:var(--ink)] p-6 md:p-7"
               >
                 <div className="text-[11px] font-semibold tracking-normal text-[color:var(--accent)]">
                   {update.label}
@@ -132,7 +132,7 @@ export function News() {
               return (
                 <TiltCard
                   key={item.title}
-                  className="reveal rounded-[28px] bg-[color:var(--ink-2)] p-6"
+                  className="reveal rounded-none bg-[color:var(--ink-2)] p-6"
                 >
                   <Icon size={21} className="text-[color:var(--accent)]" aria-hidden />
                   <h3 className="mt-5 font-display text-base font-bold tracking-tight text-[color:var(--paper)]">

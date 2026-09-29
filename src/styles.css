@@ -19,6 +19,8 @@
   --font-display: "Inter", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "Inter", system-ui, sans-serif;
+  /* Cards are square site-wide; these remain only for Tailwind's named
+     rounded-* scale, which the shadcn primitives in components/ui still use. */
   --radius-sm: 10px;
   --radius-md: 14px;
   --radius-lg: 20px;
@@ -123,16 +125,19 @@ section.min-h-screen {
     font-family: var(--font-display);
     font-weight: 700;
   }
+  /* Cards are square. Surfaces on this site (panels, figures, forms, fields)
+     have no radius; the pill shape is kept for buttons and for the badges and
+     avatars that use rounded-full, where it is a deliberate signature rather
+     than a card corner. Depictions of hardware keep their own corners, since
+     those describe a real object: see IPadFrame and the monitor mocks. */
   article,
   figure,
   form,
-  table {
-    border-radius: var(--radius-xl);
-  }
+  table,
   input,
   select,
   textarea {
-    border-radius: var(--radius-lg);
+    border-radius: 0;
   }
   button {
     border-radius: 9999px;
@@ -153,12 +158,11 @@ section.min-h-screen {
 @utility section-shell {
   width: min(100% - 2rem, 1280px);
   margin-inline: auto;
-  border-radius: 48px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 24px 80px rgba(43, 43, 43, 0.045);
   @media (min-width: 768px) {
     width: min(100% - 4rem, 1280px);
-    border-radius: 56px;
   }
 }
 

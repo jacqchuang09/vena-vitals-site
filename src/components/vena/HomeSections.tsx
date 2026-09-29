@@ -99,7 +99,7 @@ export function HomeProblem() {
                 return (
                   <TiltCard
                     key={card.method}
-                    className="rounded-[26px] bg-[color:var(--ink)] p-5 text-left shadow-[0_14px_44px_rgba(43,43,43,0.05)] md:p-6"
+                    className="rounded-none bg-[color:var(--ink)] p-5 text-left shadow-[0_14px_44px_rgba(43,43,43,0.05)] md:p-6"
                   >
                     <div className="flex items-center gap-2">
                       <Icon size={15} className="text-[color:var(--accent)]" aria-hidden />
@@ -265,7 +265,7 @@ export function HomeSolution() {
               <TiltCard
                 as="article"
                 key={step.title}
-                className="reveal rounded-[30px] bg-white p-6 text-center"
+                className="reveal rounded-none bg-white p-6 text-center"
               >
                 <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--accent-soft)] text-[color:var(--accent)]">
                   <Icon size={18} aria-hidden />
@@ -376,9 +376,9 @@ export function HomeEvidenceStrip() {
           <TiltCard
             max={4}
             lift={4}
-            className="reveal rounded-[28px] bg-[color:var(--ink)] p-3 shadow-[0_24px_80px_rgba(43,43,43,0.055)] md:rounded-[34px] md:p-5"
+            className="reveal rounded-none bg-[color:var(--ink)] p-3 shadow-[0_24px_80px_rgba(43,43,43,0.055)] md:rounded-none md:p-5"
           >
-            <div className="rounded-[22px] bg-white p-3 md:rounded-[26px] md:p-4">
+            <div className="rounded-none bg-white p-3 md:rounded-none md:p-4">
               <SurgeryComparison />
             </div>
             <p className="mt-2.5 text-[9px] leading-relaxed text-[color:var(--mute)] md:mt-3 md:text-[10px]">
@@ -500,7 +500,7 @@ export function HomeAudienceCards() {
           {audiences.map((audience) => {
             const media = (
               <div
-                className={`overflow-hidden rounded-[22px] bg-black ${
+                className={`overflow-hidden rounded-none bg-black ${
                   audience.mediaPos === "bottom" ? "mt-6" : "mb-6"
                 }`}
               >
@@ -517,7 +517,7 @@ export function HomeAudienceCards() {
                 as={Link}
                 key={audience.title}
                 to={audience.to}
-                className="group reveal flex flex-col rounded-[32px] bg-[color:var(--ink-2)] p-7 transition hover:bg-[color:var(--accent-soft)] md:p-9"
+                className="group reveal flex flex-col rounded-none bg-[color:var(--ink-2)] p-7 transition hover:bg-[color:var(--accent-soft)] md:p-9"
               >
                 {audience.mediaPos === "top" && media}
                 <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
@@ -566,7 +566,7 @@ export function HomeBackedBy() {
                 href={backer.href}
                 target="_blank"
                 rel="noreferrer"
-                className="flex min-h-28 items-center justify-center rounded-[28px] bg-[color:var(--ink)] px-5 text-center text-xs font-semibold tracking-normal text-[color:var(--paper)]"
+                className="flex min-h-28 items-center justify-center rounded-none bg-[color:var(--ink)] px-5 text-center text-xs font-semibold tracking-normal text-[color:var(--paper)]"
               >
                 {backer.name}
               </TiltCard>

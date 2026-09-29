@@ -119,7 +119,7 @@ export function PartnerEconomicCase() {
               <TiltCard
                 as="article"
                 key={point.title}
-                className="reveal rounded-[30px] bg-[color:var(--ink)] p-6 md:p-7"
+                className="reveal rounded-none bg-[color:var(--ink)] p-6 md:p-7"
               >
                 <div className="flex h-10 w-10 items-center justify-center border border-[color:var(--line)] text-[color:var(--accent)]">
                   <Icon size={18} aria-hidden />
@@ -165,7 +165,7 @@ export function PartnerPilotSteps() {
         </div>
         <div className="grid gap-4 md:grid-cols-4">
           {pilotSteps.map(([n, title, body]) => (
-            <TiltCard key={title} className="reveal rounded-[28px] bg-[color:var(--ink-2)] p-5">
+            <TiltCard key={title} className="reveal rounded-none bg-[color:var(--ink-2)] p-5">
               <div className="font-mono text-xs text-[color:var(--accent)]">{n}</div>
               <div className="mt-4 font-display text-base tracking-tight text-[color:var(--paper)]">
                 {title}
@@ -207,7 +207,7 @@ export function PartnerClinicalSites() {
               href={logo.href}
               target="_blank"
               rel="noreferrer"
-              className="flex min-h-24 items-center justify-center rounded-[24px] bg-[color:var(--ink)] px-4 text-center text-xs font-semibold tracking-normal text-[color:var(--paper)]"
+              className="flex min-h-24 items-center justify-center rounded-none bg-[color:var(--ink)] px-4 text-center text-xs font-semibold tracking-normal text-[color:var(--paper)]"
             >
               {logo.name}
             </TiltCard>
@@ -238,7 +238,7 @@ export function PartnerFaq() {
             What teams ask most when scoping an evaluation.
           </p>
         </div>
-        <div className="reveal rounded-[32px] bg-[color:var(--ink-2)] p-5 md:p-6">
+        <div className="reveal rounded-none bg-[color:var(--ink-2)] p-5 md:p-6">
           {faqs.map(([q, a]) => (
             <details
               key={q}

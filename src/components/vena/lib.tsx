@@ -150,7 +150,7 @@ export function VisualPlaceholder({
 }) {
   return (
     <div
-      className={`flex h-full min-h-[220px] w-full items-center justify-center rounded-[24px] bg-[linear-gradient(135deg,#f7f7f7,#eeeeee)] p-8 text-center text-sm leading-relaxed text-[color:var(--mute)] ${className}`}
+      className={`flex h-full min-h-[220px] w-full items-center justify-center rounded-none bg-[linear-gradient(135deg,#f7f7f7,#eeeeee)] p-8 text-center text-sm leading-relaxed text-[color:var(--mute)] ${className}`}
     >
       {label}
     </div>

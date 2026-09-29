@@ -56,7 +56,7 @@ function MediaFrame({
   className?: string;
 }) {
   return (
-    <figure className={`relative overflow-hidden rounded-[28px] ${className}`}>{children}</figure>
+    <figure className={`relative overflow-hidden rounded-none ${className}`}>{children}</figure>
   );
 }
 

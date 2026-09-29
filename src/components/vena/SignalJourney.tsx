@@ -62,9 +62,9 @@ export function SignalJourney() {
             <TiltCard
               as="article"
               key={item.step}
-              className="group flex w-[270px] shrink-0 snap-start flex-col overflow-hidden rounded-[28px] bg-[color:var(--ink)] p-4 shadow-[0_12px_34px_rgba(43,43,43,0.07)] transition duration-500 hover:bg-[color:var(--accent-soft)] md:w-[370px] md:rounded-[32px] md:p-5"
+              className="group flex w-[270px] shrink-0 snap-start flex-col overflow-hidden rounded-none bg-[color:var(--ink)] p-4 shadow-[0_12px_34px_rgba(43,43,43,0.07)] transition duration-500 hover:bg-[color:var(--accent-soft)] md:w-[370px] md:rounded-none md:p-5"
             >
-              <div className="aspect-[1.5/1] overflow-hidden rounded-[20px] bg-[color:var(--ink-2)]">
+              <div className="aspect-[1.5/1] overflow-hidden rounded-none bg-[color:var(--ink-2)]">
                 <video
                   src={item.visual}
                   className={`${item.fit} transition-transform duration-700`}

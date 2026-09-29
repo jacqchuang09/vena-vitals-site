@@ -197,7 +197,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
                 <TiltCard
                   as="article"
                   key={card.title}
-                  className="reveal rounded-[30px] bg-[color:var(--ink)] p-6 md:p-7"
+                  className="reveal rounded-none bg-[color:var(--ink)] p-6 md:p-7"
                 >
                   <div className="font-mono text-xs text-[color:var(--accent)]">
                     {String(i + 1).padStart(2, "0")}
@@ -233,7 +233,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
               </p>
             </div>
 
-            <div className="reveal rounded-[32px] bg-[color:var(--ink-2)] p-7 md:p-9">
+            <div className="reveal rounded-none bg-[color:var(--ink-2)] p-7 md:p-9">
               <h3 className="font-display text-base font-bold leading-tight tracking-tight text-[color:var(--paper)]">
                 {content.noteTitle}
               </h3>

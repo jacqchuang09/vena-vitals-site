@@ -324,7 +324,7 @@ export function SignalGraphs() {
 // One tilt card holding the three validation stats in a row.
 export function StatStrip({ children }: { children: ReactNode }) {
   return (
-    <TiltCard className="rounded-[22px] bg-white p-5 shadow-[0_14px_38px_rgba(43,43,43,0.06)] md:p-6">
+    <TiltCard className="rounded-none bg-white p-5 shadow-[0_14px_38px_rgba(43,43,43,0.06)] md:p-6">
       <div className="grid grid-cols-3">{children}</div>
     </TiltCard>
   );

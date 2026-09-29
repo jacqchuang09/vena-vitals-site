@@ -106,7 +106,7 @@ export function TechAtAGlance() {
           </div>
 
           <div className="mx-auto mt-10 grid max-w-[1000px] items-stretch gap-5 md:mt-12 md:grid-cols-2">
-            <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
+            <figure className="reveal flex flex-col overflow-hidden rounded-none bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
               <div className="flex flex-1 items-center justify-center bg-[color:var(--ink)] p-5 md:p-7">
                 <div className="w-full max-w-[460px] scale-90">
                   <StandardMonitorMock />
@@ -117,16 +117,16 @@ export function TechAtAGlance() {
               </figcaption>
             </figure>
 
-            <figure className="reveal flex flex-col overflow-hidden rounded-[24px] bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
+            <figure className="reveal flex flex-col overflow-hidden rounded-none bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)]">
               <div className="flex flex-1 items-center justify-center bg-[color:var(--ink)] p-5 md:p-7">
                 {/* iPad frame around the app screen */}
-                <div className="relative w-full max-w-[460px] scale-90 rounded-[24px] bg-gradient-to-b from-[#2a2a2e] to-[#141416] p-2.5 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/50 md:rounded-[28px] md:p-3">
+                <div className="relative w-full max-w-[460px] scale-90 rounded-none bg-gradient-to-b from-[#2a2a2e] to-[#141416] p-2.5 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/50 md:rounded-none md:p-3">
                   {/* front camera on the short edge */}
                   <span
                     aria-hidden
                     className="absolute left-[7px] top-1/2 z-10 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/20 md:left-2"
                   />
-                  <div className="overflow-hidden rounded-[16px] bg-[#0b0d12] md:rounded-[20px]">
+                  <div className="overflow-hidden rounded-none bg-[#0b0d12] md:rounded-none">
                     <MonitorMock />
                   </div>
                 </div>
@@ -242,7 +242,7 @@ export function TechSpecs() {
             <thead>
               <tr className="border-b border-[color:var(--line)]">
                 <th className="py-2.5 pl-2 pr-3" />
-                <th className="rounded-t-[14px] bg-[color:var(--accent-soft)] px-3 py-2.5 text-center font-display text-[13px] font-bold tracking-tight text-[color:var(--accent)]">
+                <th className="rounded-none bg-[color:var(--accent-soft)] px-3 py-2.5 text-center font-display text-[13px] font-bold tracking-tight text-[color:var(--accent)]">
                   VeriTrack
                 </th>
                 <th className="px-3 py-2.5 text-center font-semibold text-[color:var(--paper)]">
@@ -301,7 +301,7 @@ export function TechIpScience() {
             operating rooms today.
           </p>
         </div>
-        <TiltCard className="reveal rounded-[26px] bg-white p-6 md:p-8">
+        <TiltCard className="reveal rounded-none bg-white p-6 md:p-8">
           <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
             Foundational paper
           </div>

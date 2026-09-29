@@ -73,7 +73,7 @@ export function StudySpread({
                   type="button"
                   onClick={() => setOpen(f)}
                   aria-label={`Enlarge figure ${i + 1}: ${f.caption}`}
-                  className="group relative block w-full cursor-zoom-in overflow-hidden rounded-[22px] bg-[color:var(--ink)] p-3 shadow-[0_18px_50px_rgba(43,43,43,0.06)] outline-none ring-1 ring-[color:var(--line)] transition duration-300 hover:shadow-[0_24px_64px_rgba(43,43,43,0.12)] focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] md:p-4"
+                  className="group relative block w-full cursor-zoom-in overflow-hidden rounded-none bg-[color:var(--ink)] p-3 shadow-[0_18px_50px_rgba(43,43,43,0.06)] outline-none ring-1 ring-[color:var(--line)] transition duration-300 hover:shadow-[0_24px_64px_rgba(43,43,43,0.12)] focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] md:p-4"
                 >
                   <img
                     src={f.src}
@@ -116,7 +116,7 @@ export function StudySpread({
       <DialogPrimitive.Root open={!!open} onOpenChange={(o) => !o && setOpen(null)}>
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-[#141414]/50 backdrop-blur-[4px] duration-150 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
-          <DialogPrimitive.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[28px] bg-white p-5 text-[color:var(--paper)] shadow-[0_40px_100px_-24px_rgba(43,43,43,0.4)] outline-none duration-150 data-[state=open]:animate-in data-[state=open]:fade-in-0 md:p-8">
+          <DialogPrimitive.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-none bg-white p-5 text-[color:var(--paper)] shadow-[0_40px_100px_-24px_rgba(43,43,43,0.4)] outline-none duration-150 data-[state=open]:animate-in data-[state=open]:fade-in-0 md:p-8">
             {open && (
               <>
                 <DialogPrimitive.Title className="sr-only">{open.alt}</DialogPrimitive.Title>

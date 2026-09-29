@@ -141,7 +141,7 @@ function ResearchPipeline() {
         <div className="mt-8 grid gap-x-5 gap-y-7 sm:grid-cols-2 md:mt-10 md:grid-cols-3">
           {research.map((r, i) => (
             <article key={r.title} className="group reveal flex flex-col">
-              <div className="relative overflow-hidden rounded-[16px] bg-white">
+              <div className="relative overflow-hidden rounded-none bg-white">
                 <img
                   src={r.img}
                   alt=""
@@ -291,7 +291,7 @@ export function Evidence() {
               operating room.
             </p>
           </div>
-          <TiltCard className="reveal rounded-[24px] border border-[color:var(--line)] bg-[color:var(--ink)] p-6 md:p-7">
+          <TiltCard className="reveal rounded-none border border-[color:var(--line)] bg-[color:var(--ink)] p-6 md:p-7">
             <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
               Standards &amp; reference
             </div>

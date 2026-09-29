@@ -88,7 +88,7 @@ export function Solutions() {
             </div>
           </div>
 
-          <div className="reveal rounded-[32px] bg-[color:var(--ink-2)] p-4 shadow-[0_20px_60px_rgba(43,43,43,0.08)]">
+          <div className="reveal rounded-none bg-[color:var(--ink-2)] p-4 shadow-[0_20px_60px_rgba(43,43,43,0.08)]">
             <VisualPlaceholder
               label="Hospital monitoring concept"
               className="!min-h-0 h-56 p-5 text-xs md:h-72"
@@ -121,7 +121,7 @@ export function Solutions() {
                   as={Link}
                   key={card.title}
                   to={card.href}
-                  className={`group reveal rounded-[32px] p-7 shadow-[0_14px_44px_rgba(43,43,43,0.05)] transition hover:bg-[color:var(--accent-soft)] md:p-8 ${
+                  className={`group reveal rounded-none p-7 shadow-[0_14px_44px_rgba(43,43,43,0.05)] transition hover:bg-[color:var(--accent-soft)] md:p-8 ${
                     groupIndex % 2 === 0 ? "bg-[color:var(--ink)]" : "bg-[color:var(--ink-2)]"
                   }`}
                 >

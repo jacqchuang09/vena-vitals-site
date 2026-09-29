@@ -20,7 +20,7 @@ const initialForm: FormState = {
 };
 
 const fieldClass =
-  "w-full rounded-[22px] border border-[color:var(--line)] bg-[color:var(--ink)] px-4 py-3 text-sm tracking-normal text-[color:var(--paper)] outline-none transition placeholder:text-[color:var(--mute)] focus:border-[color:var(--accent)] focus:bg-white";
+  "w-full rounded-none border border-[color:var(--line)] bg-[color:var(--ink)] px-4 py-3 text-sm tracking-normal text-[color:var(--paper)] outline-none transition placeholder:text-[color:var(--mute)] focus:border-[color:var(--accent)] focus:bg-white";
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -46,10 +46,10 @@ export function ContactForm({ className = "" }: { className?: string }) {
 
   return (
     <div
-      className={`reveal rounded-[36px] bg-[color:var(--ink-2)] p-5 shadow-[0_24px_80px_rgba(43,43,43,0.05)] md:p-6 ${className}`}
+      className={`reveal rounded-none bg-[color:var(--ink-2)] p-5 shadow-[0_24px_80px_rgba(43,43,43,0.05)] md:p-6 ${className}`}
     >
       {sent ? (
-        <div className="flex min-h-[460px] flex-col justify-center rounded-[30px] bg-white p-8">
+        <div className="flex min-h-[460px] flex-col justify-center rounded-none bg-white p-8">
           <CheckCircle2 size={34} className="text-[color:var(--accent)]" />
           <h2 className="mt-6 font-display text-2xl font-bold tracking-tight text-[color:var(--paper)]">
             Request received.

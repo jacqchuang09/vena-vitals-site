@@ -85,9 +85,9 @@ export function CareJourney() {
             })}
           </div>
 
-          <div className="reveal flex flex-col justify-between rounded-[32px] border border-[color:var(--line)] bg-[color:var(--ink-2)] p-7 md:h-[450px] md:p-8">
+          <div className="reveal flex flex-col justify-between rounded-none border border-[color:var(--line)] bg-[color:var(--ink-2)] p-7 md:h-[450px] md:p-8">
             <div className="flex flex-wrap items-start justify-between gap-6 border-b border-[color:var(--line)] pb-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[color:var(--line)] bg-[color:var(--ink)] text-[color:var(--accent)]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-none border border-[color:var(--line)] bg-[color:var(--ink)] text-[color:var(--accent)]">
                 <Icon size={22} aria-hidden />
               </div>
               <div className="text-right">
