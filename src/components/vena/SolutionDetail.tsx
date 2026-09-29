@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ClinicalCollaborators } from "./ClinicalCollaborators";
 import { StudyFigures, type StudyFigure } from "./StudyFigures";
+import { StudyGallery } from "./StudyGallery";
 import { SolutionWindows, type SolutionWindow } from "./SolutionWindows";
 import { StretchText } from "./StretchText";
 import { TiltCard } from "./TiltCard";
@@ -8,6 +9,8 @@ import { TiltCard } from "./TiltCard";
 export type SolutionDetailContent = {
   eyebrow: string;
   title: string;
+  /** Optional leading fragment of the title rendered in the accent colour. */
+  titleLead?: string;
   /** Optional trailing fragment of the title rendered in the accent colour. */
   titleAccent?: string;
   intro: string;
@@ -20,6 +23,15 @@ export type SolutionDetailContent = {
   figures?: {
     eyebrow: string;
     title: string;
+    titleAccent?: string;
+    footnote?: string;
+    slides: StudyFigure[];
+  };
+  /** Study figures as a swipeable track. A different instrument from
+      `figures`, for pages whose figures are tall rather than wide. */
+  gallery?: {
+    eyebrow?: string;
+    title?: string;
     titleAccent?: string;
     footnote?: string;
     slides: StudyFigure[];
@@ -57,26 +69,24 @@ function Eyebrow({ children }: { children: string }) {
 // accent fragment is supplied the whole heading renders plain.
 function Heading({
   as = "h2",
+  lead,
   text,
   accent,
   className,
 }: {
   as?: "h1" | "h2";
+  /** Accent fragment before the plain text, for headings that open in colour. */
+  lead?: string;
   text: string;
   accent?: string;
   className: string;
 }) {
-  return (
-    <StretchText
-      as={as}
-      className={className}
-      segments={
-        accent
-          ? [{ text: `${text} ` }, { text: accent, className: "text-[color:var(--accent)]" }]
-          : [{ text }]
-      }
-    />
-  );
+  const segments = [
+    ...(lead ? [{ text: `${lead} `, className: "text-[color:var(--accent)]" }] : []),
+    { text },
+    ...(accent ? [{ text: ` ${accent}`, className: "text-[color:var(--accent)]" }] : []),
+  ];
+  return <StretchText as={as} className={className} segments={segments} />;
 }
 
 function DemoButton({ label }: { label: string }) {
@@ -98,28 +108,36 @@ const INK_2 = "bg-[color:var(--ink-2)]";
 
 export function SolutionDetail({ content }: { content: SolutionDetailContent }) {
   // The page alternates white and off-white down the stack, which is what
-  // keeps each section reading as its own panel. Which sections render differs
-  // from page to page, so the closing CTA takes whichever background the
-  // section above it does not, rather than a fixed one.
-  const above = [
-    INK, // hero
-    content.figures ? INK_2 : null,
-    content.cards?.length ? INK_2 : null,
-    content.fitTitle ? INK : null,
-    content.collaborators?.length ? INK : null,
-    content.windows?.length ? INK_2 : null,
-  ].filter(Boolean);
-  const ctaBackground = above[above.length - 1] === INK_2 ? INK : INK_2;
+  // keeps each section reading as its own panel rather than running into its
+  // neighbour. Which sections a page renders differs from page to page, so the
+  // backgrounds are assigned by position among the sections actually present
+  // instead of being fixed per section.
+  const present = [
+    "hero",
+    content.figures ? "figures" : null,
+    content.gallery ? "gallery" : null,
+    content.cards?.length ? "cards" : null,
+    content.fitTitle ? "fit" : null,
+    content.collaborators?.length ? "collaborators" : null,
+    content.windows?.length ? "windows" : null,
+    "cta",
+  ].filter((k): k is string => k !== null);
+  const bg: Record<string, string> = Object.fromEntries(
+    present.map((key, i) => [key, i % 2 ? INK_2 : INK]),
+  );
 
   return (
     <>
       {/* Hero */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+      <section
+        className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 hairline-b ${bg.hero}`}
+      >
         <div className="container-x">
           <div className="mx-auto max-w-[640px] text-center reveal">
             <Eyebrow>{content.eyebrow}</Eyebrow>
             <Heading
               as="h1"
+              lead={content.titleLead}
               text={content.title}
               accent={content.titleAccent}
               className="font-display text-[clamp(28px,3.2vw,46px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)]"
@@ -138,6 +156,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
 
       {content.figures ? (
         <StudyFigures
+          background={bg.figures}
           eyebrow={content.figures.eyebrow}
           title={content.figures.title}
           titleAccent={content.figures.titleAccent}
@@ -146,9 +165,22 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
         />
       ) : null}
 
+      {content.gallery ? (
+        <StudyGallery
+          background={bg.gallery}
+          eyebrow={content.gallery.eyebrow}
+          title={content.gallery.title}
+          titleAccent={content.gallery.titleAccent}
+          slides={content.gallery.slides}
+          footnote={content.gallery.footnote}
+        />
+      ) : null}
+
       {/* Pain points */}
       {content.cards?.length ? (
-        <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
+        <section
+          className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 hairline-b ${bg.cards}`}
+        >
           <div className="container-x grid gap-10 md:grid-cols-[0.58fr_1.42fr] md:items-center">
             <div className="mx-auto max-w-[390px] text-center reveal md:mx-0 md:text-left">
               <Eyebrow>{content.sectionEyebrow ?? ""}</Eyebrow>
@@ -184,7 +216,9 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
 
       {/* How it fits */}
       {content.fitTitle ? (
-        <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+        <section
+          className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 hairline-b ${bg.fit}`}
+        >
           <div className="container-x grid gap-10 md:grid-cols-[0.86fr_1.14fr] md:items-center">
             <div className="mx-auto max-w-[440px] text-center reveal md:mx-0 md:text-left">
               <Eyebrow>{content.fitEyebrow ?? ""}</Eyebrow>
@@ -220,12 +254,14 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
       ) : null}
 
       {content.collaborators?.length ? (
-        <ClinicalCollaborators names={content.collaborators} />
+        <ClinicalCollaborators names={content.collaborators} background={bg.collaborators} />
       ) : null}
 
       {/* Footage */}
       {content.windows?.length ? (
-        <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
+        <section
+          className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 hairline-b ${bg.windows}`}
+        >
           <div className="container-x">
             <SolutionWindows
               eyebrow={content.windowsEyebrow ?? "In this setting"}
@@ -239,7 +275,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
 
       {/* Closing CTA */}
       <section
-        className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 ${ctaBackground}`}
+        className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 ${bg.cta}`}
       >
         <div className="container-x">
           <div className="mx-auto max-w-[560px] text-center reveal">

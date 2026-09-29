@@ -33,12 +33,15 @@ export function StudyFigures({
   titleAccent,
   figures,
   footnote,
+  background = "bg-[color:var(--ink-2)]",
 }: {
   eyebrow: string;
   title: string;
   titleAccent?: string;
   figures: StudyFigure[];
   footnote?: string;
+  /** Set by the page, which alternates section backgrounds down the stack. */
+  background?: string;
 }) {
   const [selected, setSelected] = useState(0);
   const [preview, setPreview] = useState<number | null>(null);
@@ -70,7 +73,9 @@ export function StudyFigures({
   };
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
+    <section
+      className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 hairline-b ${background}`}
+    >
       <div className="container-x">
         <div className="max-w-[700px] reveal">
           <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">

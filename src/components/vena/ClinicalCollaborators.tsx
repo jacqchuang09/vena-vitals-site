@@ -18,18 +18,23 @@ export function ClinicalCollaborators({
   title = "Clinical ",
   titleAccent = "collaborators.",
   names,
+  background = "bg-[color:var(--ink)]",
 }: {
   eyebrow?: string;
   title?: string;
   titleAccent?: string;
   names?: readonly string[];
+  /** Set by the page, which alternates section backgrounds down the stack. */
+  background?: string;
 }) {
   const [selected, setSelected] = useState<Advisor | null>(null);
   const people = names ? advisors.filter((a) => names.includes(a.name)) : advisors;
 
   return (
     <>
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+      <section
+        className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 hairline-b ${background}`}
+      >
         <div className="container-x">
           <div className="mx-auto max-w-[560px] text-center reveal">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
