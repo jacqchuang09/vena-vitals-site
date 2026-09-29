@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { Bluetooth, Check, Clock, HeartPulse, MoveDown, ScanLine, Target } from "lucide-react";
 import { TiltCard } from "./TiltCard";
-import { MonitorMock } from "./MonitorMock";
+import { IPadFrame } from "./IPadFrame";
 import { StretchText } from "./StretchText";
 import { SurgeryComparison } from "./SurgeryComparison";
 import { useCountUp } from "./lib";
@@ -96,18 +96,19 @@ export function HomeProblem() {
           {/* Right-aligned in its column so the frame's right edge lines up with
               the stat cards below it. */}
           <div className="reveal mx-auto w-full max-w-[520px] md:ml-auto md:mr-0">
-            {/* iPad frame */}
-            <div className="relative rounded-[30px] bg-gradient-to-b from-[#2a2a2e] to-[#141416] p-2.5 shadow-[0_40px_90px_rgba(0,0,0,0.4)] ring-1 ring-black/50 md:rounded-[34px] md:p-3">
-              {/* front camera on the short (left) side */}
-              <span
-                aria-hidden
-                className="absolute left-[7px] top-1/2 z-10 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/20 md:left-2"
+            <IPadFrame>
+              <video
+                src="/assets/home/veritrack-app.mp4"
+                poster="/assets/home/veritrack-app-poster.jpg"
+                className="block aspect-[1280/894] w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="The VeriTrack app on a bedside iPad, showing a live arterial waveform with systolic, diastolic and mean pressure"
               />
-              {/* screen */}
-              <div className="overflow-hidden rounded-[20px] bg-[#0b0d12] md:rounded-[26px]">
-                <MonitorMock />
-              </div>
-            </div>
+            </IPadFrame>
           </div>
         </div>
 
