@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ClinicalCollaborators } from "./ClinicalCollaborators";
 import { SolutionWindows, type SolutionWindow } from "./SolutionWindows";
 import { StretchText } from "./StretchText";
 import { TiltCard } from "./TiltCard";
@@ -12,6 +13,8 @@ export type SolutionDetailContent = {
   button: string;
   /** Hero CTA. Defaults to shown; the closing CTA always keeps its button. */
   showHeroButton?: boolean;
+  /** Advisor names to feature on this page. Omit for no collaborators section. */
+  collaborators?: readonly string[];
   sectionEyebrow: string;
   sectionTitle: string;
   sectionAccent?: string;
@@ -173,6 +176,10 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
           </div>
         </div>
       </section>
+
+      {content.collaborators?.length ? (
+        <ClinicalCollaborators names={content.collaborators} />
+      ) : null}
 
       {/* Footage */}
       {content.windows?.length ? (

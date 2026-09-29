@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
 
-// Clinical Evidence and Solutions were separate nav items. They are merged into
-// one "Clinical Studies" entry: the label links to the evidence page, and the
-// dropdown holds the two settings under study.
-const STUDIES = "/clinical-evidence";
+// Clinical Evidence and Solutions were separate nav items, merged into one
+// "Clinical Studies" entry. The label itself goes nowhere; only the two
+// settings in its dropdown are clickable. STUDIES is a key for that entry, not
+// a route.
+const STUDIES = "studies";
 
 const links = [
   { to: "/", label: "Home" },
@@ -34,7 +35,6 @@ const studyLinks = [
 const mobileLinks = [
   { to: "/", label: "Home" },
   { to: "/technology", label: "Technology" },
-  { to: STUDIES, label: "Clinical Studies" },
   { to: "/solutions/anesthesiology", label: "Perioperative monitoring" },
   { to: "/solutions/sleep-medicine", label: "Sleep monitoring" },
   { to: "/partner-with-us", label: "Partner With Us" },
@@ -62,7 +62,7 @@ export function Nav() {
   // Clinical Studies is both a page and a dropdown, so it stays marked on its
   // own page and on any of the settings beneath it.
   const isActive = (to: string) =>
-    to === STUDIES ? pathname === STUDIES || pathname.startsWith("/solutions/") : pathname === to;
+    to === STUDIES ? pathname.startsWith("/solutions/") : pathname === to;
   // Persistent accent underline under the active item (an active-tab marker).
   const activeUnderline =
     "after:absolute after:-bottom-2 after:left-0 after:h-[2.5px] after:w-full after:rounded-full after:bg-[color:var(--accent)]";
@@ -118,15 +118,15 @@ export function Nav() {
                   className="group relative"
                   onMouseLeave={() => setSolutionsClosed(false)}
                 >
-                  {/* A real link, unlike the old Solutions trigger: Clinical
-                      Studies has a page of its own. The panel still opens on
-                      hover and on focus-within. */}
-                  <Link
-                    to={l.to}
-                    onClick={goTop}
+                  {/* Not a link — Clinical Studies is a grouping label, and
+                      only the settings inside the panel are navigable. Kept as
+                      a button so it stays keyboard reachable, with the panel
+                      shown on focus-within too. */}
+                  <button
+                    type="button"
                     aria-haspopup="true"
                     aria-current={isActive(l.to) ? "page" : undefined}
-                    className={`relative inline-flex items-center gap-1 text-sm font-semibold transition hover:opacity-70 ${navColor} ${
+                    className={`relative inline-flex cursor-default items-center gap-1 text-sm font-semibold ${navColor} ${
                       isActive(l.to) ? activeUnderline : ""
                     }`}
                   >
@@ -136,7 +136,7 @@ export function Nav() {
                       aria-hidden
                       className="transition-transform group-hover:rotate-180"
                     />
-                  </Link>
+                  </button>
                   {/* Hover bridge + panel */}
                   <div
                     className={`absolute left-1/2 top-full z-50 w-[300px] -translate-x-1/2 pt-4 transition duration-200 ${

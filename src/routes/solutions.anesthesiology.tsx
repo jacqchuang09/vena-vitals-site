@@ -29,6 +29,7 @@ function Page() {
           "Performance has been measured in the operating room on 600+ patients across eight U.S. hospitals.",
         button: "Request a Demo",
         showHeroButton: false,
+        collaborators: ["Joseph Rinehart, MD"],
         sectionEyebrow: "Pain points",
         sectionTitle: "Why the current choice is",
         sectionAccent: "difficult.",

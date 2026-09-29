@@ -5,7 +5,8 @@ const columns = [
     title: "Product",
     links: [
       { to: "/technology", label: "Technology" },
-      { to: "/clinical-evidence", label: "Clinical Studies" },
+      { to: "/solutions/anesthesiology", label: "Perioperative monitoring" },
+      { to: "/solutions/sleep-medicine", label: "Sleep monitoring" },
       // No /solutions entry — that path has no page, it is only the nav
       // dropdown. The individual setting pages are linked from there.
     ],
