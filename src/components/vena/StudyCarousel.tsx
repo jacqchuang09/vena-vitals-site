@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { StretchText } from "./StretchText";
 
 export type StudySlide = {
   src: string;
@@ -7,126 +8,205 @@ export type StudySlide = {
   caption: string;
 };
 
+// Page scroll spent on each figure. Also the dwell: a figure sits still for
+// most of its slot and only moves during the handover to the next one.
+const SCROLL_PER_SLIDE_VH = 85;
+const HANDOVER = 0.42; // fraction of a slot spent moving rather than resting
+
 /**
- * Figures from the operating-room studies, as a scrolling filmstrip.
+ * Operating-room figures, advanced by page scroll rather than by clicking.
  *
- * Each figure takes a little under two thirds of the track, so the next one is
- * always partly visible. That edge is the affordance: it shows there is more
- * and invites a drag, instead of relying on arrow buttons. Trackpad,
- * shift-wheel, touch swipe and the dots all scroll the same track, and scroll
- * position is the only source of truth for which figure is current.
+ * The section pins while the page scrolls past it, and each figure rolls up
+ * from the bottom to replace the one before it. Only one figure is ever
+ * visible: the stage clips, so the next sits below the frame until its turn.
  *
- * The figures sit directly on the page with no panel behind them. They are
- * already white plots, so a hairline ring separates them from the page rather
- * than a filled container.
+ * The stage is a fixed height and every figure is contained inside it, so all
+ * five occupy the same vertical space and nothing reflows as they change. The
+ * figures keep their own aspect ratios inside that box, since their axis labels
+ * stop being legible if they are cropped to a common shape.
+ *
+ * This renders its own section shell rather than sitting inside one, because
+ * the pinned stage needs a tall scroll track and no overflow-hidden ancestor.
+ * Under prefers-reduced-motion the pinning is dropped for a plain list.
  */
-export function StudyCarousel({ slides, footnote }: { slides: StudySlide[]; footnote?: string }) {
+export function StudyCarousel({
+  eyebrow,
+  title,
+  titleAccent,
+  slides,
+  footnote,
+}: {
+  eyebrow: string;
+  title: string;
+  titleAccent?: string;
+  slides: StudySlide[];
+  footnote?: string;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const [index, setIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [reduced, setReduced] = useState(false);
   const count = slides.length;
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (reduced) return;
     const track = trackRef.current;
     if (!track) return;
     let frame = 0;
     const onScroll = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        // Measure against the first card rather than the track, since a card is
-        // narrower than the viewport here.
-        const card = track.children[0] as HTMLElement | undefined;
-        if (!card) return;
-        const step = card.offsetWidth + 20; // card + gap-5
-        setIndex(() => Math.max(0, Math.min(count - 1, Math.round(track.scrollLeft / step))));
+        const rect = track.getBoundingClientRect();
+        const span = track.offsetHeight - window.innerHeight;
+        if (span <= 0) return;
+        const t = Math.min(1, Math.max(0, -rect.top / span));
+        setProgress(t * (count - 1));
       });
     };
-    track.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     return () => {
-      track.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(frame);
     };
-  }, [count]);
+  }, [count, reduced]);
 
-  const scrollTo = (i: number) => {
-    const track = trackRef.current;
-    const card = track?.children[0] as HTMLElement | undefined;
-    if (!track || !card) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    track.scrollTo({
-      left: i * (card.offsetWidth + 20),
-      behavior: reduce ? "auto" : "smooth",
-    });
+  const active = Math.round(progress);
+
+  // Offset of a figure from the stage, in multiples of the stage height.
+  // Easing the handover keeps each figure still for most of its slot.
+  const offset = (i: number) => {
+    const d = i - progress;
+    if (d <= -1 || d >= 1) return d;
+    const sign = Math.sign(d);
+    const a = Math.abs(d);
+    const eased = a <= HANDOVER ? 0 : (a - HANDOVER) / (1 - HANDOVER);
+    return sign * eased * eased * (3 - 2 * eased);
   };
 
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      scrollTo(index - 1);
-    } else if (e.key === "ArrowRight") {
-      e.preventDefault();
-      scrollTo(index + 1);
-    }
-  };
+  const Figures = (
+    <div className="relative mx-auto h-[clamp(200px,38vh,420px)] w-full max-w-[1000px] overflow-hidden">
+      {slides.map((s, i) => (
+        <figure
+          key={s.src}
+          aria-hidden={i !== active}
+          className="absolute inset-0 flex flex-col items-center justify-center [overflow-anchor:none] will-change-transform"
+          style={{ transform: `translate3d(0, ${offset(i) * 100}%, 0)` }}
+        >
+          <img
+            src={s.src}
+            alt={s.alt}
+            loading={i === 0 ? "eager" : "lazy"}
+            draggable={false}
+            className="max-h-[clamp(150px,29vh,330px)] w-full select-none rounded-[16px] bg-white object-contain ring-1 ring-[color:var(--line)]"
+          />
+          <figcaption className="mt-4 max-w-[60ch] text-center text-[12.5px] font-semibold leading-snug tracking-tight text-[color:var(--paper)] md:text-[13.5px]">
+            {s.caption}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+
+  const Heading = (
+    <div className="mx-auto max-w-[620px] text-center">
+      <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+        {eyebrow}
+      </div>
+      <StretchText
+        as="h2"
+        className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
+        segments={
+          titleAccent
+            ? [
+                { text: `${title} ` },
+                { text: titleAccent, className: "text-[color:var(--accent)]" },
+              ]
+            : [{ text: title }]
+        }
+      />
+    </div>
+  );
+
+  const Progress = (
+    <div className="mt-8 flex items-center justify-center gap-2" aria-hidden>
+      {slides.map((s, i) => (
+        <span
+          key={s.src}
+          className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
+            i === active ? "w-8 bg-[color:var(--accent)]" : "w-4 bg-[color:var(--paper)]/15"
+          }`}
+        />
+      ))}
+    </div>
+  );
+
+  const Footnote = footnote ? (
+    <p className="mt-5 text-center text-[11px] leading-relaxed text-[color:var(--mute)]">
+      {footnote}
+    </p>
+  ) : null;
+
+  // Reduced motion: no pinning, no transforms, just the figures in order.
+  if (reduced) {
+    return (
+      <section className="relative bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+        <div className="container-x">
+          {Heading}
+          <div className="mx-auto mt-10 flex max-w-[1000px] flex-col gap-12">
+            {slides.map((s) => (
+              <figure key={s.src} className="flex flex-col items-center">
+                <img
+                  src={s.src}
+                  alt={s.alt}
+                  loading="lazy"
+                  className="max-h-[340px] w-full rounded-[16px] bg-white object-contain ring-1 ring-[color:var(--line)]"
+                />
+                <figcaption className="mt-4 max-w-[60ch] text-center text-[13px] font-semibold leading-snug text-[color:var(--paper)]">
+                  {s.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          {Footnote}
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <div
-      className="reveal"
-      role="group"
-      aria-roledescription="carousel"
-      aria-label="Operating room study figures"
-    >
+    <section className="relative bg-[color:var(--ink)] hairline-b">
       <div
         ref={trackRef}
-        tabIndex={0}
-        onKeyDown={onKeyDown}
-        className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-2 [scrollbar-width:none] focus-visible:outline-none [&::-webkit-scrollbar]:hidden"
+        className="relative [overflow-anchor:none]"
+        style={{ height: `calc(100vh + ${(count - 1) * SCROLL_PER_SLIDE_VH}vh)` }}
+        role="group"
+        aria-roledescription="carousel"
+        aria-label="Operating room study figures"
       >
-        {slides.map((s, i) => (
-          <figure
-            key={s.src}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`${i + 1} of ${count}`}
-            className={`w-[80%] shrink-0 snap-start transition-opacity duration-500 sm:w-[64%] lg:w-[58%] ${
-              i === index ? "opacity-100" : "opacity-55"
-            }`}
-          >
-            <img
-              src={s.src}
-              alt={s.alt}
-              loading={i === 0 ? "eager" : "lazy"}
-              draggable={false}
-              className="max-h-[260px] w-full select-none rounded-[16px] bg-white object-contain ring-1 ring-[color:var(--line)] md:max-h-[330px]"
-            />
-            <figcaption className="mt-4 max-w-[52ch] text-[12.5px] font-semibold leading-snug tracking-tight text-[color:var(--paper)] md:text-[13.5px]">
-              {s.caption}
-            </figcaption>
-          </figure>
-        ))}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 h-px"
+          style={{ bottom: "100vh", scrollSnapAlign: "start", scrollSnapStop: "always" }}
+        />
+        <div className="sticky top-0 flex h-screen items-center pt-[var(--nav-h)] pb-10">
+          <div className="container-x w-full">
+            {Heading}
+            <div className="mt-8 md:mt-10">{Figures}</div>
+            {Progress}
+            {Footnote}
+          </div>
+        </div>
       </div>
-
-      <div className="mt-7 flex items-center justify-center gap-2">
-        {slides.map((s, i) => (
-          <button
-            key={s.src}
-            type="button"
-            onClick={() => scrollTo(i)}
-            aria-label={`Figure ${i + 1} of ${count}`}
-            aria-current={i === index ? "true" : undefined}
-            className={`h-1.5 rounded-full transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2 ${
-              i === index
-                ? "w-8 bg-[color:var(--accent)]"
-                : "w-4 bg-[color:var(--paper)]/15 hover:bg-[color:var(--paper)]/35"
-            }`}
-          />
-        ))}
-      </div>
-
-      {footnote ? (
-        <p className="mt-5 text-center text-[11px] leading-relaxed text-[color:var(--mute)]">
-          {footnote}
-        </p>
-      ) : null}
-    </div>
+    </section>
   );
 }

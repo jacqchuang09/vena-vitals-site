@@ -36,7 +36,7 @@ const TARGETS = [
   { name: "tech", path: "/technology", w: 1440, h: 900 },
   { name: "tech-sensing", path: "/technology", w: 1440, h: 900, scroll: 1850 },
   { name: "clinical", path: "/clinical-evidence", w: 1440, h: 900 },
-  { name: "periop-figures", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 900 },
+  { name: "periop-figures", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 1665 },
   { name: "periop-figures-phone", path: "/solutions/anesthesiology", w: 390, h: 780, scroll: 700 },
   { name: "periop-collab", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 1800 },
   { name: "anesthesiology", path: "/solutions/anesthesiology", w: 1440, h: 900 },
@@ -157,6 +157,12 @@ async function main() {
   const tab = tabs.find((t) => t.type === "page");
   const cdp = await connect(tab.webSocketDebuggerUrl);
   await cdp.send("Page.enable");
+  // Headless Chrome reports prefers-reduced-motion: reduce by default, so any
+  // component that branches on it renders its fallback and the screenshot does
+  // not show what a visitor sees. Emulate a normal preference.
+  await cdp.send("Emulation.setEmulatedMedia", {
+    features: [{ name: "prefers-reduced-motion", value: "no-preference" }],
+  });
 
   for (const t of targets) {
     await cdp.send("Emulation.setDeviceMetricsOverride", {
@@ -170,15 +176,33 @@ async function main() {
     // dev server also compiles on first request for each route.
     await sleep(useBuild ? 4000 : 7000);
     if (t.scroll) {
-      await cdp.send("Runtime.evaluate", {
-        expression: `window.scrollTo(0, Math.min(${t.scroll}, document.body.scrollHeight)); 1`,
+      // Scroll twice. The root route resets scroll to top shortly after a
+      // navigation, and lazy images change the page height, so a single
+      // scrollTo can be undone or land short. The second pass runs once the
+      // page has settled and is the one that sticks.
+      for (const wait of [1200, 1800]) {
+        await cdp.send("Runtime.evaluate", {
+          expression: `window.scrollTo(0, Math.min(${t.scroll}, document.body.scrollHeight)); 1`,
+        });
+        await sleep(wait);
+      }
+    }
+    // Report where the scroll actually landed. Page height changes as images
+    // and fonts load, so a requested offset is not always the one reached.
+    if (t.scroll) {
+      const { result } = await cdp.send("Runtime.evaluate", {
+        expression: "`${Math.round(window.scrollY)}/${document.body.scrollHeight}`",
+        returnByValue: true,
       });
-      await sleep(2500);
+      t._landed = result.value;
     }
     const { data } = await cdp.send("Page.captureScreenshot", { format: "png" });
     const file = join(outDir, `${t.name}.png`);
     await writeFile(file, Buffer.from(data, "base64"));
-    console.log(`  ${t.name.padEnd(16)} ${t.w}x${t.h}${t.scroll ? ` @${t.scroll}` : ""}  ${file}`);
+    console.log(
+      `  ${t.name.padEnd(16)} ${t.w}x${t.h}${t.scroll ? ` @${t.scroll}` : ""}` +
+        `${t._landed ? ` landed ${t._landed}` : ""}  ${file}`,
+    );
   }
 
   cdp.close();
