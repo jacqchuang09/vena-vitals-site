@@ -1,20 +1,38 @@
 # Netlify deploy config for the Vēna Vitals site.
 #
-# This is a TanStack Start (SSR) app built by Vite + Nitro, not a static site.
-# On Netlify's build infra Nitro detects the platform automatically, but the
-# preset is pinned here so the output is unambiguous. Nitro's `netlify` preset
-# emits the serverless function + static client assets and wires the routing;
-# Netlify picks that up without a manual `publish` dir.
+# This is a fully prerendered static site. Every route is rendered to HTML at
+# build time by TanStack Start's prerenderer (see `prerender` in
+# vite.config.ts), so there is no serverless function and no SSR at runtime.
+#
+# It used to deploy as a TanStack Start SSR app via Nitro's `netlify` preset,
+# which meant every single page view invoked a serverless function to produce
+# output that is identical for every visitor. Nothing on this site reads
+# request-time state — no server functions, no loaders fetching data — so that
+# was spending function invocations for nothing. Prerendering drops runtime
+# invocations to zero and serves the whole site from the CDN.
 [build]
   command = "npm run build"
-  # Static client assets land in dist/ (per Nitro's netlify-preset manifest,
-  # publicDir = dist). Without this, Netlify publishes the repo root, which has
-  # no index.html and 404s every route. The SSR function is emitted to
-  # .netlify/functions-internal/ and Netlify picks it up automatically.
-  publish = "dist"
+  # Prerendered HTML plus the client bundle. The Vite build writes the browser
+  # output to dist/client and the (now unused at runtime) SSR bundle to
+  # dist/server, so the publish dir is the client subdirectory, not dist.
+  publish = "dist/client"
 
 [build.environment]
   # Pin a modern Node — Netlify's default can lag behind what the toolchain needs.
   NODE_VERSION = "20"
-  # Force the Netlify output target for the Nitro build.
-  NITRO_PRESET = "netlify"
+
+# /solutions has no page of its own; it only exists as the nav dropdown and its
+# route redirects to "/". The prerenderer is told to skip it (filter in
+# vite.config.ts) because following the redirect would write a duplicate of the
+# home page to a second URL. Served as a real redirect here instead.
+[[redirects]]
+  from = "/solutions"
+  to = "/"
+  status = 301
+
+# Branded 404 for anything unmatched. Netlify applies redirects only after it
+# fails to match a static file, so real pages and assets are unaffected.
+[[redirects]]
+  from = "/*"
+  to = "/404/index.html"
+  status = 404
