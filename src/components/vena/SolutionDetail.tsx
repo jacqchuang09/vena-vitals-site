@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ClinicalCollaborators } from "./ClinicalCollaborators";
-import { StudyPlates, type StudyFigure } from "./StudyPlates";
+import { StudyFigures, type StudyFigure } from "./StudyFigures";
 import { SolutionWindows, type SolutionWindow } from "./SolutionWindows";
 import { StretchText } from "./StretchText";
 import { TiltCard } from "./TiltCard";
@@ -16,7 +16,7 @@ export type SolutionDetailContent = {
   showHeroButton?: boolean;
   /** Advisor names to feature on this page. Omit for no collaborators section. */
   collaborators?: readonly string[];
-  /** Study figures, one full-screen plate each, directly under the hero. */
+  /** Study figures, shown as one section directly under the hero. */
   figures?: {
     eyebrow: string;
     title: string;
@@ -120,7 +120,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
       </section>
 
       {content.figures ? (
-        <StudyPlates
+        <StudyFigures
           eyebrow={content.figures.eyebrow}
           title={content.figures.title}
           titleAccent={content.figures.titleAccent}

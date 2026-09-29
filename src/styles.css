@@ -47,11 +47,6 @@
   /* Fixed nav height (matches Nav's h-20 / md:h-24), in rem so it tracks the
      root font-scale. Used to center each section's content below the nav. */
   --nav-h: 5rem;
-
-  /* Height of the running band above a study-plate sequence. Every plate pads
-     itself by nav + band, and the band cancels its own height out of the flow,
-     so the first plate is offset exactly like the ones that scroll under it. */
-  --plate-band: 4.25rem;
 }
 
 @media (min-width: 768px) {
@@ -88,29 +83,6 @@ section.min-h-screen {
   section.min-h-screen {
     min-height: 0;
     padding-top: calc(var(--nav-h) + 1.5rem);
-  }
-}
-
-/* A study plate is one full-screen figure inside a figure section. It is not a
-   `main > section`, so it opts into the page's snap itself; otherwise it
-   behaves exactly like a section, including the short-window fallback. */
-.study-plate {
-  min-height: 100vh;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  /* Clearance for the fixed nav and the sticky band, and nothing at the foot:
-     the plate centres its own content, so the only padding it needs is the
-     part of the screen it cannot use. Any bottom padding would push the figure
-     up off the optical centre. */
-  padding-top: calc(var(--nav-h) + var(--plate-band));
-  padding-bottom: 0;
-}
-
-@media (max-height: 760px) {
-  .study-plate {
-    min-height: 0;
-    padding-top: calc(var(--nav-h) + var(--plate-band) + 1rem);
-    padding-bottom: 2rem;
   }
 }
 
