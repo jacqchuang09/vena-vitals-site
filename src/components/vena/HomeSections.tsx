@@ -1,15 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import {
-  Bluetooth,
-  Check,
-  Clock,
-  HeartPulse,
-  Hospital,
-  MoveDown,
-  ScanLine,
-  Target,
-} from "lucide-react";
+import { Bluetooth, Check, Clock, HeartPulse, MoveDown, ScanLine, Target } from "lucide-react";
 import { TiltCard } from "./TiltCard";
 import { MonitorMock } from "./MonitorMock";
 import { StretchText } from "./StretchText";
@@ -75,15 +66,6 @@ const problemStats = [
       { v: null, l: "Misses events between readings" },
     ],
   },
-  {
-    icon: Hospital,
-    method: "Arterial line",
-    stats: [
-      { v: "10-13%", l: "complication rate" },
-      { v: "0.6%", l: "infection risk" },
-      { v: "5-20 min", l: "placement time" },
-    ],
-  },
 ];
 
 export function HomeProblem() {
@@ -130,7 +112,7 @@ export function HomeProblem() {
           </div>
         </div>
 
-        <div className="reveal mt-6 grid gap-4 md:mt-8 md:grid-cols-2">
+        <div className="reveal mt-6 grid gap-4 md:mt-8">
           {problemStats.map((card) => {
             const Icon = card.icon;
             return (
