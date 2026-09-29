@@ -14,7 +14,6 @@ const links = [
   { to: STUDIES, label: "Clinical Studies" },
   { to: "/partner-with-us", label: "Partner With Us" },
   { to: "/about", label: "About" },
-  { to: "/news", label: "News" },
 ] as const;
 
 const studyLinks = [
@@ -39,7 +38,6 @@ const mobileLinks = [
   { to: "/solutions/sleep-medicine", label: "Sleep monitoring" },
   { to: "/partner-with-us", label: "Partner With Us" },
   { to: "/about", label: "About" },
-  { to: "/news", label: "News" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
