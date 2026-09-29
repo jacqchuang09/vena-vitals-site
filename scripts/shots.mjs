@@ -25,6 +25,10 @@ const CDP_PORT = 9333;
 // down the page to scroll before capturing. `scroll` is in CSS pixels from the
 // top; sections on this site are full-viewport-height, so a section's offset is
 // roughly its index times the viewport height.
+//
+// `click` and `hover` take a CSS selector and drive a real mouse through the
+// DevTools protocol before the capture, which is the only way to see a hover
+// state or a state that only exists after an interaction. `click` runs first.
 const TARGETS = [
   { name: "home", path: "/", w: 1440, h: 900 },
   { name: "home-laptop", path: "/", w: 1024, h: 760 },
@@ -37,6 +41,30 @@ const TARGETS = [
   { name: "tech-sensing", path: "/technology", w: 1440, h: 900, scroll: 1850 },
   { name: "clinical", path: "/clinical-evidence", w: 1440, h: 900 },
   { name: "periop-figures", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 900 },
+  {
+    name: "periop-figures-hover",
+    path: "/solutions/anesthesiology",
+    w: 1440,
+    h: 900,
+    scroll: 900,
+    hover: "#study-tab-2",
+  },
+  {
+    name: "periop-figures-picked",
+    path: "/solutions/anesthesiology",
+    w: 1440,
+    h: 900,
+    scroll: 900,
+    click: "#study-tab-3",
+  },
+  {
+    name: "periop-figures-plate",
+    path: "/solutions/anesthesiology",
+    w: 1440,
+    h: 900,
+    scroll: 900,
+    hover: "#study-panel-0",
+  },
   { name: "periop-figures-phone", path: "/solutions/anesthesiology", w: 390, h: 780, scroll: 780 },
   { name: "periop-collab", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 1800 },
   { name: "anesthesiology", path: "/solutions/anesthesiology", w: 1440, h: 900 },
@@ -197,6 +225,40 @@ async function main() {
         await sleep(wait);
       }
     }
+    // Drive a real mouse for anything that only exists after an interaction.
+    // A synthetic React event would not produce a CSS :hover state, and
+    // clicking by coordinate is what a visitor actually does.
+    for (const [kind, selector] of [
+      ["click", t.click],
+      ["hover", t.hover],
+    ]) {
+      if (!selector) continue;
+      const { result } = await cdp.send("Runtime.evaluate", {
+        expression: `(() => {
+          const el = document.querySelector(${JSON.stringify(selector)});
+          if (!el) return null;
+          const r = el.getBoundingClientRect();
+          return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        })()`,
+        returnByValue: true,
+      });
+      if (!result.value) {
+        console.warn(`  ! ${t.name}: no element matched ${selector}`);
+        continue;
+      }
+      const { x, y } = result.value;
+      const at = { x, y, button: "left", clickCount: 1 };
+      await cdp.send("Input.dispatchMouseEvent", { type: "mouseMoved", x, y });
+      if (kind === "click") {
+        await cdp.send("Input.dispatchMouseEvent", { ...at, type: "mousePressed" });
+        await cdp.send("Input.dispatchMouseEvent", { ...at, type: "mouseReleased" });
+        // Leave the pointer off the element, so a click shot shows the
+        // committed state rather than the click target's hover state.
+        await cdp.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 2, y: 2 });
+      }
+      await sleep(700);
+    }
+
     // Report where the scroll actually landed. Page height changes as images
     // and fonts load, so a requested offset is not always the one reached.
     if (t.scroll) {
@@ -210,7 +272,8 @@ async function main() {
     const file = join(outDir, `${t.name}.png`);
     await writeFile(file, Buffer.from(data, "base64"));
     console.log(
-      `  ${t.name.padEnd(16)} ${t.w}x${t.h}${t.scroll ? ` @${t.scroll}` : ""}` +
+      `  ${t.name.padEnd(22)} ${t.w}x${t.h}${t.scroll ? ` @${t.scroll}` : ""}` +
+        `${t.click ? ` click ${t.click}` : ""}${t.hover ? ` hover ${t.hover}` : ""}` +
         `${t._landed ? ` landed ${t._landed}` : ""}  ${file}`,
     );
   }

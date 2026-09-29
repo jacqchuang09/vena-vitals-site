@@ -13,17 +13,19 @@ export type StudyFigure = {
  *
  * All five figures live in one full-height section, like every other section
  * on this site, so the page's scroll-snap treats it as one stop and nothing
- * needs to be pinned or transformed to hold a position. Only the current
- * figure is visible; the others are an index, not a filmstrip.
+ * needs to be pinned or transformed to hold a position.
+ *
+ * Moving between them is meant to be obvious before anything is clicked. The
+ * index is a contact sheet, so a reader can see what they are choosing between
+ * rather than five numerals; hovering a thumbnail previews that figure in the
+ * plate and leaving puts the chosen one back, so exploring costs nothing and
+ * commits nothing. The plate itself advances on click and on swipe, and the
+ * whole index is a tablist, so arrow keys, Home and End work too.
  *
  * The plate is a fixed box and every figure is contained inside it, so all
  * five occupy the same space and neither the caption nor the section moves as
  * they change. The figures keep their own aspect ratios, since their axis
  * labels stop being legible once they are cropped to a common shape.
- *
- * The index runs down the margin beside the plate on a wide screen and folds
- * into a row of numerals under it on a narrow one, which is the same markup
- * either way.
  */
 export function StudyFigures({
   eyebrow,
@@ -38,10 +40,18 @@ export function StudyFigures({
   figures: StudyFigure[];
   footnote?: string;
 }) {
-  const [active, setActive] = useState(0);
+  const [selected, setSelected] = useState(0);
+  const [preview, setPreview] = useState<number | null>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const swipeX = useRef<number | null>(null);
   const total = figures.length;
-  const current = figures[active];
+
+  // Hovering the index previews without committing, so a reader can sweep the
+  // contact sheet and still land back on the figure they actually chose.
+  const shown = preview ?? selected;
+  const current = figures[shown];
+
+  const step = (delta: number) => setSelected((i) => (i + delta + total) % total);
 
   // Roving focus, so the index is navigable from the keyboard alone.
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -54,8 +64,8 @@ export function StudyFigures({
         ? 0
         : e.key === "End"
           ? total - 1
-          : (active + (fwd ? 1 : -1) + total) % total;
-    setActive(next);
+          : (selected + (fwd ? 1 : -1) + total) % total;
+    setSelected(next);
     tabs.current[next]?.focus();
   };
 
@@ -80,50 +90,71 @@ export function StudyFigures({
           />
         </div>
 
-        <div className="reveal mt-8 grid gap-6 md:mt-10 md:grid-cols-[1fr_7rem] md:gap-10">
-          <figure
-            role="tabpanel"
-            id={`study-panel-${active}`}
-            aria-labelledby={`study-tab-${active}`}
-          >
-            <div className="flex h-[clamp(210px,30vh,300px)] items-center overflow-hidden rounded-[26px] bg-[color:var(--ink)] p-4 shadow-[0_18px_50px_rgba(43,43,43,0.06)] ring-1 ring-[color:var(--line)] md:h-[clamp(280px,46vh,430px)] md:p-6">
-              {/* A 4:1 strip chart scaled to fit a phone is unreadable, so on a
-                  small screen it keeps its height and pans inside the frame. */}
-              <div className="w-full overflow-x-auto md:h-full md:overflow-x-visible">
+        <div className="reveal mt-8 grid gap-6 md:mt-10 md:grid-cols-[1fr_9rem] md:gap-10">
+          <figure>
+            {/* The plate advances on click and on swipe. Keyboard users get the
+                same moves from the index, which is a proper tablist. */}
+            <div
+              role="tabpanel"
+              id={`study-panel-${shown}`}
+              aria-labelledby={`study-tab-${shown}`}
+              onClick={() => step(1)}
+              onTouchStart={(e) => (swipeX.current = e.touches[0].clientX)}
+              onTouchEnd={(e) => {
+                const from = swipeX.current;
+                swipeX.current = null;
+                if (from === null) return;
+                const dx = e.changedTouches[0].clientX - from;
+                if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+              }}
+              className="group relative h-[clamp(210px,30vh,300px)] cursor-pointer overflow-hidden rounded-[26px] bg-[color:var(--ink)] p-4 shadow-[0_18px_50px_rgba(43,43,43,0.06)] ring-1 ring-[color:var(--line)] transition-shadow hover:shadow-[0_22px_60px_rgba(43,43,43,0.1)] md:h-[clamp(280px,46vh,430px)] md:p-6"
+            >
+              <div className="relative h-full w-full">
                 {figures.map((f, i) => (
                   <img
                     key={f.src}
                     src={f.src}
                     alt={f.alt}
-                    hidden={i !== active}
+                    aria-hidden={i !== shown}
                     loading={i === 0 ? "eager" : "lazy"}
                     draggable={false}
-                    className="mx-auto h-[clamp(160px,22vh,280px)] w-auto max-w-none select-none object-contain md:h-full md:max-h-full md:w-full md:max-w-full"
+                    style={{ opacity: i === shown ? 1 : 0 }}
+                    className="absolute inset-0 h-full w-full select-none object-contain transition-opacity duration-300 ease-out"
                   />
                 ))}
               </div>
+
+              {/* Hover hint. It says what a click does, on a surface that gives
+                  no other sign of being clickable. */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute bottom-4 right-4 flex items-center gap-1.5 rounded-full bg-[color:var(--paper)] px-3 py-1.5 text-[10px] font-semibold text-[color:var(--ink)] opacity-0 transition-opacity duration-200 group-hover:opacity-100 md:bottom-5 md:right-5"
+              >
+                Next figure <span className="translate-y-[-0.5px]">→</span>
+              </span>
             </div>
-            <figcaption className="mt-5 max-w-[62ch] text-[13px] font-medium leading-relaxed tracking-tight text-[color:var(--paper)] text-pretty md:text-[14px]">
+
+            {/* Reserved for the longest caption, so choosing a different figure does
+                not re-centre the section under it. */}
+            <figcaption className="mt-5 min-h-[4.4rem] max-w-[62ch] text-[13px] font-medium leading-relaxed tracking-tight text-[color:var(--paper)] text-pretty md:min-h-[3.2rem] md:text-[14px]">
               {current.caption}
             </figcaption>
           </figure>
 
-          {/* Index. A column in the margin on a wide screen, a row of numerals
+          {/* Contact sheet. A column in the margin on a wide screen, a strip
               under the plate on a narrow one. */}
           <ol
             role="tablist"
             aria-label="Operating room study figures"
             aria-orientation="vertical"
             onKeyDown={onKeyDown}
-            className="flex flex-row gap-5 md:flex-col md:justify-center md:gap-0"
+            onMouseLeave={() => setPreview(null)}
+            className="flex flex-row gap-2.5 md:flex-col md:justify-center md:gap-3"
           >
             {figures.map((f, i) => {
-              const open = i === active;
+              const on = i === shown;
               return (
-                <li
-                  key={f.src}
-                  className="md:border-t md:border-[color:var(--line)]/60 md:last:border-b"
-                >
+                <li key={f.src} className="min-w-0 flex-1 md:flex-none">
                   <button
                     type="button"
                     role="tab"
@@ -131,27 +162,38 @@ export function StudyFigures({
                     ref={(el) => {
                       tabs.current[i] = el;
                     }}
-                    aria-selected={open}
+                    aria-selected={i === selected}
                     aria-controls={`study-panel-${i}`}
-                    tabIndex={open ? 0 : -1}
-                    onClick={() => setActive(i)}
-                    className="group flex cursor-pointer items-center gap-2 py-1 outline-none md:w-full md:py-3.5"
+                    aria-label={`Figure ${i + 1} of ${total}. ${f.caption}`}
+                    tabIndex={i === selected ? 0 : -1}
+                    onClick={() => setSelected(i)}
+                    onMouseEnter={() => setPreview(i)}
+                    onFocus={() => setPreview(i)}
+                    onBlur={() => setPreview(null)}
+                    className="group flex w-full cursor-pointer items-center gap-2.5 outline-none"
                   >
-                    {/* Rule running back toward the plate, on the open row only. */}
                     <span
                       aria-hidden
-                      className={`hidden h-px flex-1 transition-colors duration-300 md:block ${
-                        open ? "bg-[color:var(--accent)]" : "bg-transparent"
-                      }`}
-                    />
-                    <span
-                      className={`text-[12px] font-semibold tabular-nums transition-colors ${
-                        open
-                          ? "text-[color:var(--accent)]"
-                          : "text-[color:var(--mute)] group-hover:text-[color:var(--paper)] group-focus-visible:text-[color:var(--paper)] group-focus-visible:underline"
+                      className={`hidden shrink-0 text-[11px] font-semibold tabular-nums transition-colors md:block ${
+                        on ? "text-[color:var(--accent)]" : "text-[color:var(--mute)]"
                       }`}
                     >
                       {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={`block aspect-[16/9] w-full overflow-hidden rounded-[9px] bg-[color:var(--ink)] p-1 transition duration-200 ${
+                        on
+                          ? "opacity-100 ring-2 ring-[color:var(--accent)]"
+                          : "opacity-55 ring-1 ring-[color:var(--line)] group-hover:opacity-100 group-focus-visible:opacity-100 group-focus-visible:ring-2 group-focus-visible:ring-[color:var(--accent)]/60"
+                      }`}
+                    >
+                      <img
+                        src={f.src}
+                        alt=""
+                        loading="lazy"
+                        draggable={false}
+                        className="h-full w-full select-none object-contain"
+                      />
                     </span>
                   </button>
                 </li>
