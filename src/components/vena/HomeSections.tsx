@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { Bluetooth, Check, Clock, HeartPulse, MoveDown, ScanLine, Target } from "lucide-react";
 import { TiltCard } from "./TiltCard";
@@ -59,22 +59,51 @@ const backers = [
   { name: "UC Irvine", href: "https://www.uci.edu/" },
 ];
 
-const problemStats = [
-  {
-    icon: Clock,
-    method: "Cuff",
-    stats: [
-      { v: "3-5 min", l: "between each reading" },
-      { v: null, l: "Misses events between readings" },
-    ],
-  },
-];
+/**
+ * Monitor with an arterial trace on it, drawn to sit beside the lucide icons:
+ * same 24 grid, same 2px stroke, same round caps. Lucide has a monitor and it
+ * has a heart rate line, but not the two together, which is the thing this
+ * card is actually about.
+ */
+function VeriTrackIcon({ size = 15, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className={className}
+    >
+      <rect x="2" y="3" width="20" height="14" rx="2" />
+      <path d="M8 21h8" />
+      <path d="M12 17v4" />
+      {/* Two arterial beats: systolic upstroke, fall, dicrotic bump, runoff. */}
+      <path d="M4.5 12h1l2-5.5 1.5 5.5 1-2 2 2h1l2-5.5 1.5 5.5 1-2 2 2" />
+    </svg>
+  );
+}
+
+// The cuff and VeriTrack set against each other, a claim per row.
+const comparison = {
+  rows: [
+    { cuff: "3-5 min between readings", vena: "Continuous, beat-to-beat" },
+    {
+      cuff: "Hypotensive events can go undetected between cycles",
+      vena: "Every pressure change captured in real time",
+    },
+  ],
+};
 
 export function HomeProblem() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
       <div className="container-x">
-        <div className="grid gap-8 md:grid-cols-[0.86fr_1.14fr] md:items-center">
+        <div className="grid gap-6 md:grid-cols-[0.86fr_1.14fr] md:items-center md:gap-8">
           <div className="mx-auto max-w-[420px] text-center reveal md:mx-0 md:text-left">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
               Problem &amp; Solution
@@ -87,44 +116,53 @@ export function HomeProblem() {
                 { text: "not intermittently.", className: "text-[color:var(--accent)]" },
               ]}
             />
-            <p className="mx-auto mt-5 max-w-[400px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
+            <p className="mx-auto mt-4 max-w-[400px] text-xs leading-relaxed text-[color:var(--paper)] md:mt-5 md:mx-0">
               The standard cuff reads every 3 to 5 minutes. Between readings, a patient can lose
               significant blood volume or undergo a dangerous pressure drop that goes undetected
               until the next cycle. The alternative, arterial line cannulation, provides continuous,
               beat-to-beat data but comes with significant risks and delays.
             </p>
-            <div className="mx-auto mt-6 grid max-w-[400px] gap-4 md:mx-0">
-              {problemStats.map((card) => {
-                const Icon = card.icon;
-                return (
-                  <TiltCard
-                    key={card.method}
-                    className="rounded-none bg-[color:var(--ink)] p-5 text-left shadow-[0_14px_44px_rgba(43,43,43,0.05)] md:p-6"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Icon size={15} className="text-[color:var(--accent)]" aria-hidden />
-                      <span className="text-[11px] font-semibold uppercase tracking-wide text-[color:var(--paper)]">
-                        {card.method}
-                      </span>
+            {/* Cuff against VeriTrack, two columns of the same card. No rule
+                between them: the two headings and the colour carry the split. */}
+            <TiltCard className="mx-auto mt-4 max-w-[430px] rounded-none bg-[color:var(--ink)] p-3.5 text-left shadow-[0_14px_44px_rgba(43,43,43,0.05)] md:mx-0 md:mt-6 md:p-6">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 md:gap-x-7 md:gap-y-4">
+                <div className="flex items-center gap-2">
+                  <Clock size={15} className="shrink-0 text-[color:var(--mute)]" aria-hidden />
+                  <span className="text-[11px] font-semibold uppercase tracking-wide text-[color:var(--mute)]">
+                    Cuff
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <VeriTrackIcon className="shrink-0 text-[color:var(--accent)]" />
+                  <span className="text-[11px] font-semibold uppercase tracking-wide text-[color:var(--accent)]">
+                    VeriTrack
+                  </span>
+                </div>
+
+                {comparison.rows.map((row, i) => (
+                  <Fragment key={i}>
+                    <div
+                      className={
+                        i === 0
+                          ? "font-display text-[13.5px] font-bold leading-tight tracking-tight text-[color:var(--paper)] md:text-base"
+                          : "text-[10.5px] leading-snug text-[color:var(--mute)]"
+                      }
+                    >
+                      {row.cuff}
                     </div>
-                    <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
-                      {card.stats.map((s, i) => (
-                        <div key={i} className="min-w-[90px]">
-                          {s.v ? (
-                            <div className="font-display text-lg font-bold leading-none text-[color:var(--accent)] md:text-xl">
-                              {s.v}
-                            </div>
-                          ) : null}
-                          <div className="mt-1 max-w-[130px] text-[10.5px] leading-snug text-[color:var(--mute)]">
-                            {s.l}
-                          </div>
-                        </div>
-                      ))}
+                    <div
+                      className={
+                        i === 0
+                          ? "font-display text-[13.5px] font-bold leading-tight tracking-tight text-[color:var(--accent)] md:text-base"
+                          : "text-[10.5px] leading-snug text-[color:var(--paper)]"
+                      }
+                    >
+                      {row.vena}
                     </div>
-                  </TiltCard>
-                );
-              })}
-            </div>
+                  </Fragment>
+                ))}
+              </div>
+            </TiltCard>
           </div>
 
           {/* Right-aligned in its column so the frame sits against the section edge. */}
