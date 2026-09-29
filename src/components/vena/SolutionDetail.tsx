@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ClinicalCollaborators } from "./ClinicalCollaborators";
-import { StudyCarousel, type StudySlide } from "./StudyCarousel";
+import { StudyPlates, type StudyFigure } from "./StudyPlates";
 import { SolutionWindows, type SolutionWindow } from "./SolutionWindows";
 import { StretchText } from "./StretchText";
 import { TiltCard } from "./TiltCard";
@@ -16,13 +16,13 @@ export type SolutionDetailContent = {
   showHeroButton?: boolean;
   /** Advisor names to feature on this page. Omit for no collaborators section. */
   collaborators?: readonly string[];
-  /** Study figures shown as a carousel directly under the hero. */
+  /** Study figures, one full-screen plate each, directly under the hero. */
   figures?: {
     eyebrow: string;
     title: string;
     titleAccent?: string;
     footnote?: string;
-    slides: StudySlide[];
+    slides: StudyFigure[];
   };
   /** Pain points. Omit `cards` to drop the section. */
   sectionEyebrow?: string;
@@ -120,21 +120,13 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
       </section>
 
       {content.figures ? (
-        <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
-          <div className="container-x">
-            <div className="mx-auto max-w-[620px] text-center reveal">
-              <Eyebrow>{content.figures.eyebrow}</Eyebrow>
-              <Heading
-                text={content.figures.title}
-                accent={content.figures.titleAccent}
-                className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-              />
-            </div>
-            <div className="mt-10">
-              <StudyCarousel slides={content.figures.slides} footnote={content.figures.footnote} />
-            </div>
-          </div>
-        </section>
+        <StudyPlates
+          eyebrow={content.figures.eyebrow}
+          title={content.figures.title}
+          titleAccent={content.figures.titleAccent}
+          figures={content.figures.slides}
+          footnote={content.figures.footnote}
+        />
       ) : null}
 
       {/* Pain points */}

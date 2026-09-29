@@ -36,9 +36,16 @@ const TARGETS = [
   { name: "tech", path: "/technology", w: 1440, h: 900 },
   { name: "tech-sensing", path: "/technology", w: 1440, h: 900, scroll: 1850 },
   { name: "clinical", path: "/clinical-evidence", w: 1440, h: 900 },
-  { name: "periop-figures", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 1665 },
-  { name: "periop-figures-phone", path: "/solutions/anesthesiology", w: 390, h: 780, scroll: 700 },
-  { name: "periop-collab", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 1800 },
+  // Each study plate is one full-viewport snap point, so a plate's offset is
+  // simply its index times the viewport height (the hero occupies index 0).
+  { name: "periop-fig1", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 900 },
+  { name: "periop-fig2", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 1800 },
+  { name: "periop-fig3", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 2700 },
+  { name: "periop-fig4", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 3600 },
+  { name: "periop-fig5", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 4500 },
+  { name: "periop-fig1-phone", path: "/solutions/anesthesiology", w: 390, h: 780, scroll: 780 },
+  { name: "periop-fig3-phone", path: "/solutions/anesthesiology", w: 390, h: 780, scroll: 2340 },
+  { name: "periop-collab", path: "/solutions/anesthesiology", w: 1440, h: 900, scroll: 5400 },
   { name: "anesthesiology", path: "/solutions/anesthesiology", w: 1440, h: 900 },
   { name: "partner", path: "/partner-with-us", w: 1440, h: 900 },
   { name: "contact", path: "/contact", w: 1440, h: 900 },
@@ -114,10 +121,20 @@ async function connect(wsUrl) {
     pending.delete(msg.id);
     msg.error ? slot.rej(new Error(msg.error.message)) : slot.res(msg.result ?? {});
   };
+  // Every call gets a deadline. A DevTools reply that never arrives would
+  // otherwise leave the run hanging silently, with no partial output.
   const send = (method, params = {}) =>
     new Promise((res, rej) => {
       const mid = ++id;
-      pending.set(mid, { res, rej });
+      const timer = setTimeout(() => {
+        pending.delete(mid);
+        rej(new Error(`${method} did not answer within 30s`));
+      }, 30_000);
+      const done = (fn) => (v) => {
+        clearTimeout(timer);
+        fn(v);
+      };
+      pending.set(mid, { res: done(res), rej: done(rej) });
       ws.send(JSON.stringify({ id: mid, method, params }));
     });
   return { send, close: () => ws.close() };
