@@ -5,13 +5,13 @@ import { useReveal } from "@/components/vena/lib";
 export const Route = createFileRoute("/clinical-evidence")({
   head: () => ({
     meta: [
-      { title: "Clinical Evidence | Vēna Vitals" },
+      { title: "Clinical Studies | Vēna Vitals" },
       {
         name: "description",
         content:
           "Clinical validation data, arterial-line comparison, and study status for Vena Vitals.",
       },
-      { property: "og:title", content: "Clinical Evidence | Vēna Vitals" },
+      { property: "og:title", content: "Clinical Studies | Vēna Vitals" },
       {
         property: "og:description",
         content:

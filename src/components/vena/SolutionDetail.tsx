@@ -161,7 +161,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
               to="/clinical-evidence"
               className="group mt-6 inline-flex items-center gap-1.5 text-[11px] font-semibold text-[color:var(--accent)] transition-opacity hover:opacity-80"
             >
-              See the clinical evidence
+              See the clinical studies
               <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
                 →
               </span>

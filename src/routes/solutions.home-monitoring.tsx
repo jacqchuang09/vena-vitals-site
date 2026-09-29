@@ -58,7 +58,7 @@ function Page() {
         ],
         noteTitle: "Keep evidence and indications separate",
         noteBody:
-          "This page describes a potential setting. Current validation details and regulatory status belong on Clinical Evidence.",
+          "This page describes a potential setting. Current validation details and regulatory status belong on Clinical Studies.",
         cta: "Talk to us about future studies",
       }}
     />

@@ -2,44 +2,41 @@ import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
 
+// Clinical Evidence and Solutions were separate nav items. They are merged into
+// one "Clinical Studies" entry: the label links to the evidence page, and the
+// dropdown holds the two settings under study.
+const STUDIES = "/clinical-evidence";
+
 const links = [
   { to: "/", label: "Home" },
   { to: "/technology", label: "Technology" },
-  { to: "/clinical-evidence", label: "Clinical Evidence" },
-  { to: "/solutions", label: "Solutions" },
+  { to: STUDIES, label: "Clinical Studies" },
   { to: "/partner-with-us", label: "Partner With Us" },
   { to: "/about", label: "About" },
   { to: "/news", label: "News" },
 ] as const;
 
-const solutionsGroups = [
+const studyLinks = [
   {
-    title: "Clinical settings",
-    items: [
-      { to: "/solutions/anesthesiology", label: "Anesthesiology", desc: "Operating room" },
-      { to: "/solutions/critical-care", label: "ICU", desc: "Critical care" },
-    ],
+    to: "/solutions/anesthesiology",
+    label: "Perioperative monitoring",
+    desc: "Operating room and critical care",
   },
   {
-    title: "Future settings",
-    items: [
-      { to: "/solutions/sleep-medicine", label: "Sleep Medicine", desc: "Research direction" },
-      { to: "/solutions/home-monitoring", label: "Home monitoring", desc: "Outside the hospital" },
-    ],
+    to: "/solutions/sleep-medicine",
+    label: "Sleep monitoring",
+    desc: "Research direction",
   },
 ] as const;
 
-// The drawer lists the individual setting pages in place of Solutions itself.
-// /solutions has no page — it redirects — so a "Solutions" row here would just
-// dump the user back on the home page.
+// The drawer has no dropdowns, so Clinical Studies and the two settings under
+// it are listed flat.
 const mobileLinks = [
   { to: "/", label: "Home" },
   { to: "/technology", label: "Technology" },
-  { to: "/clinical-evidence", label: "Clinical Evidence" },
-  { to: "/solutions/anesthesiology", label: "Anesthesiology" },
-  { to: "/solutions/critical-care", label: "ICU" },
-  { to: "/solutions/sleep-medicine", label: "Sleep Medicine" },
-  { to: "/solutions/home-monitoring", label: "Home Monitoring" },
+  { to: STUDIES, label: "Clinical Studies" },
+  { to: "/solutions/anesthesiology", label: "Perioperative monitoring" },
+  { to: "/solutions/sleep-medicine", label: "Sleep monitoring" },
   { to: "/partner-with-us", label: "Partner With Us" },
   { to: "/about", label: "About" },
   { to: "/news", label: "News" },
@@ -62,10 +59,10 @@ export function Nav() {
   const navColor = pastHero ? "text-[color:var(--accent)]" : "text-white";
 
   // Which nav item is the current page, so it can be marked "you are here".
-  // Solutions is a dropdown with no page of its own, so it's active on any of
-  // its setting subpages.
+  // Clinical Studies is both a page and a dropdown, so it stays marked on its
+  // own page and on any of the settings beneath it.
   const isActive = (to: string) =>
-    to === "/solutions" ? pathname.startsWith("/solutions/") : pathname === to;
+    to === STUDIES ? pathname === STUDIES || pathname.startsWith("/solutions/") : pathname === to;
   // Persistent accent underline under the active item (an active-tab marker).
   const activeUnderline =
     "after:absolute after:-bottom-2 after:left-0 after:h-[2.5px] after:w-full after:rounded-full after:bg-[color:var(--accent)]";
@@ -115,20 +112,21 @@ export function Nav() {
 
           <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
             {links.map((l) =>
-              l.to === "/solutions" ? (
+              l.to === STUDIES ? (
                 <div
                   key={l.to}
                   className="group relative"
                   onMouseLeave={() => setSolutionsClosed(false)}
                 >
-                  {/* Not a link — Solutions has no landing page, it only opens
-                      this panel. Kept as a button so it stays keyboard
-                      reachable, with the panel shown on focus-within too. */}
-                  <button
-                    type="button"
+                  {/* A real link, unlike the old Solutions trigger: Clinical
+                      Studies has a page of its own. The panel still opens on
+                      hover and on focus-within. */}
+                  <Link
+                    to={l.to}
+                    onClick={goTop}
                     aria-haspopup="true"
                     aria-current={isActive(l.to) ? "page" : undefined}
-                    className={`relative inline-flex cursor-default items-center gap-1 text-sm font-semibold ${navColor} ${
+                    className={`relative inline-flex items-center gap-1 text-sm font-semibold transition hover:opacity-70 ${navColor} ${
                       isActive(l.to) ? activeUnderline : ""
                     }`}
                   >
@@ -138,54 +136,43 @@ export function Nav() {
                       aria-hidden
                       className="transition-transform group-hover:rotate-180"
                     />
-                  </button>
+                  </Link>
                   {/* Hover bridge + panel */}
                   <div
-                    className={`absolute left-1/2 top-full z-50 w-[440px] -translate-x-1/2 pt-4 transition duration-200 ${
+                    className={`absolute left-1/2 top-full z-50 w-[300px] -translate-x-1/2 pt-4 transition duration-200 ${
                       solutionsClosed
                         ? "invisible opacity-0"
                         : "invisible opacity-0 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"
                     }`}
                   >
-                    <div className="grid grid-cols-2 gap-2 rounded-2xl border border-[color:var(--line)] bg-[color:var(--ink)]/95 p-3 shadow-[0_24px_70px_rgba(0,0,0,0.5)] backdrop-blur-xl">
-                      {solutionsGroups.map((group) => (
-                        <div key={group.title} className="p-2">
-                          <div className="eyebrow mb-2 text-[color:var(--mute)]">{group.title}</div>
-                          <div className="flex flex-col gap-1">
-                            {group.items.map((item) => {
-                              const active = pathname === item.to;
-                              return (
-                                <Link
-                                  key={item.to}
-                                  to={item.to}
-                                  onClick={(e) => {
-                                    setSolutionsClosed(true);
-                                    e.currentTarget.blur();
-                                    goTop();
-                                  }}
-                                  aria-current={active ? "page" : undefined}
-                                  className={`group/item rounded-xl px-3 py-2 transition hover:bg-[color:var(--line)] ${
-                                    active ? "bg-[color:var(--accent-soft)]" : ""
-                                  }`}
-                                >
-                                  <div
-                                    className={`text-sm font-semibold transition group-hover/item:text-[color:var(--accent)] ${
-                                      active
-                                        ? "text-[color:var(--accent)]"
-                                        : "text-[color:var(--paper)]"
-                                    }`}
-                                  >
-                                    {item.label}
-                                  </div>
-                                  <div className="text-[11px] text-[color:var(--mute)]">
-                                    {item.desc}
-                                  </div>
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      ))}
+                    <div className="flex flex-col gap-1 rounded-2xl border border-[color:var(--line)] bg-[color:var(--ink)]/95 p-3 shadow-[0_24px_70px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+                      {studyLinks.map((item) => {
+                        const active = pathname === item.to;
+                        return (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={(e) => {
+                              setSolutionsClosed(true);
+                              e.currentTarget.blur();
+                              goTop();
+                            }}
+                            aria-current={active ? "page" : undefined}
+                            className={`group/item rounded-xl px-3 py-2 transition hover:bg-[color:var(--line)] ${
+                              active ? "bg-[color:var(--accent-soft)]" : ""
+                            }`}
+                          >
+                            <div
+                              className={`text-sm font-semibold transition group-hover/item:text-[color:var(--accent)] ${
+                                active ? "text-[color:var(--accent)]" : "text-[color:var(--paper)]"
+                              }`}
+                            >
+                              {item.label}
+                            </div>
+                            <div className="text-[11px] text-[color:var(--mute)]">{item.desc}</div>
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

@@ -68,7 +68,7 @@ function Page() {
         ],
         noteTitle: "Evidence in this setting",
         noteBody:
-          "Operating-room validation, motion and artifact comparison, and accuracy snapshots are summarized on Clinical Evidence.",
+          "Operating-room validation, motion and artifact comparison, and accuracy snapshots are summarized on Clinical Studies.",
         cta: "Request a demo for your",
         ctaAccent: "operating room.",
       }}
