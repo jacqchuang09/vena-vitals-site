@@ -59,26 +59,32 @@ export function Partner() {
             </div>
           </div>
 
-          {/* The audiences as a ruled index. The numeral carries the weight and
-              the rule runs out to the edge of the column, so the list reads as
-              a contents page rather than as five bullets in a box. */}
+          {/* The audiences, with the numerals doing the work instead of a
+              grid of rules. Each number is set at the site's stat size in the
+              soft accent and the label rides over its right shoulder, so the
+              figure reads as the mark and the words read as the content. The
+              rows step in one at a time, which is what gives the block its
+              shape now that nothing is ruled off. */}
           <div className="reveal">
             <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
               Who this is for
             </div>
-            <ul className="mt-6">
+            <ul className="mt-6 space-y-2 md:mt-8 md:space-y-3">
               {audiences.map((a, i) => (
                 <li
                   key={a}
-                  className="grid grid-cols-[2.75rem_auto_1fr] items-center gap-4 border-t border-[color:var(--line)] py-4 last:border-b md:gap-5 md:py-5"
+                  style={{ "--step": i } as React.CSSProperties}
+                  className="flex items-center pl-[calc(var(--step)*0.6rem)] md:pl-[calc(var(--step)*1.35rem)]"
                 >
-                  <span className="font-display text-[clamp(20px,2vw,28px)] font-bold leading-none tracking-[-0.04em] tabular-nums text-[color:var(--accent)]">
+                  <span
+                    aria-hidden
+                    className="stat-num select-none tabular-nums text-[color:var(--accent-soft)]"
+                  >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-display text-[14px] font-bold leading-tight tracking-tight text-[color:var(--paper)] md:text-[16px]">
+                  <span className="ml-1 font-display text-[15px] font-bold leading-tight tracking-tight text-[color:var(--paper)] md:-ml-3 md:text-[17px]">
                     {a}
                   </span>
-                  <span aria-hidden className="h-px bg-[color:var(--line)]" />
                 </li>
               ))}
             </ul>
