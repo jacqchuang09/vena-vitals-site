@@ -36,3 +36,6 @@ dist-ssr
 
 # Netlify build output (Nitro netlify preset emits the SSR function here)
 .netlify
+
+# Local review screenshots (npm run shots)
+shots/
