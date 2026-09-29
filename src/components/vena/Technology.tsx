@@ -108,32 +108,33 @@ export function Technology() {
   return (
     <>
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20">
-        <div className="container-x grid gap-8 md:grid-cols-[0.72fr_1.28fr] md:items-center">
-          <div className="mx-auto max-w-[440px] text-center reveal md:text-left">
-            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Meet VeriTrack
-            </div>
-            <StretchText
-              as="h1"
-              className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-              segments={[
-                { text: "Arterial-line insight. " },
-                { text: "No needle.", className: "text-[color:var(--accent)]" },
-              ]}
-            />
-            <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
-              VeriTrack is built on a soft capacitive sensing stack developed at UC Irvine and
-              grounded in peer-reviewed materials science. It captures beat-to-beat arterial
-              pressure without puncturing skin, inflating a cuff, or occupying the arm, and streams
-              it wirelessly to the bedside iPad.
-            </p>
-          </div>
-          <MediaFrame className="reveal md:pr-4">
+        {/* Video first, text second: the section leads with the device. */}
+        <div className="container-x grid gap-8 md:grid-cols-[1.28fr_0.72fr] md:items-center">
+          <MediaFrame className="reveal md:pl-4">
             <ProductClip
               src="/assets/untitled-design/8-bounce.mp4"
               className="w-[92%] translate-x-[6%]"
             />
           </MediaFrame>
+          <div className="mx-auto max-w-[440px] text-center reveal md:text-left">
+            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+              The Science
+            </div>
+            <StretchText
+              as="h1"
+              className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)] text-balance"
+              segments={[
+                { text: "Applanation tonometry, " },
+                { text: "reinvented.", className: "text-[color:var(--accent)]" },
+              ]}
+            />
+            <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
+              VeriTrack is built on applanation tonometry - a proven technique for measuring
+              arterial pressure through the skin. A soft capacitive sensing stack developed at UC
+              Irvine translates subtle arterial wall motion into continuous, beat-to-beat blood
+              pressure readings.
+            </p>
+          </div>
         </div>
       </section>
 
