@@ -381,9 +381,13 @@ export function HomeEvidenceStrip() {
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[color:var(--ink-2)] py-6 md:py-20 hairline-b">
       <div className="container-x w-full">
-        <div className="grid grid-cols-[0.42fr_1.58fr] items-center gap-4 md:grid-cols-[0.58fr_1.42fr] md:gap-8">
-          <div className="mx-auto max-w-[250px] text-left reveal md:max-w-[360px]">
-            <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)] md:mb-3 md:text-[11px]">
+        {/* Two columns from md up. On a phone the chart is the wide element, so
+            squeezing the copy into a 42% column beside it crushed the heading
+            into the figure; it stacks under the text instead, like every other
+            two-column section on this page. */}
+        <div className="grid gap-6 md:grid-cols-[0.58fr_1.42fr] md:items-center md:gap-8">
+          <div className="mx-auto max-w-[420px] text-left reveal md:max-w-[360px]">
+            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
               Clinical Testing
             </div>
             <StretchText
@@ -394,13 +398,13 @@ export function HomeEvidenceStrip() {
                 { text: "the operating room.", className: "text-[color:var(--accent)]" },
               ]}
             />
-            <p className="mt-3 max-w-[260px] text-[10px] leading-relaxed text-[color:var(--paper)] md:mt-4 md:max-w-[330px] md:text-xs">
+            <p className="mt-4 max-w-[400px] text-xs leading-relaxed text-[color:var(--paper)] md:mt-4 md:max-w-[330px]">
               The investigational device tracked rapid blood pressure changes beat for beat in
               side-by-side operating room comparisons against the arterial line.
             </p>
             <Link
               to="/solutions/anesthesiology"
-              className="group mt-4 inline-flex items-center gap-2 bg-[color:var(--paper)] px-4 py-2.5 text-[10px] font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)] md:mt-8 md:gap-3 md:px-6 md:py-4 md:text-xs"
+              className="group mt-6 inline-flex items-center gap-2 bg-[color:var(--paper)] px-5 py-3 text-[11px] font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)] md:mt-8 md:gap-3 md:px-6 md:py-4 md:text-xs"
             >
               See the full data{" "}
               <span
