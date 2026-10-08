@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BatteryLow, Bluetooth, Factory, Gauge, Radar, Repeat, ShieldCheck } from "lucide-react";
 import { StretchText } from "./StretchText";
-import { SignalJourney } from "./SignalJourney";
+// import { SignalJourney } from "./SignalJourney"; // restore with the section below
 
 const advantages = [
   {
@@ -60,16 +60,76 @@ function MediaFrame({
   );
 }
 
-function ProductClip({ src, className = "" }: { src: string; className?: string }) {
+/**
+ * A clip that waits for the reader instead of running against a section they
+ * have not reached. It starts from the first frame when the section scrolls
+ * into view and plays through once, so an explainer animation is never caught
+ * halfway. Scrolling back to it replays it from the start.
+ *
+ * `preload="auto"` rather than "metadata": the whole point is that the first
+ * frame is ready the moment the section arrives.
+ */
+function ScrollPlayClip({
+  src,
+  className = "",
+  ariaLabel,
+}: {
+  src: string;
+  className?: string;
+  ariaLabel: string;
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // On a phone the clip is often still buffering when the section arrives,
+    // and play() rejects. Retry once there is data rather than leaving a
+    // frozen first frame, which is what a visitor would otherwise see.
+    let wantsPlay = false;
+    const attempt = () => {
+      if (!wantsPlay) return;
+      // Older Safari returns undefined here rather than a promise.
+      void el.play()?.catch(() => {});
+    };
+    el.addEventListener("canplay", attempt);
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        wantsPlay = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          el.currentTime = 0;
+          attempt();
+        } else {
+          el.pause();
+        }
+      },
+      // Low threshold so a short viewport still trips it: on a phone this
+      // panel can never be 40% of the screen and tall thresholds never fire.
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      el.removeEventListener("canplay", attempt);
+    };
+  }, []);
+
   return (
     <video
+      ref={ref}
       src={src}
-      className={`mx-auto aspect-video w-full max-w-none object-contain mix-blend-multiply brightness-[1.03] contrast-[1.22] saturate-[1.06] ${className}`}
-      autoPlay
+      // mix-blend-multiply is what hides the clip's own white background: a
+      // white pixel multiplied by the page leaves the page untouched, so the
+      // video rectangle has no edge. Without it the panel shows as a faint
+      // box wherever the decoder lands a shade off #fff, which varies by
+      // browser and GPU. The brightness lift clips near-white to white first.
+      className={`mx-auto aspect-video w-full max-w-none object-contain mix-blend-multiply brightness-[1.04] contrast-[1.02] ${className}`}
       muted
-      loop
       playsInline
-      preload="metadata"
+      preload="auto"
+      aria-label={ariaLabel}
     />
   );
 }
@@ -111,9 +171,10 @@ export function Technology() {
         {/* Video first, text second: the section leads with the device. */}
         <div className="container-x grid gap-8 md:grid-cols-[1.28fr_0.72fr] md:items-center">
           <MediaFrame className="reveal md:pl-4">
-            <ProductClip
-              src="/assets/untitled-design/8-bounce.mp4"
+            <ScrollPlayClip
+              src="/assets/technology/applanation.mp4"
               className="w-[92%] translate-x-[6%]"
+              ariaLabel="How applanation tonometry reads arterial pressure through the skin"
             />
           </MediaFrame>
           <div className="mx-auto max-w-[440px] text-center reveal md:text-left">
@@ -138,7 +199,11 @@ export function Technology() {
         </div>
       </section>
 
-      <SignalJourney />
+      {/* "From skin contact to clinical context." — the workflow filmstrip.
+          Hidden for now at the team's request; the section itself is intact in
+          SignalJourney.tsx, so bringing it back is uncommenting this line and
+          its import above. */}
+      {/* <SignalJourney /> */}
 
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
         <video
