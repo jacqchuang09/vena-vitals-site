@@ -66,8 +66,6 @@ function Page() {
             },
           ],
         },
-        cta: "Request a demo for your",
-        ctaAccent: "operating room.",
       }}
     />
   );

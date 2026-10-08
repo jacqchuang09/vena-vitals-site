@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ClinicalCollaborators } from "./ClinicalCollaborators";
+import { Testimonials } from "./Testimonials";
 import { StudyFigures, type StudyFigure } from "./StudyFigures";
 import { StudySpread } from "./StudySpread";
 import { SolutionWindows, type SolutionWindow } from "./SolutionWindows";
@@ -114,16 +114,14 @@ function PointCard({
   title,
   body,
   surface,
-  className = "",
 }: {
   index: number;
   title: string;
   body: string;
   surface: string;
-  className?: string;
 }) {
   return (
-    <TiltCard as="article" className={`reveal rounded-none p-6 md:p-7 ${surface} ${className}`}>
+    <TiltCard as="article" className={`reveal rounded-none p-6 md:p-7 ${surface}`}>
       <div className="font-mono text-xs text-[color:var(--accent)]">
         {String(index + 1).padStart(2, "0")}
       </div>
@@ -134,12 +132,6 @@ function PointCard({
     </TiltCard>
   );
 }
-
-// The hero cards step down one after another instead of sitting in a flat row,
-// which reads as a descent and keeps the hero from repeating the flat three-up
-// the pain points section further down the page already uses. Written out as
-// whole class names so Tailwind keeps them.
-const HERO_STEP = ["", "md:mt-12", "md:mt-24"];
 
 const INK = "bg-[color:var(--ink)]";
 const INK_2 = "bg-[color:var(--ink-2)]";
@@ -208,14 +200,13 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
           </div>
 
           {heroCards ? (
-            <div className="grid gap-4 md:grid-cols-3 md:items-start">
+            <div className="grid gap-4 md:grid-cols-3">
               {heroCards.map((card, i) => (
                 <PointCard
                   key={card.title}
                   index={i}
                   title={card.title}
                   body={card.body}
-                  className={HERO_STEP[i] ?? ""}
                   surface={bg.hero === INK ? INK_2 : INK}
                 />
               ))}
@@ -315,8 +306,11 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
         </section>
       ) : null}
 
+      {/* The clinical people behind this setting, in their own words. This was
+          a row of portraits here and a separate quote section on the home
+          page; the quote belongs with the setting it describes. */}
       {content.collaborators?.length ? (
-        <ClinicalCollaborators names={content.collaborators} background={bg.collaborators} />
+        <Testimonials names={content.collaborators} background={bg.collaborators} />
       ) : null}
 
       {/* Footage */}

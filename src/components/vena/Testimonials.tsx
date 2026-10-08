@@ -5,7 +5,7 @@ import { StretchText } from "./StretchText";
 // balance a 3-up grid; both read as filler, so the section now shows however
 // many real quotes exist and the layout adapts to the count.
 // [EDIT NEEDED: add further approved, attributed testimonials here.]
-const quotes = [
+const allQuotes = [
   {
     name: "Joseph Rinehart, MD",
     role: "Anesthesiology, Clinical Advisor",
@@ -14,9 +14,29 @@ const quotes = [
   },
 ];
 
-export function Testimonials() {
+/**
+ * Attributed quotes from the clinical people behind a page.
+ *
+ * This used to sit on the home page and show everyone. It now belongs to the
+ * setting it speaks about, so `names` picks which quotes a page carries and
+ * `background` lets that page keep its own alternating panels.
+ */
+export function Testimonials({
+  names,
+  background = "bg-[color:var(--ink-2)]",
+}: {
+  /** Which quotes to show. Omit for all of them. */
+  names?: readonly string[];
+  /** Set by the page, which alternates section backgrounds down the stack. */
+  background?: string;
+} = {}) {
+  const quotes = names ? allQuotes.filter((q) => names.includes(q.name)) : allQuotes;
+  if (!quotes.length) return null;
+
   return (
-    <section className="relative flex min-h-screen items-center bg-[color:var(--ink-2)] py-8 md:py-12 hairline-b">
+    <section
+      className={`relative flex min-h-screen items-center py-8 md:py-12 hairline-b ${background}`}
+    >
       <div className="container-x">
         <div className="mx-auto max-w-[430px] text-center reveal">
           <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
