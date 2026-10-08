@@ -212,10 +212,13 @@ export function Technology() {
               ]}
             />
             <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
-              VeriTrack is built on applanation tonometry - a proven technique for measuring
-              arterial pressure through the skin. A soft capacitive sensing stack developed at UC
-              Irvine translates subtle arterial wall motion into continuous, beat-to-beat blood
-              pressure readings.
+              VeriTrack is built on applanation tonometry, a technique that senses the pulse of your
+              artery right through the skin. Traditionally, this has been limited by bulky, rigid
+              pressure sensors that struggle to conform to the body and compromise signal quality.
+              Our core technology, soft, flexible pressure sensors, rests on the pedal artery, with
+              its low-profile design improving the ability to measure blood pressure accurately.
+              These measurements are then converted into continuous blood pressure, giving
+              clinicians a complete, real-time picture of a patient&rsquo;s blood pressure.
             </p>
           </div>
         </div>
@@ -255,14 +258,13 @@ export function Technology() {
               ]}
             />
             <p className="mt-5 text-xs leading-relaxed text-white/85 md:text-[13px]">
-              The VeriTrack wrap fits around the foot, holding its sensor over the dorsalis pedis
-              artery. The sensor's soft, stretchable material detects the subtle deflections of the
-              artery beneath the skin with every heartbeat, converting that motion into a continuous
-              blood pressure waveform: systolic, diastolic, and mean arterial pressure, beat to
-              beat. The sensor sends that waveform to the bedside iPad over Bluetooth, so no cable
-              runs from the patient to the display. It moves with the patient through position
-              changes and motion without losing signal. Biocompatible materials mean no skin
-              irritation over the course of a case.
+              At the core of VeriTrack is a soft, flexible, and stretchable pressure sensor that
+              utilizes a proprietary wrinkled gold (wAu) thin-film process. The sensor&rsquo;s gold
+              electrodes are engineered with a controlled, micro-wrinkled surface morphology that
+              allows them to be built on soft substrates, mechanically compatible with the human
+              body. This compatibility lets the sensor conform seamlessly to the body&rsquo;s
+              contours and move with the skin&rsquo;s natural movement, enabling improved, accurate
+              measurements of blood pressure.
             </p>
             <TechnicalDetail />
           </div>
