@@ -24,7 +24,8 @@ const waysToWork = [
  *
  * The ways to work with us are set with the numerals doing the structural
  * work: each is at the site's stat size in the soft accent with the label over
- * its right shoulder, and the rows step in one at a time. No rules.
+ * its right shoulder. No rules, and no stepped indent — the rows align on one
+ * left edge so the numerals read as a column.
  *
  * Everything that used to sit on this page is parked in
  * archive/PartnerSections.tsx, including the closing CTA.
@@ -59,11 +60,7 @@ export function Partner() {
             </div>
             <ul className="mt-4 space-y-1 text-left md:mt-5 md:space-y-1.5">
               {waysToWork.map((a, i) => (
-                <li
-                  key={a}
-                  style={{ "--step": i } as React.CSSProperties}
-                  className="flex items-center pl-[calc(var(--step)*0.5rem)] md:pl-[calc(var(--step)*0.9rem)]"
-                >
+                <li key={a} className="flex items-center">
                   <span
                     aria-hidden
                     className="select-none font-display text-[26px] font-bold leading-none tracking-[-0.04em] tabular-nums text-[color:var(--accent-soft)]"

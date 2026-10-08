@@ -412,30 +412,16 @@ export function About() {
               ]}
             />
 
-            <div className="mx-auto mt-12 grid max-w-[560px] gap-10 text-left md:mt-14 md:max-w-none md:grid-cols-2 md:gap-12">
-              <div>
-                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-                  Company
-                </div>
-                <p className="mt-4 text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
-                  Vena Vitals is a data-driven digital health company focused on advancing
-                  continuous health monitoring. Our technologies are grounded in science and
-                  supported by clinical research. We believe better access to continuous monitoring
-                  can help create a more complete understanding of health and support better care
-                  for more people.
-                </p>
-              </div>
-              <div>
-                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-                  Mission
-                </div>
-                <p className="mt-4 text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
-                  To transform physiological data into actionable, personalized insights that enable
-                  early detection, proactive care, and more effective management of health
-                  conditions.
-                </p>
-              </div>
-            </div>
+            {/* One statement rather than labelled Company and Mission columns.
+                Centred under the headline at the hero's own measure. */}
+            <p className="mx-auto mt-8 max-w-[600px] text-xs leading-relaxed text-[color:var(--paper)] md:mt-10 md:text-[13px]">
+              Vena Vitals is a data-driven digital health company focused on advancing continuous
+              health monitoring. Our technologies are grounded in science and supported by clinical
+              research. We believe better access to continuous monitoring can help create a more
+              complete understanding of health and support better care for more people. Our mission
+              is to transform physiological data into actionable, personalized insights that enable
+              early detection, proactive care, and more effective management of health conditions.
+            </p>
           </div>
         </div>
       </section>

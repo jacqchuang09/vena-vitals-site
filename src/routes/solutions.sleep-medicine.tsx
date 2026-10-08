@@ -34,12 +34,12 @@ function Page() {
             body: "Conventional ambulatory blood pressure monitors (ABPMs) can wake up patients and affect sleep quality.",
           },
           {
-            title: "Untapped insights",
-            body: "Continuous, unobtrusive monitoring during sleep can yield new information about an individual's overall health.",
-          },
-          {
             title: "Missed BP variation",
             body: "Episodic measurements can miss meaningful nighttime pressure patterns.",
+          },
+          {
+            title: "Untapped insights",
+            body: "Continuous, unobtrusive monitoring during sleep can yield new information about an individual's overall health.",
           },
         ],
         gallery: {
