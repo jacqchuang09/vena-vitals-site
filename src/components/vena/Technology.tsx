@@ -73,10 +73,14 @@ function ScrollPlayClip({
   src,
   className = "",
   ariaLabel,
+  loopFrom,
 }: {
   src: string;
   className?: string;
   ariaLabel: string;
+  /** Seconds. Set it and the clip repeats from here rather than from 0, so an
+      opening move plays once and only the part worth repeating loops. */
+  loopFrom?: number;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -94,6 +98,16 @@ function ScrollPlayClip({
       void el.play()?.catch(() => {});
     };
     el.addEventListener("canplay", attempt);
+
+    // Repeat from loopFrom instead of the top, so the opening camera move runs
+    // once and the loop holds on the part that matters. The element's own
+    // `loop` is deliberately not set: it would restart at 0 and replay it.
+    const repeat = () => {
+      if (loopFrom === undefined) return;
+      el.currentTime = loopFrom;
+      attempt();
+    };
+    el.addEventListener("ended", repeat);
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -113,8 +127,9 @@ function ScrollPlayClip({
     return () => {
       io.disconnect();
       el.removeEventListener("canplay", attempt);
+      el.removeEventListener("ended", repeat);
     };
-  }, []);
+  }, [loopFrom]);
 
   return (
     <video
@@ -175,6 +190,10 @@ export function Technology() {
               src="/assets/technology/applanation.mp4"
               className="w-[92%] translate-x-[6%]"
               ariaLabel="How applanation tonometry reads arterial pressure through the skin"
+              // The camera pushes in hard over the first ~1.2s and barely moves
+              // after, so the loop picks up where that move lands and repeats
+              // the arterial expansion rather than the zoom.
+              loopFrom={1.22}
             />
           </MediaFrame>
           <div className="mx-auto max-w-[440px] text-center reveal md:text-left">
