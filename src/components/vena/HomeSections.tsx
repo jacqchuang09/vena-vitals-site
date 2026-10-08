@@ -45,7 +45,7 @@ const audiences = [
     label: "Explore Sleep Research",
     image: "/assets/home/veritrack-home-foot.jpg",
     imageAlt:
-      "The VeriTrack wrap worn on a foot resting on a sofa at home, with a blanket and a side table in the background",
+      "A person relaxing on a sofa at home with a mug of tea, the VeriTrack wrap worn on their foot, with a blanket and a side table in the background",
     mediaPos: "top" as const,
   },
 ];
