@@ -190,10 +190,13 @@ export function Technology() {
               src="/assets/technology/applanation.mp4"
               className="w-[92%] translate-x-[6%]"
               ariaLabel="How applanation tonometry reads arterial pressure through the skin"
-              // The camera pushes in hard over the first ~1.2s and barely moves
-              // after, so the loop picks up where that move lands and repeats
-              // the arterial expansion rather than the zoom.
-              loopFrom={1.65}
+              // Chosen by matching every candidate frame against the clip's
+              // last one: the camera keeps pushing in until roughly 4.4s, so
+              // any earlier loop point visibly jumps scale on the repeat.
+              // Mean abs frame difference against the final frame is 3.37 at
+              // 4.4s and 0.33 here, flat from 5.2s to 5.7s. This window also
+              // opens and closes on a relaxed artery and holds one full pulse.
+              loopFrom={5.2}
             />
           </MediaFrame>
           <div className="mx-auto max-w-[440px] text-center reveal md:text-left">
