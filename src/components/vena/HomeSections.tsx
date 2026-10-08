@@ -431,7 +431,7 @@ export function HomeEvidenceStrip() {
                 <span className="h-2 w-2 rounded-full bg-[#1f6fb2]" /> Arterial line
               </span>
               <span className="flex items-center gap-2 rounded-full bg-[color:var(--ink-2)] px-3 py-1.5 text-[color:var(--paper)]">
-                <span className="h-2 w-2 rounded-full bg-[#1f6fb2]" /> Vena Vitals
+                <span className="h-2 w-2 rounded-full bg-[#1f8c5a]" /> Vena Vitals
               </span>
             </div>
           </TiltCard>
