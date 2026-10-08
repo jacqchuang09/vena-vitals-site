@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Vena Vitals — iPad Pro frame (silver)
+
+  A standalone export of the device shell in src/components/vena/IPadFrame.tsx.
+  The screen is a transparent cutout: drop this over a video or image and the
+  artwork shows through the hole, with the bezel and rail sitting on top.
+
+  Geometry is the component's, scaled to a 1000px-wide device:
+    device          1000 x 720
+    screen          927 x 647, inset 36.5 on all four sides (3.65% of width)
+    rail            8 wide, the machined aluminium band
+    bezel face      28.5 wide, the dark front of the device
+    screen aspect   1280:894
+    volume buttons  top edge, 8% and 13% from the left corner
+    power button    left edge, 7.3% down from the top corner
+    front camera    left bezel, centred on both axes
+
+  The device sits at (60,60) inside a 1120x880 canvas; the margin carries the
+  drop shadow and the buttons that stand proud of the edges.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 880" width="1120" height="880"
+     role="img" aria-label="Silver iPad Pro frame with a transparent screen">
+
+  <defs>
+    <!-- Aluminium rail, lit from the top left and falling off to the bottom
+         right. Matches the 145deg CSS gradient on the component. -->
+    <linearGradient id="rail" x1="0.05" y1="0" x2="0.78" y2="1">
+      <stop offset="0%"   stop-color="#c2c8d0"/>
+      <stop offset="10%"  stop-color="#eef0f3"/>
+      <stop offset="34%"  stop-color="#b4bac3"/>
+      <stop offset="52%"  stop-color="#7f868f"/>
+      <stop offset="72%"  stop-color="#b0b7bf"/>
+      <stop offset="90%"  stop-color="#e4e7ea"/>
+      <stop offset="100%" stop-color="#a9b0b9"/>
+    </linearGradient>
+
+    <!-- Dark bezel face. -->
+    <linearGradient id="bezel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#2a2a2e"/>
+      <stop offset="100%" stop-color="#141416"/>
+    </linearGradient>
+
+    <!-- Buttons, machined from the same aluminium as the rail. -->
+    <linearGradient id="btnTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#d9dde2"/>
+      <stop offset="100%" stop-color="#9ba2ac"/>
+    </linearGradient>
+    <linearGradient id="btnSide" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#d9dde2"/>
+      <stop offset="100%" stop-color="#9ba2ac"/>
+    </linearGradient>
+
+    <!-- Contact shadow, pulled in tight so it sits under the device rather
+         than spreading a grey cloud across whatever is behind it. -->
+    <filter id="drop" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="31" stdDeviation="33"
+                    flood-color="#10141a" flood-opacity="0.35"/>
+    </filter>
+
+    <!-- Everything is drawn through this mask, which punches the screen out. -->
+    <mask id="screenCut">
+      <rect x="0" y="0" width="1120" height="880" fill="#fff"/>
+      <rect x="96.5" y="96.5" width="927" height="647" rx="15" fill="#000"/>
+    </mask>
+  </defs>
+
+  <g filter="url(#drop)">
+    <!-- Buttons are drawn first and run well under the rail, so the rail's own
+         edge covers their inner ends and they read as machined into it rather
+         than stuck on. Only the outer ~10 of each stands proud. -->
+    <!-- Volume up / down: top edge, clear of the corner radius -->
+    <rect x="140" y="50" width="40" height="26" rx="4" ry="4"
+          fill="url(#btnTop)" stroke="#7d848e" stroke-width="1.5"/>
+    <rect x="190" y="50" width="40" height="26" rx="4" ry="4"
+          fill="url(#btnTop)" stroke="#7d848e" stroke-width="1.5"/>
+    <!-- Power: left edge, starting below where the corner straightens out -->
+    <rect x="50" y="125" width="26" height="48" rx="4" ry="4"
+          fill="url(#btnSide)" stroke="#7d848e" stroke-width="1.5"/>
+
+    <g mask="url(#screenCut)">
+      <!-- Aluminium side rail -->
+      <rect x="60" y="60" width="1000" height="720" rx="61"
+            fill="url(#rail)" stroke="#8a919b" stroke-width="1.5"/>
+      <!-- Dark bezel face, inset by the width of the rail -->
+      <rect x="68" y="68" width="984" height="704" rx="53" fill="url(#bezel)"/>
+      <!-- The highlight the rail throws onto the glass -->
+      <rect x="69" y="69" width="982" height="702" rx="52"
+            fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="2"/>
+    </g>
+
+    <!-- Front camera, on the left bezel rather than the long top edge -->
+    <circle cx="82.3" cy="420" r="5.8" fill="#ffffff" fill-opacity="0.2"/>
+  </g>
+</svg>
