@@ -193,7 +193,7 @@ export function Technology() {
               // The camera pushes in hard over the first ~1.2s and barely moves
               // after, so the loop picks up where that move lands and repeats
               // the arterial expansion rather than the zoom.
-              loopFrom={1.35}
+              loopFrom={1.4}
             />
           </MediaFrame>
           <div className="mx-auto max-w-[440px] text-center reveal md:text-left">
