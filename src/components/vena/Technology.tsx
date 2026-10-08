@@ -266,9 +266,16 @@ export function Technology() {
               contours and move with the skin&rsquo;s natural movement, enabling improved, accurate
               measurements of blood pressure.
             </p>
-            <TechnicalDetail />
+            {/* "Show technical detail" — hidden for now at the team's request.
+                TechnicalDetail() above is intact; restore by uncommenting. */}
+            {/* <TechnicalDetail /> */}
           </div>
-          <div className="reveal [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">
+          {/* The seven hover-to-open advantages (Sensitivity, Dynamic Range,
+              Skin Compatibility, Robustness, Wireless, Manufacturing, Low
+              Powered). Hidden for now, not deleted: the `advantages` data at
+              the top of this file and the markup below are both intact, so
+              bringing the column back is removing this `hidden`. */}
+          <div className="hidden reveal [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">
             <ul className="divide-y divide-white/15">
               {advantages.map((advantage) => {
                 const Icon = advantage.icon;
