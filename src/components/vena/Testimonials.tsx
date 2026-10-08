@@ -10,7 +10,7 @@ const quotes = [
     name: "Joseph Rinehart, MD",
     role: "Anesthesiology, Clinical Advisor",
     img: "/assets/clinical/joseph.jpeg",
-    text: "A thin bandage-like patch for monitoring blood pressure continuously could revolutionize not just in-hospital monitoring, but outpatient monitoring as well; this is an exciting concept!",
+    text: "Currently in the operating room, if we need a continuous measure of blood pressure, the most common approach is to use an invasive arterial line. Not all patients necessarily need that level of intervention, however, but would still benefit from a continuous blood pressure measurement. This is where the Vena Vitals sensor may really have an opportunity to shine and fill in that gap in our current monitoring capabilities.",
   },
 ];
 
@@ -56,7 +56,11 @@ export function Testimonials() {
                   </span>
                 )}
               </span>
-              <blockquote className="mt-6 max-w-[320px]">
+              {/* A lone quote gets the full column to read across. Three-up
+                  keeps the narrow measure so the columns stay even. */}
+              <blockquote
+                className={`mt-6 ${quotes.length > 1 ? "max-w-[320px]" : "max-w-[520px]"}`}
+              >
                 <p className="text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
                   &ldquo;{q.text}&rdquo;
                 </p>
