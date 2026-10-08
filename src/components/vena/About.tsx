@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { X } from "lucide-react";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { StretchText } from "./StretchText";
-import { advisors } from "./people";
 import { HomeVideo } from "./HomeSections";
 
 // The team. Titles are taken verbatim from Vēna's own decks
@@ -88,25 +85,9 @@ const team: Member[] = [
   },
 ];
 
-// The advisors come from the shared people module so this page and the Clinical
-// Evidence page can never disagree about who they are. Mapped into the same
-// Member shape the dialog uses.
-const advisorMembers: Member[] = advisors.map((a) => ({
-  name: a.name,
-  role: a.role,
-  img: a.avatar ?? a.img,
-  title: a.title,
-  bio: a.bio,
-  url: a.url,
-}));
-
-// Three groups, one open at a time, Founders open on load. "The team" is the
-// full six including the founders, so the two groups deliberately overlap.
-const groups: { key: string; label: string; people: Member[] }[] = [
-  { key: "founders", label: "Founders", people: team.filter((m) => m.role.includes("ounder")) },
-  { key: "team", label: "The team", people: team },
-  { key: "advisors", label: "Clinical advisory board", people: advisorMembers },
-];
+// All six at once. This used to be three collapsible groups — Founders, The
+// team, Clinical advisory board — with Founders open on load, which hid most
+// of the people behind a click and listed the founders twice.
 
 // Company timeline. [VERIFY] the backing, hospital-site, and 510(k) details with
 // the Vena Vitals team before launch; markers other than 2019 are narrative
@@ -409,47 +390,68 @@ function StorySection() {
 }
 
 export function About() {
-  const [selected, setSelected] = useState<Member | null>(null);
-  const [open, setOpen] = useState<string | null>("founders");
   return (
     <>
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden py-16 md:py-20 hairline-b">
-        <img
-          src="/assets/about/team/team-hero.jpg"
-          alt="The Vena Vitals team and their families"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0d0d0d]/75 via-[#0d0d0d]/45 to-[#0d0d0d]/80" />
+      {/* Opening statement. This used to be the team photo under a dark
+          gradient with white type over it; it is now type on the page's own
+          white, so Company and Mission can sit under the headline and read as
+          one statement. The photo is still at
+          /assets/about/team/team-hero.jpg if it is wanted back. */}
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
         <div className="container-x relative">
-          <div className="mx-auto max-w-[620px] text-center reveal">
+          <div className="mx-auto max-w-[680px] text-center reveal">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--accent)]">
-              About Vēna Vitals
+              About us
             </div>
             <StretchText
               as="h1"
-              className="font-display text-[clamp(28px,3.4vw,48px)] font-bold leading-[1.05] tracking-tight text-white"
+              className="font-display text-[clamp(28px,3.4vw,48px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)]"
               segments={[
-                { text: "Born at UCI. " },
-                { text: "Built for clinical care.", className: "text-[color:var(--accent)]" },
+                { text: "Data-driven insights for " },
+                { text: "better health monitoring.", className: "text-[color:var(--accent)]" },
               ]}
             />
-            <p className="mx-auto mt-5 max-w-[440px] text-sm leading-relaxed text-white/85">
-              Vena Vitals is building a soft, skin-worn sensor for continuous, noninvasive blood
-              pressure monitoring.
-            </p>
+
+            <div className="mx-auto mt-12 grid max-w-[560px] gap-10 text-left md:mt-14 md:max-w-none md:grid-cols-2 md:gap-12">
+              <div>
+                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+                  Company
+                </div>
+                <p className="mt-4 text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
+                  Vena Vitals is a data-driven digital health company focused on advancing
+                  continuous health monitoring. Our technologies are grounded in science and
+                  supported by clinical research. We believe better access to continuous monitoring
+                  can help create a more complete understanding of health and support better care
+                  for more people.
+                </p>
+              </div>
+              <div>
+                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+                  Mission
+                </div>
+                <p className="mt-4 text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
+                  To transform physiological data into actionable, personalized insights that enable
+                  early detection, proactive care, and more effective management of health
+                  conditions.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <StorySection />
+      {/* "Our story" — hidden for now at the team's request. The section is
+          intact in StorySection() above; restore by uncommenting this line. */}
+      {/* <StorySection /> */}
 
-      {/* People. One section: the photo grid, then the two groups as
-          collapsible labels underneath. */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+      {/* People. One section, one flat grid of everyone. */}
+      {/* Off-white against the white opening statement above it. With "Our
+          story" hidden the two would otherwise run together as one block. */}
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b">
         <div className="container-x grid gap-10 md:grid-cols-[0.52fr_1.48fr] md:items-center">
           <div className="mx-auto max-w-[390px] text-center reveal md:mx-0 md:text-left">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Our people
+              Core team
             </div>
             <StretchText
               as="h2"
@@ -462,78 +464,34 @@ export function About() {
           </div>
 
           <div className="min-w-0">
-            <div className="reveal divide-y divide-[color:var(--line)] border-y border-[color:var(--line)]">
-              {groups.map((g) => {
-                const isOpen = open === g.key;
-                return (
-                  <div key={g.key}>
-                    <button
-                      type="button"
-                      onClick={() => setOpen(isOpen ? null : g.key)}
-                      aria-expanded={isOpen}
-                      className="group flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left outline-none"
-                    >
-                      <span className="font-display text-sm font-bold leading-tight tracking-tight text-[color:var(--paper)] transition-colors group-hover:text-[color:var(--accent)] md:text-base">
-                        {g.label}
-                      </span>
-                      {/* Same glyph the sensing-mechanism accordions on the
-                          Technology page use, rather than a lucide icon. */}
-                      <span
-                        aria-hidden
-                        className={`shrink-0 text-[10px] text-[color:var(--accent)] transition-transform duration-300 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
-                      >
-                        ▼
-                      </span>
-                    </button>
-                    {/* grid-rows trick: animates open/closed without a fixed height */}
-                    <div
-                      className={`grid transition-[grid-template-rows] duration-300 ease-out ${
-                        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                      }`}
-                    >
-                      <div className="overflow-hidden">
-                        {/* pt clears the overflow-hidden edge — without it the top of the
-                              first row's portraits (ring + shadow) is clipped. */}
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-8 pb-8 pt-3 sm:grid-cols-3">
-                          {g.people.map((p) => (
-                            <button
-                              key={p.name}
-                              type="button"
-                              onClick={() => setSelected(p)}
-                              tabIndex={isOpen ? 0 : -1}
-                              aria-label={`${p.name} — ${p.role}`}
-                              className="group/p flex cursor-pointer flex-col items-center text-center outline-none"
-                            >
-                              <span className="relative block aspect-square w-20 overflow-hidden rounded-full bg-[color:var(--ink-2)] shadow-[0_10px_30px_-12px_rgba(43,43,43,0.3)] ring-1 ring-[color:var(--line)] transition duration-300 group-hover/p:ring-2 group-hover/p:ring-[color:var(--accent)]/50 sm:w-24 md:w-28">
-                                <img
-                                  src={p.img}
-                                  alt={p.name}
-                                  className="h-full w-full object-cover object-top"
-                                  loading="lazy"
-                                />
-                              </span>
-                              <div className="mt-4 font-display text-sm font-bold leading-tight tracking-tight text-[color:var(--paper)]">
-                                {p.name}
-                              </div>
-                              <div className="mt-1 text-[11px] leading-snug text-[color:var(--paper)]/60">
-                                {p.role}
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+            <div className="reveal grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3">
+              {team.map((p) => (
+                <div key={p.name} className="flex flex-col items-center text-center">
+                  <span className="relative block aspect-square w-20 overflow-hidden rounded-full bg-[color:var(--ink)] shadow-[0_10px_30px_-12px_rgba(43,43,43,0.3)] ring-1 ring-[color:var(--line)] sm:w-24 md:w-28">
+                    <img
+                      src={p.img}
+                      alt={p.name}
+                      className="h-full w-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </span>
+                  <div className="mt-4 font-display text-sm font-bold leading-tight tracking-tight text-[color:var(--paper)]">
+                    {p.name}
                   </div>
-                );
-              })}
+                  <div className="mt-1 text-[11px] leading-snug text-[color:var(--paper)]/60">
+                    {p.role}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+      {/* "Inside the company" — the moments marquee. Hidden for now at the
+          team's request; kept in place rather than deleted. Remove the
+          `hidden` to bring it back. */}
+      <section className="relative hidden min-h-screen flex-col justify-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
         <div className="container-x">
           <div className="mx-auto max-w-[520px] text-center reveal">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
@@ -597,24 +555,14 @@ export function About() {
               We are a multidisciplinary team building clinical-grade wearables. If that is your
               kind of problem, we would like to meet you.
             </p>
-            <div className="mt-10 flex flex-wrap justify-center gap-3">
+            {/* One way out: there is no open-roles listing to point at, and
+                the demo request lives on the partner page's form. */}
+            <div className="mt-10 flex justify-center">
               <Link
-                to="/contact"
+                to="/partner-with-us"
                 className="group inline-flex items-center gap-3 rounded-full bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
               >
-                See open roles{" "}
-                <span
-                  aria-hidden
-                  className="inline-block transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </Link>
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-3 rounded-full border border-[color:var(--line)] px-5 py-3 text-xs font-semibold tracking-normal text-[color:var(--paper)] transition hover:border-[color:var(--accent)]"
-              >
-                Request a demo{" "}
+                Contact us{" "}
                 <span
                   aria-hidden
                   className="inline-block transition-transform group-hover:translate-x-1"
@@ -626,69 +574,6 @@ export function About() {
           </div>
         </div>
       </section>
-
-      {/* Bio dialog, matching the clinical-advisor dialog on the Clinical
-          Evidence page. Where no sourced biography exists the card says so
-          rather than showing invented copy. */}
-      <DialogPrimitive.Root open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogPrimitive.Portal>
-          <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-[#141414]/40 backdrop-blur-[4px] duration-150 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
-          <DialogPrimitive.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-[520px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-none bg-white p-7 text-[color:var(--paper)] shadow-[0_40px_100px_-24px_rgba(43,43,43,0.4)] outline-none duration-150 data-[state=open]:animate-in data-[state=open]:fade-in-0 md:p-9">
-            {selected && (
-              <div className="flex gap-4 md:gap-5">
-                {/* Portrait, small circle, top left of the panel. */}
-                <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[color:var(--ink-2)] ring-1 ring-[color:var(--line)] md:h-20 md:w-20">
-                  <img
-                    src={selected.img}
-                    alt={selected.name}
-                    className="h-full w-full object-cover object-top"
-                  />
-                </span>
-                <div className="flex min-w-0 flex-col">
-                  <div className="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-[color:var(--accent)]">
-                    {selected.role}
-                  </div>
-                  <DialogPrimitive.Title className="mt-2.5 font-display text-xl font-bold leading-tight tracking-tight text-[color:var(--paper)]">
-                    {selected.name}
-                  </DialogPrimitive.Title>
-                  {selected.title && (
-                    <div className="mt-2 text-[12px] font-medium leading-snug text-[color:var(--paper)]/55">
-                      {selected.title}
-                    </div>
-                  )}
-                  <DialogPrimitive.Description
-                    className={`mt-5 text-[13px] leading-relaxed ${
-                      selected.bio ? "text-[color:var(--paper)]/75" : "text-[color:var(--accent)]"
-                    }`}
-                  >
-                    {selected.bio ?? "Biography to confirm."}
-                  </DialogPrimitive.Description>
-                  {selected.url && (
-                    <a
-                      href={selected.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group mt-6 inline-flex items-center gap-1.5 text-[11px] font-semibold text-[color:var(--accent)] transition-opacity hover:opacity-80"
-                    >
-                      View profile
-                      <span
-                        aria-hidden
-                        className="transition-transform group-hover:translate-x-0.5"
-                      >
-                        →
-                      </span>
-                    </a>
-                  )}
-                </div>
-              </div>
-            )}
-            <DialogPrimitive.Close className="absolute right-4 top-4 grid h-8 w-8 cursor-pointer place-items-center rounded-full text-[color:var(--paper)]/60 outline-none transition hover:bg-[color:var(--ink-2)] hover:text-[color:var(--accent)] focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]">
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </DialogPrimitive.Close>
-          </DialogPrimitive.Content>
-        </DialogPrimitive.Portal>
-      </DialogPrimitive.Root>
     </>
   );
 }
