@@ -24,7 +24,8 @@ function Page() {
       content={{
         eyebrow: "Perioperative monitoring",
         title: "Continuous blood pressure,",
-        titleAccent: "evaluated against the arterial line.",
+        // Non-breaking space so "line." never wraps away from "arterial".
+        titleAccent: "evaluated against the arterial line.",
         intro:
           "Performance has been measured in the operating room on 600+ patients across eight U.S. hospitals.",
         button: "Request a Demo",
@@ -52,17 +53,6 @@ function Page() {
               src: "/assets/studies/or-data-3.png",
               alt: "A steep fall and recovery in blood pressure, tracked by both the arterial line and the sensor-derived signal",
               caption: "The sensor-derived signal responds to rapid changes in blood pressure.",
-            },
-            {
-              src: "/assets/studies/or-data-4.png",
-              alt: "A close view of individual pressure waveforms, showing the systolic upstroke and dicrotic notch resolved by the sensor",
-              caption:
-                "The sensor is able to capture detailed waveform features, as seen in this 43 year old male undergoing a CABG procedure.",
-            },
-            {
-              src: "/assets/studies/or-data-5.png",
-              alt: "Sensor readings plotted against arterial line readings across a wide span of pressures",
-              caption: "The investigational device measures across a wide range of blood pressure.",
             },
           ],
         },

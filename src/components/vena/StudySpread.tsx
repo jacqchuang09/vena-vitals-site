@@ -23,6 +23,7 @@ export function StudySpread({
   eyebrow,
   title,
   titleAccent,
+  subtitle,
   slides,
   footnote,
   background = "bg-[color:var(--ink-2)]",
@@ -30,11 +31,22 @@ export function StudySpread({
   eyebrow?: string;
   title?: string;
   titleAccent?: string;
+  /** Line under the eyebrow, in the accent colour and in sentence case. */
+  subtitle?: string;
   slides: StudyFigure[];
   footnote?: string;
   background?: string;
 }) {
   const [open, setOpen] = useState<StudyFigure | null>(null);
+  // A heading can be all plain, all accent, or plain with an accent tail, so
+  // the segments are built up rather than branched on `titleAccent` alone.
+  const headingSegments = [
+    ...(title ? [{ text: titleAccent ? `${title} ` : title }] : []),
+    ...(titleAccent
+      ? [{ text: titleAccent, className: "text-[color:var(--accent)]" }]
+      : []),
+  ];
+  const hasHeader = Boolean(eyebrow) || headingSegments.length > 0 || Boolean(subtitle);
 
   return (
     <>
@@ -42,30 +54,28 @@ export function StudySpread({
         className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 hairline-b ${background}`}
       >
         <div className="container-x">
-          {title ? (
+          {hasHeader ? (
             <div className="max-w-[700px] reveal">
               {eyebrow ? (
                 <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
                   {eyebrow}
                 </div>
               ) : null}
-              <StretchText
-                as="h2"
-                className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-[1.1] tracking-tight text-[color:var(--paper)] text-balance"
-                segments={
-                  titleAccent
-                    ? [
-                        { text: `${title} ` },
-                        { text: titleAccent, className: "text-[color:var(--accent)]" },
-                      ]
-                    : [{ text: title }]
-                }
-              />
+              {headingSegments.length > 0 ? (
+                <StretchText
+                  as="h2"
+                  className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-[1.1] tracking-tight text-[color:var(--paper)] text-balance"
+                  segments={headingSegments}
+                />
+              ) : null}
+              {subtitle ? (
+                <p className="text-sm leading-relaxed text-[color:var(--accent)]">{subtitle}</p>
+              ) : null}
             </div>
           ) : null}
 
           <div
-            className={`reveal grid gap-6 md:grid-cols-2 md:gap-10 ${title ? "mt-8 md:mt-10" : ""}`}
+            className={`reveal grid gap-6 md:grid-cols-2 md:gap-10 ${hasHeader ? "mt-8 md:mt-10" : ""}`}
           >
             {slides.map((f, i) => (
               <figure key={f.src}>

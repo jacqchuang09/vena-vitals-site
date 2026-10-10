@@ -43,6 +43,11 @@ function Page() {
           },
         ],
         gallery: {
+          // Eyebrow and subtitle only, no large heading: the same small red
+          // caps as the hero's "Sleep monitoring", with a sentence-case line
+          // under it in the same red.
+          eyebrow: "Polysomnography Data",
+          subtitle: "Clinical Evidence in sleep settings",
           footnote:
             "Research presented at World Sleep Conference 2023, ATS 2024, Sleep 2024, and AHA 2026.",
           slides: [

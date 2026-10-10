@@ -34,8 +34,11 @@ const audiences = [
     label: "View Clinical Data",
     image: "/assets/home/veritrack-or-foot.jpg",
     imageAlt:
-      "The VeriTrack wrap on a patient's foot, draped and positioned clear of the surgical field in an operating room",
+      "The VeriTrack wrap on a patient's foot in a hospital bed, with a gown and bedding around the leg and a compression sleeve on the other ankle",
     mediaPos: "bottom" as const,
+    // Portrait photo in a 16:9 slot, so most of its height is cropped. Sitting
+    // the crop above centre keeps the wrap and the toes in frame.
+    objectPos: "50% 35%",
   },
   {
     tag: "For Researchers",
@@ -47,6 +50,7 @@ const audiences = [
     imageAlt:
       "A woman sitting on a sofa at home holding a mug, the VeriTrack wrap worn on her ankle with her leg stretched out across the cushions",
     mediaPos: "top" as const,
+    objectPos: "50% 50%",
   },
 ];
 
@@ -171,7 +175,7 @@ export function HomeProblem() {
               <video
                 src="/assets/home/veritrack-app.mp4"
                 poster="/assets/home/veritrack-app-poster.jpg"
-                className="block aspect-[1280/894] w-full object-cover"
+                className="block h-full w-full object-contain"
                 autoPlay
                 muted
                 loop
@@ -223,6 +227,9 @@ export function HomeOverview() {
               aria-label="The VeriTrack wrap being fastened onto a patient's foot"
             />
           </div>
+          <p className="mx-auto mt-3 max-w-[420px] text-center text-[10px] italic leading-relaxed text-[color:var(--mute)] md:max-w-[460px]">
+            *VeriTrack is an investigational device
+          </p>
         </div>
 
         <div className="mx-auto max-w-[440px] text-center reveal md:mx-0 md:text-left">
@@ -550,6 +557,7 @@ export function HomeAudienceCards() {
                   src={audience.image}
                   alt={audience.imageAlt}
                   className="aspect-video w-full object-cover"
+                  style={{ objectPosition: audience.objectPos }}
                   loading="lazy"
                 />
               </div>

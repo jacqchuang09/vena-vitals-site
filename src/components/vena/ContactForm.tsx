@@ -55,7 +55,7 @@ export function ContactForm({ className = "" }: { className?: string }) {
             Request received.
           </h2>
           <p className="mt-4 max-w-[460px] text-sm leading-relaxed text-[color:var(--mute)]">
-            We will follow up with next steps for a demo, pilot conversation, or evidence packet.
+            Thank you for reaching out, we will get back to you as soon as we can.
           </p>
         </div>
       ) : (

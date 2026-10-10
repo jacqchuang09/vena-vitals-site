@@ -68,14 +68,7 @@ export function Footer() {
               ))}
             </div>
           </div>
-          <div className="grid gap-10 md:grid-cols-4">
-            <div>
-              <div className="text-xl font-bold text-[color:var(--paper)]">Vēna</div>
-              <p className="mt-4 max-w-xs text-sm leading-relaxed text-[color:var(--mute)]">
-                Continuous, noninvasive arterial blood pressure. Born at UCI.
-              </p>
-            </div>
-
+          <div className="grid gap-10 md:grid-cols-3">
             {columns.map((column) => (
               <div key={column.title}>
                 <h2 className="text-sm font-bold text-[color:var(--paper)]">{column.title}</h2>
