@@ -45,7 +45,7 @@ function Page() {
         gallery: {
           // Same shape as the perioperative figures header: small red caps
           // over a large heading with an accent tail.
-          eyebrow: "Polysomnography Data",
+          eyebrow: "Sleep data",
           title: "Clinical evidence in",
           titleAccent: "sleep settings.",
           footnote:
