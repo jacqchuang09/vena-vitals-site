@@ -35,7 +35,6 @@ export type SolutionDetailContent = {
     eyebrow?: string;
     title?: string;
     titleAccent?: string;
-    subtitle?: string;
     footnote?: string;
     slides: StudyFigure[];
   };
@@ -233,7 +232,6 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
           eyebrow={content.gallery.eyebrow}
           title={content.gallery.title}
           titleAccent={content.gallery.titleAccent}
-          subtitle={content.gallery.subtitle}
           slides={content.gallery.slides}
           footnote={content.gallery.footnote}
         />

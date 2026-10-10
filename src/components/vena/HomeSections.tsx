@@ -34,11 +34,10 @@ const audiences = [
     label: "View Clinical Data",
     image: "/assets/home/veritrack-or-foot.jpg",
     imageAlt:
-      "The VeriTrack wrap on a patient's foot in a hospital bed, with a gown and bedding around the leg and a compression sleeve on the other ankle",
+      "The VeriTrack wrap on a patient's foot in a hospital bed, with an IV pole, monitors and a window in the room behind",
     mediaPos: "bottom" as const,
-    // Portrait photo in a 16:9 slot, so most of its height is cropped. Sitting
-    // the crop above centre keeps the wrap and the toes in frame.
-    objectPos: "50% 35%",
+    // Already within a percent of the card's 16:9, so it sits centred.
+    objectPos: "50% 50%",
   },
   {
     tag: "For Researchers",

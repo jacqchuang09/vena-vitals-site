@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { StretchText } from "./StretchText";
-import { HomeVideo } from "./HomeSections";
 
 // The team. Titles are taken verbatim from Vēna's own decks
 // (VenaVitals_intro_materials.pptx and VenaVitals_background-510k.pptx), where
@@ -520,10 +519,7 @@ export function About() {
         </div>
       </section>
 
-      {/* Same full-bleed company video used on the home page. */}
-      <HomeVideo />
-
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink-2)] py-16 md:py-20">
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20">
         <div className="container-x">
           <div className="mx-auto max-w-[560px] text-center reveal">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">

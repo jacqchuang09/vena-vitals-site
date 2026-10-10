@@ -23,7 +23,6 @@ export function StudySpread({
   eyebrow,
   title,
   titleAccent,
-  subtitle,
   slides,
   footnote,
   background = "bg-[color:var(--ink-2)]",
@@ -31,8 +30,6 @@ export function StudySpread({
   eyebrow?: string;
   title?: string;
   titleAccent?: string;
-  /** Line under the eyebrow, in the accent colour and in sentence case. */
-  subtitle?: string;
   slides: StudyFigure[];
   footnote?: string;
   background?: string;
@@ -46,7 +43,7 @@ export function StudySpread({
       ? [{ text: titleAccent, className: "text-[color:var(--accent)]" }]
       : []),
   ];
-  const hasHeader = Boolean(eyebrow) || headingSegments.length > 0 || Boolean(subtitle);
+  const hasHeader = Boolean(eyebrow) || headingSegments.length > 0;
 
   return (
     <>
@@ -67,9 +64,6 @@ export function StudySpread({
                   className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-[1.1] tracking-tight text-[color:var(--paper)] text-balance"
                   segments={headingSegments}
                 />
-              ) : null}
-              {subtitle ? (
-                <p className="text-sm leading-relaxed text-[color:var(--accent)]">{subtitle}</p>
               ) : null}
             </div>
           ) : null}
