@@ -3,24 +3,34 @@ import type { ReactNode } from "react";
 /**
  * Device shell for screen content shown in landscape, shaped after an iPad.
  *
- * Geometry is measured off the reference photograph in
- * `Vena Vitals Website Source Docs`, an iPad held in landscape with the camera
- * edge on the left. Every figure below is a fraction of the device's own width
- * or height, so the shell keeps its proportions at any size:
+ * The shell is artwork rather than CSS: `public/assets/home/ipad-frame.png`,
+ * whose screen is a transparent cutout. The image is painted over the screen
+ * well and the content shows through the hole, so the bezel, side rail, camera
+ * and buttons all come from the artwork.
  *
- *   bezel            3.7% of width, uniform on all four sides
- *   volume buttons   top edge, 8.0% to 17.0% from the left corner
- *   power button     left edge, 7.3% to 14.0% down from the top corner
- *   front camera     left bezel, centred on both axes
- *   screen corners   1.6% of screen width, much squarer than the outer shell
- *   outer corners    5.5% of width
+ * Both boxes below are measured off the artwork's own alpha channel, as a
+ * fraction of its width and height, so they hold at any rendered size:
  *
- * Buttons sit a couple of pixels proud of the bezel, so the wrapper must not
- * clip its overflow.
+ *   screen   left 4.1667%   top 5.614%   91.667% x 88.772%   (~1.45:1)
+ *   device   left 0.75%     top 0.819%   98.5%   x 98.363%
  *
- * The child is expected to be 1.43:1, the iPad screen ratio the reference
- * measures at.
+ * A child is expected to fill the screen box.
  */
+const SCREEN = {
+  left: "4.1667%",
+  top: "5.614%",
+  width: "91.6666%",
+  height: "88.772%",
+} as const;
+
+/** The device silhouette, which is what casts the shadow. */
+const DEVICE = {
+  left: "0.75%",
+  top: "0.819%",
+  width: "98.5%",
+  height: "98.363%",
+} as const;
+
 export function IPadFrame({
   children,
   className = "",
@@ -34,37 +44,32 @@ export function IPadFrame({
 }) {
   return (
     <div className={`relative ${className}`}>
-      {/* Volume up / down: top edge, toward the left corner. */}
-      <span
+      {/* Contact shadow, on its own box behind everything else. It cannot go
+          on the <img>: a drop-shadow filter follows the alpha, and the screen
+          is a hole in that alpha, so the shadow would fall through the cutout
+          and darken the top of the video. Pulled in with a negative spread so
+          it stays a contact shadow under the device rather than a grey cloud
+          smudged across the page behind it. The radius matches the artwork's
+          own 5.25%-of-width outer corner at the size this renders at. */}
+      <div
         aria-hidden
-        className="absolute -top-[3px] left-[8%] h-[4px] w-[4%] rounded-t-[2px] bg-gradient-to-b from-[#4a4a50] to-[#26262b] md:-top-[4px] md:h-[5px]"
+        className="pointer-events-none absolute rounded-[28px] shadow-[0_16px_34px_-14px_rgba(16,20,26,0.45)]"
+        style={DEVICE}
       />
-      <span
-        aria-hidden
-        className="absolute -top-[3px] left-[13%] h-[4px] w-[4%] rounded-t-[2px] bg-gradient-to-b from-[#4a4a50] to-[#26262b] md:-top-[4px] md:h-[5px]"
-      />
-      {/* Power: left edge, near the top corner. */}
-      <span
-        aria-hidden
-        className="absolute -left-[3px] top-[7.3%] h-[6.7%] w-[4px] rounded-l-[2px] bg-gradient-to-l from-[#26262b] to-[#4a4a50] md:-left-[4px] md:w-[5px]"
-      />
-
-      {/* Bezel. The shadow is what gives the whole thing depth, so it stays.
-          Percentage padding resolves against width on every side, which is
-          what keeps the bezel square all the way round. */}
-      <div className="relative rounded-[28px] bg-gradient-to-b from-[#2a2a2e] to-[#141416] p-[3.7%] shadow-[0_40px_90px_rgba(0,0,0,0.4)] ring-1 ring-black/50 md:rounded-[30px]">
-        {/* Front camera: on the left bezel rather than the long top edge, and
-            centred on that edge, halfway down and halfway through the bezel. */}
-        <span
-          aria-hidden
-          className="absolute left-[1.85%] top-1/2 z-10 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/20"
-        />
-        <div
-          className={`overflow-hidden rounded-[8px] bg-[#0b0d12] md:rounded-[10px] ${screenClassName}`}
-        >
-          {children}
-        </div>
+      {/* Screen well next, so the artwork below it paints on top. The dark
+          fill stands in for the screen until the content has loaded. */}
+      <div
+        className={`absolute overflow-hidden rounded-[8px] bg-[#0b0d12] md:rounded-[10px] ${screenClassName}`}
+        style={SCREEN}
+      >
+        {children}
       </div>
+      <img
+        src="/assets/home/ipad-frame.png"
+        alt=""
+        aria-hidden
+        className="relative block w-full"
+      />
     </div>
   );
 }

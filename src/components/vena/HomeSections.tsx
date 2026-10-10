@@ -34,8 +34,10 @@ const audiences = [
     label: "View Clinical Data",
     image: "/assets/home/veritrack-or-foot.jpg",
     imageAlt:
-      "The VeriTrack wrap on a patient's foot, draped and positioned clear of the surgical field in an operating room",
+      "The VeriTrack wrap on a patient's foot in a hospital bed, with an IV pole, monitors and a window in the room behind",
     mediaPos: "bottom" as const,
+    // Already within a percent of the card's 16:9, so it sits centred.
+    objectPos: "50% 50%",
   },
   {
     tag: "For Researchers",
@@ -45,8 +47,9 @@ const audiences = [
     label: "Explore Sleep Research",
     image: "/assets/home/veritrack-home-foot.jpg",
     imageAlt:
-      "The VeriTrack wrap worn on a foot resting on a sofa at home, with a blanket and a side table in the background",
+      "A woman sitting on a sofa at home holding a mug, the VeriTrack wrap worn on her ankle with her leg stretched out across the cushions",
     mediaPos: "top" as const,
+    objectPos: "50% 50%",
   },
 ];
 
@@ -117,10 +120,10 @@ export function HomeProblem() {
               ]}
             />
             <p className="mx-auto mt-4 max-w-[400px] text-xs leading-relaxed text-[color:var(--paper)] md:mt-5 md:mx-0">
-              The standard cuff reads every 3 to 5 minutes. Between readings, a patient can lose
-              significant blood volume or undergo a dangerous pressure drop that goes undetected
-              until the next cycle. The alternative, arterial line cannulation, provides continuous,
-              beat-to-beat data but comes with significant risks and delays.
+              Standard blood pressure cuffs provide intermittent snapshots, leaving gaps between
+              readings. VeriTrack is designed to fill those gaps with continuous blood pressure
+              trend information, giving clinicians greater visibility into changes between cuff
+              measurements.
             </p>
             {/* Cuff against VeriTrack, two columns of the same card. No rule
                 between them: the two headings and the colour carry the split. */}
@@ -171,7 +174,7 @@ export function HomeProblem() {
               <video
                 src="/assets/home/veritrack-app.mp4"
                 poster="/assets/home/veritrack-app-poster.jpg"
-                className="block aspect-[1280/894] w-full object-cover"
+                className="block h-full w-full object-contain"
                 autoPlay
                 muted
                 loop
@@ -223,6 +226,9 @@ export function HomeOverview() {
               aria-label="The VeriTrack wrap being fastened onto a patient's foot"
             />
           </div>
+          <p className="mx-auto mt-3 max-w-[420px] text-center text-[10px] italic leading-relaxed text-[color:var(--mute)] md:max-w-[460px]">
+            *VeriTrack is an investigational device
+          </p>
         </div>
 
         <div className="mx-auto max-w-[440px] text-center reveal md:mx-0 md:text-left">
@@ -381,9 +387,13 @@ export function HomeEvidenceStrip() {
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[color:var(--ink-2)] py-6 md:py-20 hairline-b">
       <div className="container-x w-full">
-        <div className="grid grid-cols-[0.42fr_1.58fr] items-center gap-4 md:grid-cols-[0.58fr_1.42fr] md:gap-8">
-          <div className="mx-auto max-w-[250px] text-left reveal md:max-w-[360px]">
-            <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)] md:mb-3 md:text-[11px]">
+        {/* Two columns from md up. On a phone the chart is the wide element, so
+            squeezing the copy into a 42% column beside it crushed the heading
+            into the figure; it stacks under the text instead, like every other
+            two-column section on this page. */}
+        <div className="grid gap-6 md:grid-cols-[0.58fr_1.42fr] md:items-center md:gap-8">
+          <div className="mx-auto max-w-[420px] text-left reveal md:max-w-[360px]">
+            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
               Clinical Testing
             </div>
             <StretchText
@@ -394,13 +404,13 @@ export function HomeEvidenceStrip() {
                 { text: "the operating room.", className: "text-[color:var(--accent)]" },
               ]}
             />
-            <p className="mt-3 max-w-[260px] text-[10px] leading-relaxed text-[color:var(--paper)] md:mt-4 md:max-w-[330px] md:text-xs">
+            <p className="mt-4 max-w-[400px] text-xs leading-relaxed text-[color:var(--paper)] md:mt-4 md:max-w-[330px]">
               The investigational device tracked rapid blood pressure changes beat for beat in
               side-by-side operating room comparisons against the arterial line.
             </p>
             <Link
               to="/solutions/anesthesiology"
-              className="group mt-4 inline-flex items-center gap-2 bg-[color:var(--paper)] px-4 py-2.5 text-[10px] font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)] md:mt-8 md:gap-3 md:px-6 md:py-4 md:text-xs"
+              className="group mt-6 inline-flex items-center gap-2 bg-[color:var(--paper)] px-5 py-3 text-[11px] font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)] md:mt-8 md:gap-3 md:px-6 md:py-4 md:text-xs"
             >
               See the full data{" "}
               <span
@@ -427,7 +437,7 @@ export function HomeEvidenceStrip() {
                 <span className="h-2 w-2 rounded-full bg-[#1f6fb2]" /> Arterial line
               </span>
               <span className="flex items-center gap-2 rounded-full bg-[color:var(--ink-2)] px-3 py-1.5 text-[color:var(--paper)]">
-                <span className="h-2 w-2 rounded-full bg-[#1f6fb2]" /> Vena Vitals
+                <span className="h-2 w-2 rounded-full bg-[#1f8c5a]" /> Vena Vitals
               </span>
             </div>
           </TiltCard>
@@ -546,6 +556,7 @@ export function HomeAudienceCards() {
                   src={audience.image}
                   alt={audience.imageAlt}
                   className="aspect-video w-full object-cover"
+                  style={{ objectPosition: audience.objectPos }}
                   loading="lazy"
                 />
               </div>
@@ -622,29 +633,19 @@ export function HomeFinalCta() {
       <div className="container-x relative">
         <div className="mx-auto max-w-[560px] text-center reveal">
           <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-            Get Started
+            Collaborate With Us
           </div>
           <h2 className="section-heading mt-3 text-[color:var(--paper)]">
-            Evaluating continuous blood pressure for{" "}
+            Interested in evaluating continuous blood pressure at{" "}
             <span className="text-[color:var(--accent)]">your facility?</span>
           </h2>
         </div>
-        <div className="reveal mt-10 flex flex-wrap justify-center gap-3">
-          <Link
-            to="/contact"
-            className="group inline-flex items-center gap-3 bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
-          >
-            Request a Demo{" "}
-            <span
-              aria-hidden
-              className="inline-block transition-transform group-hover:translate-x-1"
-            >
-              →
-            </span>
-          </Link>
+        {/* One route out of this section now: the demo request lives on the
+            partner page's form, so a second button sent people two ways. */}
+        <div className="reveal mt-10 flex justify-center">
           <Link
             to="/partner-with-us"
-            className="group inline-flex items-center gap-3 border border-[color:var(--line)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--paper)] transition hover:border-[color:var(--line)] hover:bg-[color:var(--line)]"
+            className="group inline-flex items-center gap-3 bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
           >
             Partner With Us{" "}
             <span

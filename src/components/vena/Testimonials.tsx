@@ -5,18 +5,38 @@ import { StretchText } from "./StretchText";
 // balance a 3-up grid; both read as filler, so the section now shows however
 // many real quotes exist and the layout adapts to the count.
 // [EDIT NEEDED: add further approved, attributed testimonials here.]
-const quotes = [
+const allQuotes = [
   {
     name: "Joseph Rinehart, MD",
     role: "Anesthesiology, Clinical Advisor",
     img: "/assets/clinical/joseph.jpeg",
-    text: "A thin bandage-like patch for monitoring blood pressure continuously could revolutionize not just in-hospital monitoring, but outpatient monitoring as well; this is an exciting concept!",
+    text: "Currently in the operating room, if we need a continuous measure of blood pressure, the most common approach is to use an invasive arterial line. Not all patients necessarily need that level of intervention, however, but would still benefit from a continuous blood pressure measurement. This is where the Vena Vitals sensor may really have an opportunity to shine and fill in that gap in our current monitoring capabilities.",
   },
 ];
 
-export function Testimonials() {
+/**
+ * Attributed quotes from the clinical people behind a page.
+ *
+ * This used to sit on the home page and show everyone. It now belongs to the
+ * setting it speaks about, so `names` picks which quotes a page carries and
+ * `background` lets that page keep its own alternating panels.
+ */
+export function Testimonials({
+  names,
+  background = "bg-[color:var(--ink-2)]",
+}: {
+  /** Which quotes to show. Omit for all of them. */
+  names?: readonly string[];
+  /** Set by the page, which alternates section backgrounds down the stack. */
+  background?: string;
+} = {}) {
+  const quotes = names ? allQuotes.filter((q) => names.includes(q.name)) : allQuotes;
+  if (!quotes.length) return null;
+
   return (
-    <section className="relative flex min-h-screen items-center bg-[color:var(--ink-2)] py-8 md:py-12 hairline-b">
+    <section
+      className={`relative flex min-h-screen items-center py-8 md:py-12 hairline-b ${background}`}
+    >
       <div className="container-x">
         <div className="mx-auto max-w-[430px] text-center reveal">
           <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
@@ -56,7 +76,11 @@ export function Testimonials() {
                   </span>
                 )}
               </span>
-              <blockquote className="mt-6 max-w-[320px]">
+              {/* A lone quote gets the full column to read across. Three-up
+                  keeps the narrow measure so the columns stay even. */}
+              <blockquote
+                className={`mt-6 ${quotes.length > 1 ? "max-w-[320px]" : "max-w-[520px]"}`}
+              >
                 <p className="text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
                   &ldquo;{q.text}&rdquo;
                 </p>

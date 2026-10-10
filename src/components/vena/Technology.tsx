@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BatteryLow, Bluetooth, Factory, Gauge, Radar, Repeat, ShieldCheck } from "lucide-react";
 import { StretchText } from "./StretchText";
-import { SignalJourney } from "./SignalJourney";
+// import { SignalJourney } from "./SignalJourney"; // restore with the section below
 
 const advantages = [
   {
@@ -60,16 +60,91 @@ function MediaFrame({
   );
 }
 
-function ProductClip({ src, className = "" }: { src: string; className?: string }) {
+/**
+ * A clip that waits for the reader instead of running against a section they
+ * have not reached. It starts from the first frame when the section scrolls
+ * into view and plays through once, so an explainer animation is never caught
+ * halfway. Scrolling back to it replays it from the start.
+ *
+ * `preload="auto"` rather than "metadata": the whole point is that the first
+ * frame is ready the moment the section arrives.
+ */
+function ScrollPlayClip({
+  src,
+  className = "",
+  ariaLabel,
+  loopFrom,
+}: {
+  src: string;
+  className?: string;
+  ariaLabel: string;
+  /** Seconds. Set it and the clip repeats from here rather than from 0, so an
+      opening move plays once and only the part worth repeating loops. */
+  loopFrom?: number;
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // On a phone the clip is often still buffering when the section arrives,
+    // and play() rejects. Retry once there is data rather than leaving a
+    // frozen first frame, which is what a visitor would otherwise see.
+    let wantsPlay = false;
+    const attempt = () => {
+      if (!wantsPlay) return;
+      // Older Safari returns undefined here rather than a promise.
+      void el.play()?.catch(() => {});
+    };
+    el.addEventListener("canplay", attempt);
+
+    // Repeat from loopFrom instead of the top, so the opening camera move runs
+    // once and the loop holds on the part that matters. The element's own
+    // `loop` is deliberately not set: it would restart at 0 and replay it.
+    const repeat = () => {
+      if (loopFrom === undefined) return;
+      el.currentTime = loopFrom;
+      attempt();
+    };
+    el.addEventListener("ended", repeat);
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        wantsPlay = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          el.currentTime = 0;
+          attempt();
+        } else {
+          el.pause();
+        }
+      },
+      // Low threshold so a short viewport still trips it: on a phone this
+      // panel can never be 40% of the screen and tall thresholds never fire.
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      el.removeEventListener("canplay", attempt);
+      el.removeEventListener("ended", repeat);
+    };
+  }, [loopFrom]);
+
   return (
     <video
+      ref={ref}
       src={src}
-      className={`mx-auto aspect-video w-full max-w-none object-contain mix-blend-multiply brightness-[1.03] contrast-[1.22] saturate-[1.06] ${className}`}
-      autoPlay
+      // mix-blend-multiply is what hides the clip's own white background: a
+      // white pixel multiplied by the page leaves the page untouched, so the
+      // video rectangle has no edge. Without it the panel shows as a faint
+      // box wherever the decoder lands a shade off #fff, which varies by
+      // browser and GPU. The brightness lift clips near-white to white first.
+      className={`mx-auto aspect-video w-full max-w-none object-contain mix-blend-multiply brightness-[1.04] contrast-[1.02] ${className}`}
       muted
-      loop
       playsInline
-      preload="metadata"
+      preload="auto"
+      aria-label={ariaLabel}
     />
   );
 }
@@ -111,9 +186,17 @@ export function Technology() {
         {/* Video first, text second: the section leads with the device. */}
         <div className="container-x grid gap-8 md:grid-cols-[1.28fr_0.72fr] md:items-center">
           <MediaFrame className="reveal md:pl-4">
-            <ProductClip
-              src="/assets/untitled-design/8-bounce.mp4"
+            <ScrollPlayClip
+              src="/assets/technology/applanation.mp4"
               className="w-[92%] translate-x-[6%]"
+              ariaLabel="How applanation tonometry reads arterial pressure through the skin"
+              // Chosen by matching every candidate frame against the clip's
+              // last one: the camera keeps pushing in until roughly 4.4s, so
+              // any earlier loop point visibly jumps scale on the repeat.
+              // Mean abs frame difference against the final frame is 3.37 at
+              // 4.4s and 0.33 here, flat from 5.2s to 5.7s. This window also
+              // opens and closes on a relaxed artery and holds one full pulse.
+              loopFrom={5.2}
             />
           </MediaFrame>
           <div className="mx-auto max-w-[440px] text-center reveal md:text-left">
@@ -129,16 +212,23 @@ export function Technology() {
               ]}
             />
             <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
-              VeriTrack is built on applanation tonometry - a proven technique for measuring
-              arterial pressure through the skin. A soft capacitive sensing stack developed at UC
-              Irvine translates subtle arterial wall motion into continuous, beat-to-beat blood
-              pressure readings.
+              VeriTrack is built on applanation tonometry, a technique that senses the pulse of your
+              artery right through the skin. Traditionally, this has been limited by bulky, rigid
+              pressure sensors that struggle to conform to the body and compromise signal quality.
+              Our core technology, soft, flexible pressure sensors, rests on the pedal artery, with
+              its low-profile design improving the ability to measure blood pressure accurately.
+              These measurements are then converted into continuous blood pressure, giving
+              clinicians a complete, real-time picture of a patient&rsquo;s blood pressure.
             </p>
           </div>
         </div>
       </section>
 
-      <SignalJourney />
+      {/* "From skin contact to clinical context." — the workflow filmstrip.
+          Hidden for now at the team's request; the section itself is intact in
+          SignalJourney.tsx, so bringing it back is uncommenting this line and
+          its import above. */}
+      {/* <SignalJourney /> */}
 
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
         <video
@@ -168,18 +258,24 @@ export function Technology() {
               ]}
             />
             <p className="mt-5 text-xs leading-relaxed text-white/85 md:text-[13px]">
-              The VeriTrack wrap fits around the foot, holding its sensor over the dorsalis pedis
-              artery. The sensor's soft, stretchable material detects the subtle deflections of the
-              artery beneath the skin with every heartbeat, converting that motion into a continuous
-              blood pressure waveform: systolic, diastolic, and mean arterial pressure, beat to
-              beat. The sensor sends that waveform to the bedside iPad over Bluetooth, so no cable
-              runs from the patient to the display. It moves with the patient through position
-              changes and motion without losing signal. Biocompatible materials mean no skin
-              irritation over the course of a case.
+              At the core of VeriTrack is a soft, flexible, and stretchable pressure sensor that
+              utilizes a proprietary wrinkled gold (wAu) thin-film process. The sensor&rsquo;s gold
+              electrodes are engineered with a controlled, micro-wrinkled surface morphology that
+              allows them to be built on soft substrates, mechanically compatible with the human
+              body. This compatibility lets the sensor conform seamlessly to the body&rsquo;s
+              contours and move with the skin&rsquo;s natural movement, enabling improved, accurate
+              measurements of blood pressure.
             </p>
-            <TechnicalDetail />
+            {/* "Show technical detail" — hidden for now at the team's request.
+                TechnicalDetail() above is intact; restore by uncommenting. */}
+            {/* <TechnicalDetail /> */}
           </div>
-          <div className="reveal [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">
+          {/* The seven hover-to-open advantages (Sensitivity, Dynamic Range,
+              Skin Compatibility, Robustness, Wireless, Manufacturing, Low
+              Powered). Hidden for now, not deleted: the `advantages` data at
+              the top of this file and the markup below are both intact, so
+              bringing the column back is removing this `hidden`. */}
+          <div className="hidden reveal [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">
             <ul className="divide-y divide-white/15">
               {advantages.map((advantage) => {
                 const Icon = advantage.icon;

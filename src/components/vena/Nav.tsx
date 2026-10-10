@@ -51,9 +51,11 @@ export function Nav() {
   // mouse-leave so hovering back in reopens it normally.
   const [solutionsClosed, setSolutionsClosed] = useState(false);
 
-  // White over full-bleed dark heroes (home video, About team photo), red once
-  // the nav passes them. Other pages are light, so the nav is red from the top.
-  const darkHero = pathname === "/" || pathname === "/about";
+  // White over full-bleed dark heroes (the home video), red once the nav
+  // passes them. Other pages are light, so the nav is red from the top. About
+  // used to be here too, behind its team photo; its hero is white type on
+  // white now, so a white nav would be invisible over it.
+  const darkHero = pathname === "/";
   const navColor = pastHero ? "text-[color:var(--accent)]" : "text-white";
 
   // Which nav item is the current page, so it can be marked "you are here".

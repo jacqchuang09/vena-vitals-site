@@ -2,14 +2,14 @@ import { StretchText } from "./StretchText";
 import { useNoSnap } from "./lib";
 import { ContactForm } from "./ContactForm";
 
-// Decomposed from the single "Built for ..." sentence this replaces — no new
-// audiences introduced.
-const audiences = [
-  "Clinical leaders",
-  "Operating room teams",
-  "Critical care teams",
-  "Supply chain",
-  "Value-analysis committees",
+// The kinds of work the team takes on, rather than the job titles this list
+// used to name. Order is deliberate: clinical first, money last.
+const waysToWork = [
+  "Clinical collaborations",
+  "Industry projects",
+  "Strategic partnerships",
+  "Investment opportunities",
+  "General interest",
 ];
 
 /**
@@ -22,9 +22,10 @@ const audiences = [
  *
  * It is the same ContactForm the /contact page uses, not a second copy.
  *
- * The audiences are set with the numerals doing the structural work: each is
- * at the site's stat size in the soft accent with the label over its right
- * shoulder, and the rows step in one at a time. No rules.
+ * The ways to work with us are set with the numerals doing the structural
+ * work: each is at the site's stat size in the soft accent with the label over
+ * its right shoulder. No rules, and no stepped indent — the rows align on one
+ * left edge so the numerals read as a column.
  *
  * Everything that used to sit on this page is parked in
  * archive/PartnerSections.tsx, including the closing CTA.
@@ -44,26 +45,22 @@ export function Partner() {
             as="h1"
             className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)] text-balance"
             segments={[
-              { text: "Bring continuous, noninvasive blood pressure to " },
-              { text: "your facility.", className: "text-[color:var(--accent)]" },
+              { text: "Explore what continuous, noninvasive blood pressure " },
+              { text: "can make possible.", className: "text-[color:var(--accent)]" },
             ]}
           />
-          <p className="mx-auto mt-5 max-w-[340px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
-            Evaluate VeriTrack in your operating room or ICU through a structured pilot. Tell us
-            about your setting and the team will follow up.
+          <p className="mx-auto mt-5 max-w-[400px] text-xs leading-relaxed text-[color:var(--mute)] md:mx-0">
+            We collaborate with clinicians, researchers, and industry partners to study new
+            applications for continuous blood pressure monitoring and advance the technology.
           </p>
 
           <div className="mt-8">
             <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Who this is for
+              Ways to work with us
             </div>
             <ul className="mt-4 space-y-1 text-left md:mt-5 md:space-y-1.5">
-              {audiences.map((a, i) => (
-                <li
-                  key={a}
-                  style={{ "--step": i } as React.CSSProperties}
-                  className="flex items-center pl-[calc(var(--step)*0.5rem)] md:pl-[calc(var(--step)*0.9rem)]"
-                >
+              {waysToWork.map((a, i) => (
+                <li key={a} className="flex items-center">
                   <span
                     aria-hidden
                     className="select-none font-display text-[26px] font-bold leading-none tracking-[-0.04em] tabular-nums text-[color:var(--accent-soft)]"
