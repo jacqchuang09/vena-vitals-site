@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/vena/Hero";
-import { Testimonials } from "@/components/vena/Testimonials";
 import {
   HomeAudienceCards,
   HomeEvidenceStrip,
@@ -39,7 +38,6 @@ function Home() {
       <HomeOverview />
       <HomeEvidenceStrip />
       <HomeAudienceCards />
-      <Testimonials />
       <HomeFinalCta />
     </>
   );

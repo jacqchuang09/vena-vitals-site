@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ClinicalCollaborators } from "./ClinicalCollaborators";
+import { Testimonials } from "./Testimonials";
 import { StudyFigures, type StudyFigure } from "./StudyFigures";
 import { StudySpread } from "./StudySpread";
 import { SolutionWindows, type SolutionWindow } from "./SolutionWindows";
@@ -17,6 +17,8 @@ export type SolutionDetailContent = {
   button: string;
   /** Hero CTA. Defaults to shown; the closing CTA always keeps its button. */
   showHeroButton?: boolean;
+  /** Cards beside the hero copy. Omit and the hero stays a centred column. */
+  heroCards?: Array<{ title: string; body: string }>;
   /** Advisor names to feature on this page. Omit for no collaborators section. */
   collaborators?: readonly string[];
   /** Study figures, shown as one section directly under the hero. */
@@ -104,6 +106,33 @@ function DemoButton({ label }: { label: string }) {
   );
 }
 
+// The numbered card used both beside the hero and in the pain points section.
+// `surface` is the background, which has to be the panel the card sits on
+// inverted, since the page alternates ink and ink-2 down the stack.
+function PointCard({
+  index,
+  title,
+  body,
+  surface,
+}: {
+  index: number;
+  title: string;
+  body: string;
+  surface: string;
+}) {
+  return (
+    <TiltCard as="article" className={`reveal rounded-none p-6 md:p-7 ${surface}`}>
+      <div className="font-mono text-xs text-[color:var(--accent)]">
+        {String(index + 1).padStart(2, "0")}
+      </div>
+      <h3 className="mt-6 font-display text-base font-bold leading-tight tracking-tight text-[color:var(--paper)]">
+        {title}
+      </h3>
+      <p className="mt-3 text-xs leading-relaxed text-[color:var(--paper)]">{body}</p>
+    </TiltCard>
+  );
+}
+
 const INK = "bg-[color:var(--ink)]";
 const INK_2 = "bg-[color:var(--ink-2)]";
 
@@ -126,6 +155,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
   const bg: Record<string, string> = Object.fromEntries(
     present.map((key, i) => [key, i % 2 ? INK_2 : INK]),
   );
+  const heroCards = content.heroCards?.length ? content.heroCards : null;
 
   return (
     <>
@@ -133,8 +163,20 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
       <section
         className={`relative flex min-h-screen items-center overflow-hidden py-16 md:py-20 hairline-b ${bg.hero}`}
       >
-        <div className="container-x">
-          <div className="mx-auto max-w-[640px] text-center reveal">
+        <div
+          className={
+            heroCards
+              ? "container-x grid gap-10 md:grid-cols-[0.58fr_1.42fr] md:items-center"
+              : "container-x"
+          }
+        >
+          <div
+            className={
+              heroCards
+                ? "mx-auto max-w-[460px] text-center reveal md:mx-0 md:text-left"
+                : "mx-auto max-w-[640px] text-center reveal"
+            }
+          >
             <Eyebrow>{content.eyebrow}</Eyebrow>
             <Heading
               as="h1"
@@ -143,7 +185,11 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
               accent={content.titleAccent}
               className="font-display text-[clamp(28px,3.2vw,46px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)]"
             />
-            <p className="mx-auto mt-6 max-w-[460px] text-sm leading-relaxed text-[color:var(--mute)]">
+            <p
+              className={`mt-6 text-sm leading-relaxed text-[color:var(--mute)] ${
+                heroCards ? "max-w-[420px] mx-auto md:mx-0" : "mx-auto max-w-[460px]"
+              }`}
+            >
               {content.intro}
             </p>
             {content.showHeroButton !== false && (
@@ -152,6 +198,20 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
               </div>
             )}
           </div>
+
+          {heroCards ? (
+            <div className="grid gap-4 md:grid-cols-3">
+              {heroCards.map((card, i) => (
+                <PointCard
+                  key={card.title}
+                  index={i}
+                  title={card.title}
+                  body={card.body}
+                  surface={bg.hero === INK ? INK_2 : INK}
+                />
+              ))}
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -194,21 +254,13 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
 
             <div className="grid gap-4 md:grid-cols-3">
               {content.cards.map((card, i) => (
-                <TiltCard
-                  as="article"
+                <PointCard
                   key={card.title}
-                  className="reveal rounded-none bg-[color:var(--ink)] p-6 md:p-7"
-                >
-                  <div className="font-mono text-xs text-[color:var(--accent)]">
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <h3 className="mt-6 font-display text-base font-bold leading-tight tracking-tight text-[color:var(--paper)]">
-                    {card.title}
-                  </h3>
-                  <p className="mt-3 text-xs leading-relaxed text-[color:var(--paper)]">
-                    {card.body}
-                  </p>
-                </TiltCard>
+                  index={i}
+                  title={card.title}
+                  body={card.body}
+                  surface={INK}
+                />
               ))}
             </div>
           </div>
@@ -254,8 +306,11 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
         </section>
       ) : null}
 
+      {/* The clinical people behind this setting, in their own words. This was
+          a row of portraits here and a separate quote section on the home
+          page; the quote belongs with the setting it describes. */}
       {content.collaborators?.length ? (
-        <ClinicalCollaborators names={content.collaborators} background={bg.collaborators} />
+        <Testimonials names={content.collaborators} background={bg.collaborators} />
       ) : null}
 
       {/* Footage */}

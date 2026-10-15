@@ -45,10 +45,16 @@ const trustLogos = [
 const marqueeHalf = [...trustLogos, ...trustLogos, ...trustLogos];
 const marqueeLogos = [...marqueeHalf, ...marqueeHalf];
 
+// The footer is locked to the viewport only from md up, where the link columns
+// sit in a row and the whole thing fits. Narrower than that they stack, the
+// content runs taller than the screen, and a fixed height combined with
+// items-center and overflow-hidden clipped that overflow off BOTH ends — taking
+// the top of the logo strip with it. A min-height keeps the full-screen look
+// without capping it, which is what every section on the site already does.
 export function Footer() {
   return (
-    <footer className="flex h-[100svh] min-h-[100svh] w-full items-center overflow-hidden bg-[color:var(--ink)] py-10 md:py-14">
-      <div className="container-wide flex h-full items-center">
+    <footer className="flex min-h-[100svh] w-full items-center overflow-hidden bg-[color:var(--ink)] py-10 md:h-[100svh] md:py-14">
+      <div className="container-wide flex items-center md:h-full">
         <div className="w-full pt-10 md:pt-12">
           <div className="mb-12 overflow-hidden border-b border-[color:var(--line)] pb-10">
             <div className="mb-5 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
@@ -68,14 +74,7 @@ export function Footer() {
               ))}
             </div>
           </div>
-          <div className="grid gap-10 md:grid-cols-4">
-            <div>
-              <div className="text-xl font-bold text-[color:var(--paper)]">Vēna</div>
-              <p className="mt-4 max-w-xs text-sm leading-relaxed text-[color:var(--mute)]">
-                Continuous, noninvasive arterial blood pressure. Born at UCI.
-              </p>
-            </div>
-
+          <div className="grid gap-10 md:grid-cols-3">
             {columns.map((column) => (
               <div key={column.title}>
                 <h2 className="text-sm font-bold text-[color:var(--paper)]">{column.title}</h2>

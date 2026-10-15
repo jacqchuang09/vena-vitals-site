@@ -5,7 +5,12 @@ import { useEffect, useRef, useState } from "react";
 // red) where the Vena Vitals signal stays clean. Both bands draw in left-to-right
 // as the section scrolls into view.
 
+// The arterial line stays blue; the Vena Vitals trace is green so the two
+// panels are told apart by colour and not only by position. Matched in
+// luminance to the blue so neither reads as the louder of the pair, and clear
+// of the brand red.
 const BLUE = "#1f6fb2";
+export const VENA_GREEN = "#1f8c5a";
 
 const W = 1180;
 const H = 486;
@@ -249,7 +254,7 @@ export function SurgeryComparison() {
             x2={b.x}
             y1={b.y1}
             y2={b.y2}
-            stroke={BLUE}
+            stroke={VENA_GREEN}
             strokeWidth="1"
             strokeOpacity="0.85"
           />
