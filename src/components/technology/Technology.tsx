@@ -1,52 +1,13 @@
 import { useEffect, useRef } from "react";
 import { BatteryLow, Bluetooth, Factory, Gauge, Radar, Repeat, ShieldCheck } from "lucide-react";
 import { StretchText } from "@/components/shared/StretchText";
+import technology from "@content/technology.json";
 // import { SignalJourney } from "@/components/technology/SignalJourney"; // restore with the section below
 
-const advantages = [
-  {
-    icon: Radar,
-    title: "Sensitivity",
-    points: [
-      "Wrinkled device provides 600% more surface area than traditional capacitive sensors",
-      "Micro-rigid flexibility enables advanced structures beyond the parallel plate",
-    ],
-  },
-  {
-    icon: Gauge,
-    title: "Dynamic Range",
-    points: ["Soft substrate and flexible structural design enables a wider range of motion"],
-  },
-  {
-    icon: ShieldCheck,
-    title: "Skin Compatibility",
-    points: [
-      "Skin-safe biocompatible material conforms to the skin for a superior mechanical interface between sensor and body",
-    ],
-  },
-  {
-    icon: Repeat,
-    title: "Robustness",
-    points: ["Wrinkled structures enable repeated bending, flexing, and stretching"],
-  },
-  {
-    icon: Bluetooth,
-    title: "Wireless, no cables",
-    points: [
-      "Streams over Bluetooth to the bedside iPad monitor. Nothing tethered to the patient, nothing crossing the surgical field",
-    ],
-  },
-  {
-    icon: Factory,
-    title: "Manufacturing",
-    points: ["Low-cost scalability without the need for cleanrooms or photolithography"],
-  },
-  {
-    icon: BatteryLow,
-    title: "Low Powered",
-    points: ["Compatible with low-powered IC components, allowing for minimal power requirements"],
-  },
-];
+// Icons are named in the JSON; this maps each name to its lucide component.
+const icons = { BatteryLow, Bluetooth, Factory, Gauge, Radar, Repeat, ShieldCheck };
+
+const { hero, sensingMechanism } = technology;
 
 function MediaFrame({
   children,
@@ -157,9 +118,9 @@ export function Technology() {
         <div className="container-x grid gap-8 md:grid-cols-[1.28fr_0.72fr] md:items-center">
           <MediaFrame className="reveal md:pl-4">
             <ScrollPlayClip
-              src="/assets/technology/applanation.mp4"
+              src={hero.video}
               className="w-[92%] translate-x-[6%]"
-              ariaLabel="How applanation tonometry reads arterial pressure through the skin"
+              ariaLabel={hero.alt}
               // Chosen by matching every candidate frame against the clip's
               // last one: the camera keeps pushing in until roughly 4.4s, so
               // any earlier loop point visibly jumps scale on the repeat.
@@ -171,24 +132,18 @@ export function Technology() {
           </MediaFrame>
           <div className="mx-auto max-w-[440px] text-center reveal md:text-left">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              The Science
+              {hero.eyebrow}
             </div>
             <StretchText
               as="h1"
               className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)] text-balance"
               segments={[
-                { text: "Applanation tonometry, " },
-                { text: "reinvented.", className: "text-[color:var(--accent)]" },
+                { text: hero.title },
+                { text: hero.titleAccent, className: "text-[color:var(--accent)]" },
               ]}
             />
             <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
-              VeriTrack is built on applanation tonometry, a technique that senses the pulse of your
-              artery right through the skin. Traditionally, this has been limited by bulky, rigid
-              pressure sensors that struggle to conform to the body and compromise signal quality.
-              Our core technology, soft, flexible pressure sensors, rests on the pedal artery, with
-              its low-profile design improving the ability to measure blood pressure accurately.
-              These measurements are then converted into continuous blood pressure, giving
-              clinicians a complete, real-time picture of a patient&rsquo;s blood pressure.
+              {hero.body}
             </p>
           </div>
         </div>
@@ -202,7 +157,7 @@ export function Technology() {
 
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
         <video
-          src="/assets/technology/sensor-stretching.mp4"
+          src={sensingMechanism.video}
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
           muted
@@ -217,24 +172,21 @@ export function Technology() {
         <div className="relative container-x grid gap-8 md:grid-cols-[1fr_1.05fr] md:items-center md:gap-12">
           <div className="mx-auto max-w-[480px] reveal text-center [text-shadow:0_1px_14px_rgba(0,0,0,0.55)] md:mx-0 md:text-left">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Sensing Mechanism
+              {sensingMechanism.eyebrow}
             </div>
             <StretchText
               as="h2"
               className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-white"
               segments={[
-                { text: "Soft enough to wear. " },
-                { text: "Accurate enough to trust.", className: "text-[color:var(--accent)]" },
+                { text: sensingMechanism.title },
+                {
+                  text: sensingMechanism.titleAccent,
+                  className: "text-[color:var(--accent)]",
+                },
               ]}
             />
             <p className="mt-5 text-xs leading-relaxed text-white/85 md:text-[13px]">
-              At the core of VeriTrack is a soft, flexible, and stretchable pressure sensor that
-              utilizes a proprietary wrinkled gold (wAu) thin-film process. The sensor&rsquo;s gold
-              electrodes are engineered with a controlled, micro-wrinkled surface morphology that
-              allows them to be built on soft substrates, mechanically compatible with the human
-              body. This compatibility lets the sensor conform seamlessly to the body&rsquo;s
-              contours and move with the skin&rsquo;s natural movement, enabling improved, accurate
-              measurements of blood pressure.
+              {sensingMechanism.body}
             </p>
             {/* "Show technical detail" — hidden for now at the team's request.
                 TechnicalDetail() above is intact; restore by uncommenting. */}
@@ -242,13 +194,13 @@ export function Technology() {
           </div>
           {/* The seven hover-to-open advantages (Sensitivity, Dynamic Range,
               Skin Compatibility, Robustness, Wireless, Manufacturing, Low
-              Powered). Hidden for now, not deleted: the `advantages` data at
-              the top of this file and the markup below are both intact, so
+              Powered). Hidden for now, not deleted: the `advantages` list in
+              content/technology.json and the markup below are both intact, so
               bringing the column back is removing this `hidden`. */}
           <div className="hidden reveal [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">
             <ul className="divide-y divide-white/15">
-              {advantages.map((advantage) => {
-                const Icon = advantage.icon;
+              {sensingMechanism.advantages.map((advantage) => {
+                const Icon = icons[advantage.icon as keyof typeof icons];
                 return (
                   <li key={advantage.title} className="group">
                     <div className="flex cursor-default items-center gap-3 py-3">

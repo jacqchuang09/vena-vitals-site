@@ -1,0 +1,96 @@
+{
+  "seo": {
+    "title": "Clinical Studies | Vēna Vitals",
+    "description": "Clinical validation data, arterial-line comparison, and study status for Vena Vitals.",
+    "shareTitle": "Clinical Studies | Vēna Vitals",
+    "shareDescription": "Validation data and arterial-line comparison for continuous, noninvasive blood pressure monitoring.",
+    "url": "/clinical-evidence"
+  },
+  "hero": {
+    "eyebrow": "Clinical Validation",
+    "title": "Beat-to-beat accuracy, ",
+    "titleAccent": "proven against the arterial line.",
+    "body": "VeriTrack has been validated across 300+ operating room patients at 6+ academic and community hospital sites. In direct comparison against the invasive radial arterial line, the clinical gold standard for continuous pressure, VeriTrack tracked beat-to-beat hemodynamic changes across a wide range of patients and surgical cases.",
+    "stats": [
+      { "value": 300, "suffix": "+ OR patients" },
+      { "value": 6, "suffix": "+ study sites", "linear": true },
+      { "label": "Validated vs. radial arterial line" }
+    ]
+  },
+  "validation": {
+    "eyebrow": "Validation Program",
+    "title": "Operating room ",
+    "titleAccent": "validation.",
+    "body": "Our validation program spans 6+ academic and community hospital sites, including UC Irvine, University of Vermont Medical Center, UCSF, and Henry Ford, with studies comparing VeriTrack directly against the invasive radial arterial line in OR patients undergoing general anesthesia. The validation follows AAMI ISO 81060-2 methodology for comparison against an arterial reference. Data from our design-freeze studies demonstrate accuracy within ISO 81060-3 standards. In cases where the arterial line dropped signal due to clotting or required repeated flushing, VeriTrack maintained a clean continuous trace. Full study results are forthcoming.",
+    "sites": [
+      { "image": "/assets/brand/uci.webp", "alt": "UC Irvine" },
+      { "image": "/assets/brand/ucsf.svg", "alt": "UCSF" },
+      { "image": "/assets/brand/baptist.png", "alt": "Baptist Health" },
+      { "image": "/assets/brand/arksans.webp", "alt": "Arkansas" },
+      { "image": "/assets/brand/bernards.svg", "alt": "St. Bernards" }
+    ]
+  },
+  "research": {
+    "eyebrow": "Research Pipeline",
+    "title": "Ongoing ",
+    "titleAccent": "research.",
+    "body": "Studies extending continuous, noninvasive monitoring across new patient populations and care settings.",
+    "studies": [
+      {
+        "title": "Head-to-head vs arterial line",
+        "body": "Prospective comparison in surgical patients across multiple OR settings.",
+        "image": "/assets/technology/veritrack-system.jpg",
+        "alt": ""
+      },
+      {
+        "title": "CHF BP variability",
+        "body": "Characterizing blood pressure variability in congestive heart failure patients.",
+        "image": "/assets/technology/hospital-device-monitor.png",
+        "alt": ""
+      },
+      {
+        "title": "Motion-artifact neural network",
+        "body": "Algorithm development to filter motion artifact from continuous waveform data.",
+        "image": "/assets/technology/sensor-mechanism.png",
+        "alt": "",
+        "fit": "contain"
+      },
+      {
+        "title": "ER beat-to-beat",
+        "body": "Feasibility of continuous noninvasive BP in the emergency department setting.",
+        "image": "/assets/technology/veritrack-wearable-iso.jpg",
+        "alt": ""
+      },
+      {
+        "title": "Stroke / dementia BPV",
+        "body": "Blood pressure variability as a biomarker in stroke and dementia populations.",
+        "image": "/assets/technology/stretch-sensor.png",
+        "alt": ""
+      }
+    ]
+  },
+  "methodology": {
+    "eyebrow": "Standards",
+    "title": "Methodology.",
+    "body": "Validation follows AAMI ISO 81060-2 methodology for comparison against an arterial reference. Head-to-head beat-to-beat comparison with the radial arterial line in the operating room.",
+    "cardEyebrow": "Standards & reference",
+    "rows": [
+      {
+        "term": "Reference",
+        "definition": "Radial arterial line (invasive intra-arterial catheter), the clinical gold standard for continuous pressure."
+      },
+      {
+        "term": "Protocol",
+        "definition": "AAMI ISO 81060-2 methodology for comparison against an arterial reference."
+      },
+      {
+        "term": "Accuracy",
+        "definition": "Design-freeze study data within ISO 81060-3 standards."
+      },
+      {
+        "term": "Setting",
+        "definition": "Head-to-head, beat-to-beat, in OR patients under general anesthesia."
+      }
+    ]
+  }
+}

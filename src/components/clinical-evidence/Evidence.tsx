@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { StretchText } from "@/components/shared/StretchText";
 import { useCountUp } from "@/components/shared/lib";
+import evidence from "@content/clinical-evidence.json";
 
 // NOTE: "300+" patient counts are flagged [VERIFY] in the source reference and
 // must be confirmed by the Vena Vitals team before this becomes final public
@@ -42,59 +43,16 @@ function HeroStat({ children }: { children: ReactNode }) {
 
 // Hospital / academic validation sites. [VERIFY] confirm each logo maps to an
 // active study site and that Vena Vitals has permission to display it.
-const sites = [
-  { src: "/assets/brand/uci.webp", alt: "UC Irvine" },
-  { src: "/assets/brand/ucsf.svg", alt: "UCSF" },
-  { src: "/assets/brand/baptist.png", alt: "Baptist Health" },
-  { src: "/assets/brand/arksans.webp", alt: "Arkansas" },
-  { src: "/assets/brand/bernards.svg", alt: "St. Bernards" },
-];
+// Methodology rows are drawn from the validation copy already on this page —
+// no new clinical claims introduced.
+// [VERIFY] research card images are illustrative product/tech visuals, not
+// study-specific figures — confirm or replace before launch.
+const { hero, validation, research, methodology } = evidence;
 
-// Definition-list rows for the Methodology panel. Drawn from the validation
-// copy already on this page — no new clinical claims introduced.
-const methodology: [string, string][] = [
-  [
-    "Reference",
-    "Radial arterial line (invasive intra-arterial catheter), the clinical gold standard for continuous pressure.",
-  ],
-  ["Protocol", "AAMI ISO 81060-2 methodology for comparison against an arterial reference."],
-  ["Accuracy", "Design-freeze study data within ISO 81060-3 standards."],
-  ["Setting", "Head-to-head, beat-to-beat, in OR patients under general anesthesia."],
-];
-
-// [VERIFY] card images are illustrative product/tech visuals, not study-specific
-// figures — confirm or replace before launch.
-const research = [
-  {
-    title: "Head-to-head vs arterial line",
-    body: "Prospective comparison in surgical patients across multiple OR settings.",
-    img: "/assets/technology/veritrack-system.jpg",
-  },
-  {
-    title: "CHF BP variability",
-    body: "Characterizing blood pressure variability in congestive heart failure patients.",
-    img: "/assets/technology/hospital-device-monitor.png",
-  },
-  {
-    title: "Motion-artifact neural network",
-    body: "Algorithm development to filter motion artifact from continuous waveform data.",
-    img: "/assets/technology/sensor-mechanism.png",
-    // Labelled schematic rather than a photo — cropping it cuts the diagram in
-    // half, so it is contained and padded instead. Same `fit` escape hatch the
-    // journey filmstrip in SignalJourney.tsx uses.
-    fit: "object-contain p-2",
-  },
-  {
-    title: "ER beat-to-beat",
-    body: "Feasibility of continuous noninvasive BP in the emergency department setting.",
-    img: "/assets/technology/veritrack-wearable-iso.jpg",
-  },
-  {
-    title: "Stroke / dementia BPV",
-    body: "Blood pressure variability as a biomarker in stroke and dementia populations.",
-    img: "/assets/technology/stretch-sensor.png",
-  },
-];
+// A study with `"fit": "contain"` has a labelled schematic rather than a photo —
+// cropping it cuts the diagram in half, so it is contained and padded instead.
+// Same `fit` escape hatch the journey filmstrip in SignalJourney.tsx uses.
+const imageFit = (fit?: string) => (fit === "contain" ? "object-contain p-2" : "object-cover");
 
 // Research pipeline. Deliberately a plain static section — no pinning, no
 // scroll-driven motion. All five studies are visible at once.
@@ -104,32 +62,29 @@ function ResearchPipeline() {
       <div className="container-x">
         <div className="mx-auto max-w-[520px] text-center reveal">
           <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-            Research Pipeline
+            {research.eyebrow}
           </div>
           <StretchText
             as="h2"
             className="font-display text-[clamp(26px,2.8vw,40px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
             segments={[
-              { text: "Ongoing " },
-              { text: "research.", className: "text-[color:var(--accent)]" },
+              { text: research.title },
+              { text: research.titleAccent, className: "text-[color:var(--accent)]" },
             ]}
           />
           <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)]/70 md:text-[13px]">
-            Studies extending continuous, noninvasive monitoring across new patient populations and
-            care settings.
+            {research.body}
           </p>
         </div>
 
         <div className="mt-8 grid gap-x-5 gap-y-7 sm:grid-cols-2 md:mt-10 md:grid-cols-3">
-          {research.map((r, i) => (
+          {research.studies.map((r, i) => (
             <article key={r.title} className="group reveal flex flex-col">
               <div className="relative overflow-hidden rounded-none bg-white">
                 <img
-                  src={r.img}
-                  alt=""
-                  className={`h-28 w-full transition-transform duration-[600ms] ease-out group-hover:scale-[1.04] md:h-32 ${
-                    "fit" in r ? (r.fit as string) : "object-cover"
-                  }`}
+                  src={r.image}
+                  alt={r.alt}
+                  className={`h-28 w-full transition-transform duration-[600ms] ease-out group-hover:scale-[1.04] md:h-32 ${imageFit(r.fit)}`}
                   loading="lazy"
                 />
               </div>
@@ -160,33 +115,36 @@ export function Evidence() {
         <div className="container-x">
           <div className="mx-auto max-w-[760px] text-center reveal">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--accent)]">
-              Clinical Validation
+              {hero.eyebrow}
             </div>
             <StretchText
               as="h1"
               className="mt-4 font-display text-[clamp(30px,4.4vw,58px)] font-bold leading-[1.04] tracking-tight text-[color:var(--paper)]"
               segments={[
-                { text: "Beat-to-beat accuracy, " },
+                { text: hero.title },
                 {
-                  text: "proven against the arterial line.",
+                  text: hero.titleAccent,
                   className: "text-[color:var(--accent)]",
                 },
               ]}
             />
             <p className="mx-auto mt-6 max-w-[560px] text-sm leading-relaxed text-[color:var(--mute)]">
-              VeriTrack has been validated across 300+ operating room patients at 6+ academic and
-              community hospital sites. In direct comparison against the invasive radial arterial
-              line, the clinical gold standard for continuous pressure, VeriTrack tracked
-              beat-to-beat hemodynamic changes across a wide range of patients and surgical cases.
+              {hero.body}
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5 text-[11px] md:text-xs">
-              <HeroStat>
-                <Counter to={300} />+ OR patients
-              </HeroStat>
-              <HeroStat>
-                <Counter to={6} linear />+ study sites
-              </HeroStat>
-              <HeroStat>Validated vs. radial arterial line</HeroStat>
+              {/* A stat with a `value` counts up to it; one with only a `label` is plain text. */}
+              {hero.stats.map((stat) => (
+                <HeroStat key={stat.label ?? stat.suffix}>
+                  {stat.value !== undefined ? (
+                    <>
+                      <Counter to={stat.value} linear={stat.linear} />
+                      {stat.suffix}
+                    </>
+                  ) : (
+                    stat.label
+                  )}
+                </HeroStat>
+              ))}
             </div>
           </div>
         </div>
@@ -198,46 +156,38 @@ export function Evidence() {
           <div className="grid gap-10 md:grid-cols-[1.05fr_0.95fr] md:items-center">
             <div className="reveal">
               <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-                Validation Program
+                {validation.eyebrow}
               </div>
               <StretchText
                 as="h2"
                 className="font-display text-[clamp(26px,2.8vw,40px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
                 segments={[
-                  { text: "Operating room " },
-                  { text: "validation.", className: "text-[color:var(--accent)]" },
+                  { text: validation.title },
+                  { text: validation.titleAccent, className: "text-[color:var(--accent)]" },
                 ]}
               />
               <p className="mt-5 max-w-[480px] text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
-                Our validation program spans 6+ academic and community hospital sites, including UC
-                Irvine, University of Vermont Medical Center, UCSF, and Henry Ford, with studies
-                comparing VeriTrack directly against the invasive radial arterial line in OR
-                patients undergoing general anesthesia. The validation follows AAMI ISO 81060-2
-                methodology for comparison against an arterial reference. Data from our
-                design-freeze studies demonstrate accuracy within ISO 81060-3 standards. In cases
-                where the arterial line dropped signal due to clotting or required repeated
-                flushing, VeriTrack maintained a clean continuous trace. Full study results are
-                forthcoming.
+                {validation.body}
               </p>
             </div>
             <div className="reveal relative mx-auto aspect-square w-full max-w-[480px]">
               {/* the whole constellation slowly rotates */}
               <div className="absolute inset-0 [animation:spin_44s_linear_infinite] motion-reduce:[animation:none]">
                 <div className="absolute inset-[13%] rounded-full border border-dashed border-[color:var(--line)]" />
-                {sites.map((s, i) => {
-                  const angle = (i / sites.length) * 2 * Math.PI - Math.PI / 2;
+                {validation.sites.map((s, i) => {
+                  const angle = (i / validation.sites.length) * 2 * Math.PI - Math.PI / 2;
                   const x = 50 + 40 * Math.cos(angle);
                   const y = 50 + 40 * Math.sin(angle);
                   return (
                     <div
-                      key={s.src}
+                      key={s.image}
                       style={{ left: `${x}%`, top: `${y}%` }}
                       className="absolute -translate-x-1/2 -translate-y-1/2"
                     >
                       {/* counter-rotate so each logo stays upright while it orbits */}
                       <div className="[animation:spin_44s_linear_infinite_reverse] motion-reduce:[animation:none]">
                         <img
-                          src={s.src}
+                          src={s.image}
                           alt={s.alt}
                           className="h-16 w-auto max-w-[130px] object-contain transition-transform duration-300 hover:scale-110 md:h-20"
                           loading="lazy"
@@ -260,31 +210,29 @@ export function Evidence() {
         <div className="container-x grid gap-10 md:grid-cols-2 md:items-center">
           <div className="reveal">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Standards
+              {methodology.eyebrow}
             </div>
             <StretchText
               as="h2"
               className="font-display text-[clamp(26px,2.8vw,40px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-              segments={[{ text: "Methodology." }]}
+              segments={[{ text: methodology.title }]}
             />
             <p className="mt-5 max-w-[460px] text-xs leading-relaxed text-[color:var(--paper)] md:text-[13px]">
-              Validation follows AAMI ISO 81060-2 methodology for comparison against an arterial
-              reference. Head-to-head beat-to-beat comparison with the radial arterial line in the
-              operating room.
+              {methodology.body}
             </p>
           </div>
           <TiltCard className="reveal rounded-none border border-[color:var(--line)] bg-[color:var(--ink)] p-6 md:p-7">
             <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Standards &amp; reference
+              {methodology.cardEyebrow}
             </div>
             <dl className="mt-5 divide-y divide-[color:var(--line)]">
-              {methodology.map(([term, desc]) => (
+              {methodology.rows.map(({ term, definition }) => (
                 <div key={term} className="flex gap-4 py-3.5 first:pt-0 last:pb-0">
                   <dt className="w-24 shrink-0 font-display text-[12px] font-bold leading-snug tracking-tight text-[color:var(--paper)] md:w-28">
                     {term}
                   </dt>
                   <dd className="text-[12px] leading-relaxed text-[color:var(--paper)]/70">
-                    {desc}
+                    {definition}
                   </dd>
                 </div>
               ))}

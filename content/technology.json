@@ -1,0 +1,102 @@
+{
+  "seo": {
+    "title": "Technology | Vēna Vitals",
+    "description": "How the capacitive micropillar sensor turns each pulse into a calibrated blood-pressure waveform, soft, skin-worn, no ultrasound.",
+    "shareTitle": "Technology | Vēna Vitals",
+    "shareDescription": "Inside the soft capacitive sensor that reads beat-to-beat blood pressure from the skin.",
+    "url": "/technology"
+  },
+  "hero": {
+    "video": "/assets/technology/applanation.mp4",
+    "alt": "How applanation tonometry reads arterial pressure through the skin",
+    "eyebrow": "The Science",
+    "title": "Applanation tonometry, ",
+    "titleAccent": "reinvented.",
+    "body": "VeriTrack is built on applanation tonometry, a technique that senses the pulse of your artery right through the skin. Traditionally, this has been limited by bulky, rigid pressure sensors that struggle to conform to the body and compromise signal quality. Our core technology, soft, flexible pressure sensors, rests on the pedal artery, with its low-profile design improving the ability to measure blood pressure accurately. These measurements are then converted into continuous blood pressure, giving clinicians a complete, real-time picture of a patient’s blood pressure."
+  },
+  "signalJourney": {
+    "eyebrow": "The Workflow",
+    "title": "From skin contact to ",
+    "titleAccent": "clinical context.",
+    "body": "Applied in under five minutes in pre-op, the VeriTrack stays in place and monitors continuously, without the placement time, complication risk, or nursing burden of an arterial line.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Place",
+        "body": "A clinician applies the soft sensor over an arterial site before monitoring begins.",
+        "video": "/assets/technology/setup-veritrack.mp4"
+      },
+      {
+        "step": "02",
+        "title": "Sense",
+        "body": "A wrinkled capacitive stack reads subtle arterial motion on every beat.",
+        "video": "/assets/technology/stretchy-sensor.mp4"
+      },
+      {
+        "step": "03",
+        "title": "Stream",
+        "body": "Streams to the bedside iPad over Bluetooth, no cables to the patient, signal confirmed before incision.",
+        "video": "/assets/home/journey-stream.mp4"
+      },
+      {
+        "step": "04",
+        "title": "Review",
+        "body": "Teams can see trends and context instead of isolated cuff snapshots.",
+        "video": "/assets/technology/pulse-vid-480p.mp4"
+      }
+    ]
+  },
+  "sensingMechanism": {
+    "video": "/assets/technology/sensor-stretching.mp4",
+    "eyebrow": "Sensing Mechanism",
+    "title": "Soft enough to wear. ",
+    "titleAccent": "Accurate enough to trust.",
+    "body": "At the core of VeriTrack is a soft, flexible, and stretchable pressure sensor that utilizes a proprietary wrinkled gold (wAu) thin-film process. The sensor’s gold electrodes are engineered with a controlled, micro-wrinkled surface morphology that allows them to be built on soft substrates, mechanically compatible with the human body. This compatibility lets the sensor conform seamlessly to the body’s contours and move with the skin’s natural movement, enabling improved, accurate measurements of blood pressure.",
+    "advantages": [
+      {
+        "icon": "Radar",
+        "title": "Sensitivity",
+        "points": [
+          "Wrinkled device provides 600% more surface area than traditional capacitive sensors",
+          "Micro-rigid flexibility enables advanced structures beyond the parallel plate"
+        ]
+      },
+      {
+        "icon": "Gauge",
+        "title": "Dynamic Range",
+        "points": ["Soft substrate and flexible structural design enables a wider range of motion"]
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Skin Compatibility",
+        "points": [
+          "Skin-safe biocompatible material conforms to the skin for a superior mechanical interface between sensor and body"
+        ]
+      },
+      {
+        "icon": "Repeat",
+        "title": "Robustness",
+        "points": ["Wrinkled structures enable repeated bending, flexing, and stretching"]
+      },
+      {
+        "icon": "Bluetooth",
+        "title": "Wireless, no cables",
+        "points": [
+          "Streams over Bluetooth to the bedside iPad monitor. Nothing tethered to the patient, nothing crossing the surgical field"
+        ]
+      },
+      {
+        "icon": "Factory",
+        "title": "Manufacturing",
+        "points": ["Low-cost scalability without the need for cleanrooms or photolithography"]
+      },
+      {
+        "icon": "BatteryLow",
+        "title": "Low Powered",
+        "points": [
+          "Compatible with low-powered IC components, allowing for minimal power requirements"
+        ]
+      }
+    ]
+  }
+}
