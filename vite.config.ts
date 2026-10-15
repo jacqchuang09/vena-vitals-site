@@ -59,7 +59,10 @@ export default defineConfig({
   // Use Lightning CSS in dev too, so the dev preview matches the built CSS.
   css: { transformer: "lightningcss" },
   resolve: {
-    alias: { "@": `${process.cwd()}/src` },
+    alias: {
+      "@": `${process.cwd()}/src`,
+      "@content": `${process.cwd()}/content`,
+    },
     dedupe: [
       "react",
       "react-dom",

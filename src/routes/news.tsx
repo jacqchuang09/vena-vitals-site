@@ -1,21 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { News } from "@/components/vena/News";
-import { useReveal } from "@/components/vena/lib";
+import { News } from "@/components/news/News";
+import { useReveal } from "@/components/shared/lib";
+// All words, images and videos on this page live in this file:
+import news from "@content/news.json";
 
 export const Route = createFileRoute("/news")({
   head: () => ({
     meta: [
-      { title: "News | Vēna Vitals" },
-      {
-        name: "description",
-        content:
-          "Company updates, evidence news, press materials, and media contact for Vena Vitals.",
-      },
-      { property: "og:title", content: "News | Vēna Vitals" },
-      { property: "og:description", content: "Company updates and approved press resources." },
-      { property: "og:url", content: "/news" },
+      { title: news.seo.title },
+      { name: "description", content: news.seo.description },
+      { property: "og:title", content: news.seo.shareTitle },
+      { property: "og:description", content: news.seo.shareDescription },
+      { property: "og:url", content: news.seo.url },
     ],
-    links: [{ rel: "canonical", href: "/news" }],
+    links: [{ rel: "canonical", href: news.seo.url }],
   }),
   component: Page,
 });

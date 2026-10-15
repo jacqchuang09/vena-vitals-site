@@ -1,0 +1,125 @@
+{
+  "seo": {
+    "title": "Vēna Vitals | Continuous, noninvasive blood pressure",
+    "description": "Continuous blood pressure from the surface of the skin. A soft wearable sensor that streams beat-to-beat vitals to clinicians and care teams.",
+    "shareTitle": "Vēna Vitals | Continuous, noninvasive blood pressure",
+    "shareDescription": "Continuous blood pressure from the surface of the skin."
+  },
+  "hero": {
+    "title": "Advancing Continuous",
+    "titleAccent": "Blood Pressure Monitoring",
+    "body": "Wearable non-invasive patient monitoring with beat-to-beat resolution.",
+    "button": "See the data",
+    "href": "/solutions/anesthesiology",
+    "secondaryButton": "Contact us",
+    "secondaryHref": "/contact",
+    "scrollLabel": "Scroll to care journey",
+    "scrollHref": "#care-journey",
+    "videos": ["/assets/shared/or-monitor.mp4", "/assets/shared/or-monitor-2.mp4"]
+  },
+  "problem": {
+    "eyebrow": "Problem & Solution",
+    "title": "Blood pressure insights every second, ",
+    "titleAccent": "not intermittently.",
+    "body": "Standard blood pressure cuffs provide intermittent snapshots, leaving gaps between readings. VeriTrack is designed to fill those gaps with continuous blood pressure trend information, giving clinicians greater visibility into changes between cuff measurements.",
+    "comparison": {
+      "cuffLabel": "Cuff",
+      "venaLabel": "VeriTrack",
+      "rows": [
+        { "cuff": "3-5 min between readings", "vena": "Continuous, beat-to-beat" },
+        {
+          "cuff": "Hypotensive events can go undetected between cycles",
+          "vena": "Every pressure change captured in real time"
+        }
+      ]
+    },
+    "video": "/assets/home/veritrack-app.mp4",
+    "poster": "/assets/home/veritrack-app-poster.jpg",
+    "alt": "The VeriTrack app on a bedside iPad, showing a live arterial waveform with systolic, diastolic and mean pressure"
+  },
+  "overview": {
+    "eyebrow": "The Solution",
+    "title": "VeriTrack advances continuous ",
+    "titleAccent": "beat-to-beat",
+    "titleTail": " blood pressure monitoring.",
+    "body": "VeriTrack is a soft, wireless wearable that wraps around the foot. Its sensor seats over the dorsalis pedis artery and measures blood pressure with every heartbeat, delivering the continuous hemodynamic visibility of an arterial line without the procedural risk, placement delay, or invasive cannulation.",
+    "video": "/assets/home/veritrack-placement-circle.mp4",
+    "poster": "/assets/home/veritrack-placement-circle.jpg",
+    "alt": "The VeriTrack wrap being fastened onto a patient's foot",
+    "footnote": "*VeriTrack is an investigational device",
+    "points": [
+      {
+        "icon": "HeartPulse",
+        "title": "Beat-to-beat resolution",
+        "body": "Every heartbeat, not every few minutes. Continuous trends instead of waiting between intermittent cuff readings, so pressure drops are visible as they happen, not after the next cycle."
+      },
+      {
+        "icon": "Check",
+        "title": "Non-invasive placement",
+        "body": "No cannulation, no infection risk. Wrapped on in seconds and removed cleanly after the case. No arterial access, no line-care burden, no procedural delay."
+      },
+      {
+        "icon": "Target",
+        "title": "Wireless",
+        "body": "A soft wrap on the foot, with the sensor streaming over Bluetooth to the bedside iPad. Nothing tethering the patient to the monitor, no occupied arm, no catheter, and entirely out of the surgical field."
+      }
+    ],
+    "button": "Explore the technology",
+    "href": "/technology"
+  },
+  "evidence": {
+    "eyebrow": "Clinical Testing",
+    "title": "Evaluated where it matters: ",
+    "titleAccent": "the operating room.",
+    "body": "The investigational device tracked rapid blood pressure changes beat for beat in side-by-side operating room comparisons against the arterial line.",
+    "button": "See the full data",
+    "href": "/solutions/anesthesiology",
+    "chart": {
+      "alt": "Arterial line versus Vena Vitals signal for an abdominal-mass-removal case, where the arterial line shows artifacts the Vena Vitals signal does not",
+      "topLabel": "Arterial Line (mmHg)",
+      "bottomLabel": "Vena Vitals Signal (mmHg)",
+      "xAxisLabel": "Time (sec)",
+      "caption": "59 year old subject undergoing abdominal mass removal.",
+      "legendArterialLine": "Arterial line",
+      "legendVena": "Vena Vitals"
+    },
+    "stats": [
+      { "from": 0, "to": 600, "suffix": "+", "label": "subjects tested" },
+      { "from": 0, "to": 6, "suffix": "+", "linear": true, "label": "study sites" },
+      { "from": 18, "to": 89, "prefix": "18-", "label": "ages · BMI 17-48" },
+      { "from": 30, "to": 300, "prefix": "30-", "label": "mmHg BP range" }
+    ]
+  },
+  "audiences": {
+    "eyebrow": "Areas of Investigation",
+    "title": "From the OR to ",
+    "titleAccent": "the bedside.",
+    "cards": [
+      {
+        "eyebrow": "For Clinicians",
+        "title": "Anesthesiology & Critical Care",
+        "body": "Continuous, non-invasive BP monitoring for the OR and ICU. See the clinical data, waveform accuracy, and use cases.",
+        "button": "View Clinical Data",
+        "href": "/solutions/anesthesiology",
+        "image": "/assets/home/veritrack-or-foot.jpg",
+        "alt": "The VeriTrack wrap on a patient's foot in a hospital bed, with an IV pole, monitors and a window in the room behind"
+      },
+      {
+        "eyebrow": "For Researchers",
+        "title": "Sleep Medicine",
+        "body": "Studying autonomic response, sleep-disordered breathing, or nocturnal hypertension? VeriTrack enables beat-to-beat BP monitoring outside the hospital.",
+        "button": "Explore Sleep Research",
+        "href": "/solutions/sleep-medicine",
+        "image": "/assets/home/veritrack-home-foot.jpg",
+        "alt": "A woman sitting on a sofa at home holding a mug, the VeriTrack wrap worn on her ankle with her leg stretched out across the cushions"
+      }
+    ]
+  },
+  "finalCta": {
+    "eyebrow": "Collaborate With Us",
+    "title": "Interested in evaluating continuous blood pressure at",
+    "titleAccent": "your facility?",
+    "button": "Partner With Us",
+    "href": "/partner-with-us"
+  }
+}

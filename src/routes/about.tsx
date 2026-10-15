@@ -1,24 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { About } from "@/components/vena/About";
-import { useReveal } from "@/components/vena/lib";
+import { About } from "@/components/about/About";
+import { useReveal } from "@/components/shared/lib";
+// All words, images and videos on this page live in this file:
+import about from "@content/about.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About | Vēna Vitals" },
-      {
-        name: "description",
-        content:
-          "Vēna Vitals is developing a soft, skin-worn sensor for continuous, noninvasive blood pressure monitoring.",
-      },
-      { property: "og:title", content: "About | Vēna Vitals" },
-      {
-        property: "og:description",
-        content: "Company, founders, technology, and clinical development overview.",
-      },
-      { property: "og:url", content: "/about" },
+      { title: about.seo.title },
+      { name: "description", content: about.seo.description },
+      { property: "og:title", content: about.seo.shareTitle },
+      { property: "og:description", content: about.seo.shareDescription },
+      { property: "og:url", content: about.seo.url },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: about.seo.url }],
   }),
   component: Page,
 });

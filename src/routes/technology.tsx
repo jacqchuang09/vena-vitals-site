@@ -1,25 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Technology } from "@/components/vena/Technology";
-import { useReveal } from "@/components/vena/lib";
+import { Technology } from "@/components/technology/Technology";
+import { useReveal } from "@/components/shared/lib";
+// All words, images and videos on this page live in this file:
+import technology from "@content/technology.json";
 
 export const Route = createFileRoute("/technology")({
   head: () => ({
     meta: [
-      { title: "Technology | Vēna Vitals" },
-      {
-        name: "description",
-        content:
-          "How the capacitive micropillar sensor turns each pulse into a calibrated blood-pressure waveform, soft, skin-worn, no ultrasound.",
-      },
-      { property: "og:title", content: "Technology | Vēna Vitals" },
-      {
-        property: "og:description",
-        content:
-          "Inside the soft capacitive sensor that reads beat-to-beat blood pressure from the skin.",
-      },
-      { property: "og:url", content: "/technology" },
+      { title: technology.seo.title },
+      { name: "description", content: technology.seo.description },
+      { property: "og:title", content: technology.seo.shareTitle },
+      { property: "og:description", content: technology.seo.shareDescription },
+      { property: "og:url", content: technology.seo.url },
     ],
-    links: [{ rel: "canonical", href: "/technology" }],
+    links: [{ rel: "canonical", href: technology.seo.url }],
   }),
   component: Page,
 });

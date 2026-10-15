@@ -1,5 +1,8 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
-import { useReveal } from "@/components/vena/lib";
+import { useReveal } from "@/components/shared/lib";
+// Copy shared by every solution page. This layout's meta is inherited by each
+// setting page beneath it, so it lives here rather than in one page's file.
+import shared from "@content/solutions/shared.json";
 
 // /solutions has no landing page of its own — Solutions exists only as the nav
 // dropdown, and this route survives purely as the layout parent for the
@@ -13,17 +16,10 @@ export const Route = createFileRoute("/solutions")({
   },
   head: () => ({
     meta: [
-      { title: "Solutions | Vēna Vitals" },
-      {
-        name: "description",
-        content:
-          "Operating room, critical care, and sleep research use cases for continuous noninvasive blood pressure monitoring.",
-      },
-      { property: "og:title", content: "Solutions | Vēna Vitals" },
-      {
-        property: "og:description",
-        content: "How VeriTrack fits operating room workflows and future monitoring settings.",
-      },
+      { title: shared.seo.title },
+      { name: "description", content: shared.seo.description },
+      { property: "og:title", content: shared.seo.shareTitle },
+      { property: "og:description", content: shared.seo.shareDescription },
       { property: "og:url", content: "/solutions" },
     ],
     links: [{ rel: "canonical", href: "/solutions" }],

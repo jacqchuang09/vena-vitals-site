@@ -1,0 +1,17 @@
+{
+  "seo": {
+    "title": "Contact | Vēna Vitals",
+    "description": "Request a demo or talk to our clinical and sales team.",
+    "shareTitle": "Contact | Vēna Vitals",
+    "shareDescription": "Request a demo or talk to our clinical and sales team."
+  },
+  "hero": {
+    "title": "See VeriTrack in a clinical workflow.",
+    "body": "Tell us about your setting and a member of the team will follow up with the right evidence and evaluation materials.",
+    "points": [
+      "Operating room and anesthesia teams",
+      "Critical care and hospital pilots",
+      "Evidence and regulatory conversations"
+    ]
+  }
+}

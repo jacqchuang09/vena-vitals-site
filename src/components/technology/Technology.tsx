@@ -1,0 +1,244 @@
+import { useEffect, useRef } from "react";
+import { BatteryLow, Bluetooth, Factory, Gauge, Radar, Repeat, ShieldCheck } from "lucide-react";
+import { StretchText } from "@/components/shared/StretchText";
+import technology from "@content/technology.json";
+// import { SignalJourney } from "@/components/technology/SignalJourney"; // restore with the section below
+
+// Icons are named in the JSON; this maps each name to its lucide component.
+const icons = { BatteryLow, Bluetooth, Factory, Gauge, Radar, Repeat, ShieldCheck };
+
+const { hero, sensingMechanism } = technology;
+
+function MediaFrame({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <figure className={`relative overflow-hidden rounded-none ${className}`}>{children}</figure>
+  );
+}
+
+/**
+ * A clip that waits for the reader instead of running against a section they
+ * have not reached. It starts from the first frame when the section scrolls
+ * into view and plays through once, so an explainer animation is never caught
+ * halfway. Scrolling back to it replays it from the start.
+ *
+ * `preload="auto"` rather than "metadata": the whole point is that the first
+ * frame is ready the moment the section arrives.
+ */
+function ScrollPlayClip({
+  src,
+  className = "",
+  ariaLabel,
+  loopFrom,
+}: {
+  src: string;
+  className?: string;
+  ariaLabel: string;
+  /** Seconds. Set it and the clip repeats from here rather than from 0, so an
+      opening move plays once and only the part worth repeating loops. */
+  loopFrom?: number;
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // On a phone the clip is often still buffering when the section arrives,
+    // and play() rejects. Retry once there is data rather than leaving a
+    // frozen first frame, which is what a visitor would otherwise see.
+    let wantsPlay = false;
+    const attempt = () => {
+      if (!wantsPlay) return;
+      // Older Safari returns undefined here rather than a promise.
+      void el.play()?.catch(() => {});
+    };
+    el.addEventListener("canplay", attempt);
+
+    // Repeat from loopFrom instead of the top, so the opening camera move runs
+    // once and the loop holds on the part that matters. The element's own
+    // `loop` is deliberately not set: it would restart at 0 and replay it.
+    const repeat = () => {
+      if (loopFrom === undefined) return;
+      el.currentTime = loopFrom;
+      attempt();
+    };
+    el.addEventListener("ended", repeat);
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        wantsPlay = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          el.currentTime = 0;
+          attempt();
+        } else {
+          el.pause();
+        }
+      },
+      // Low threshold so a short viewport still trips it: on a phone this
+      // panel can never be 40% of the screen and tall thresholds never fire.
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      el.removeEventListener("canplay", attempt);
+      el.removeEventListener("ended", repeat);
+    };
+  }, [loopFrom]);
+
+  return (
+    <video
+      ref={ref}
+      src={src}
+      // mix-blend-multiply is what hides the clip's own white background: a
+      // white pixel multiplied by the page leaves the page untouched, so the
+      // video rectangle has no edge. Without it the panel shows as a faint
+      // box wherever the decoder lands a shade off #fff, which varies by
+      // browser and GPU. The brightness lift clips near-white to white first.
+      className={`mx-auto aspect-video w-full max-w-none object-contain mix-blend-multiply brightness-[1.04] contrast-[1.02] ${className}`}
+      muted
+      playsInline
+      preload="auto"
+      aria-label={ariaLabel}
+    />
+  );
+}
+
+export function Technology() {
+  return (
+    <>
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20">
+        {/* Video first, text second: the section leads with the device. */}
+        <div className="container-x grid gap-8 md:grid-cols-[1.28fr_0.72fr] md:items-center">
+          <MediaFrame className="reveal md:pl-4">
+            <ScrollPlayClip
+              src={hero.video}
+              className="w-[92%] translate-x-[6%]"
+              ariaLabel={hero.alt}
+              // Chosen by matching every candidate frame against the clip's
+              // last one: the camera keeps pushing in until roughly 4.4s, so
+              // any earlier loop point visibly jumps scale on the repeat.
+              // Mean abs frame difference against the final frame is 3.37 at
+              // 4.4s and 0.33 here, flat from 5.2s to 5.7s. This window also
+              // opens and closes on a relaxed artery and holds one full pulse.
+              loopFrom={5.2}
+            />
+          </MediaFrame>
+          <div className="mx-auto max-w-[440px] text-center reveal md:text-left">
+            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+              {hero.eyebrow}
+            </div>
+            <StretchText
+              as="h1"
+              className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)] text-balance"
+              segments={[
+                { text: hero.title },
+                { text: hero.titleAccent, className: "text-[color:var(--accent)]" },
+              ]}
+            />
+            <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)] md:mx-0">
+              {hero.body}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* "From skin contact to clinical context." — the workflow filmstrip.
+          Hidden for now at the team's request; the section itself is intact in
+          SignalJourney.tsx, so bringing it back is uncommenting this line and
+          its import above. */}
+      {/* <SignalJourney /> */}
+
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
+        <video
+          src={sensingMechanism.video}
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.86)_0%,rgba(0,0,0,0.68)_52%,rgba(0,0,0,0.7)_100%)]"
+        />
+        <div className="relative container-x grid gap-8 md:grid-cols-[1fr_1.05fr] md:items-center md:gap-12">
+          <div className="mx-auto max-w-[480px] reveal text-center [text-shadow:0_1px_14px_rgba(0,0,0,0.55)] md:mx-0 md:text-left">
+            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+              {sensingMechanism.eyebrow}
+            </div>
+            <StretchText
+              as="h2"
+              className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-white"
+              segments={[
+                { text: sensingMechanism.title },
+                {
+                  text: sensingMechanism.titleAccent,
+                  className: "text-[color:var(--accent)]",
+                },
+              ]}
+            />
+            <p className="mt-5 text-xs leading-relaxed text-white/85 md:text-[13px]">
+              {sensingMechanism.body}
+            </p>
+            {/* "Show technical detail" — hidden for now at the team's request.
+                TechnicalDetail() above is intact; restore by uncommenting. */}
+            {/* <TechnicalDetail /> */}
+          </div>
+          {/* The seven hover-to-open advantages (Sensitivity, Dynamic Range,
+              Skin Compatibility, Robustness, Wireless, Manufacturing, Low
+              Powered). Hidden for now, not deleted: the `advantages` list in
+              content/technology.json and the markup below are both intact, so
+              bringing the column back is removing this `hidden`. */}
+          <div className="hidden reveal [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">
+            <ul className="divide-y divide-white/15">
+              {sensingMechanism.advantages.map((advantage) => {
+                const Icon = icons[advantage.icon as keyof typeof icons];
+                return (
+                  <li key={advantage.title} className="group">
+                    <div className="flex cursor-default items-center gap-3 py-3">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-[color:var(--accent)] transition group-hover:bg-[color:var(--accent)] group-hover:text-white">
+                        <Icon size={15} aria-hidden />
+                      </span>
+                      <span className="text-[13px] font-semibold text-white">
+                        {advantage.title}
+                      </span>
+                      <span
+                        aria-hidden
+                        className="ml-auto text-[10px] text-white/50 transition-transform duration-300 group-hover:rotate-180"
+                      >
+                        ▼
+                      </span>
+                    </div>
+                    <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr]">
+                      <ul className="space-y-1.5 overflow-hidden pl-11">
+                        {advantage.points.map((pt) => (
+                          <li
+                            key={pt}
+                            className="flex gap-1.5 pb-1 text-[11px] leading-snug text-white/80 last:pb-3"
+                          >
+                            <span aria-hidden className="text-[color:var(--accent)]">
+                              •
+                            </span>
+                            <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
