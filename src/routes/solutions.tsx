@@ -2,7 +2,7 @@ import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { useReveal } from "@/components/shared/lib";
 // Copy shared by every solution page. This layout's meta is inherited by each
 // setting page beneath it, so it lives here rather than in one page's file.
-import shared from "@content/solutions/testimonials.json";
+import shared from "@content/solutions/shared.json";
 
 // /solutions has no landing page of its own — Solutions exists only as the nav
 // dropdown, and this route survives purely as the layout parent for the

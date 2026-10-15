@@ -24,6 +24,7 @@ content/
     critical-care.json      /solutions/critical-care
     sleep-medicine.json     /solutions/sleep-medicine
     home-monitoring.json    /solutions/home-monitoring
+    shared.json             testimonials and labels used on every solution page
 ```
 
 ## How a page file is laid out
@@ -38,20 +39,20 @@ content/
 
 ## Field names
 
-| Field | What it is |
-| --- | --- |
-| `eyebrow` | small all-caps label above a heading |
-| `title` | the heading |
-| `titleAccent` | the part of the heading shown in the accent color, after `title` |
-| `titleLead` | accent-colored part shown before `title` |
-| `body` / `intro` | paragraph text |
-| `button`, `cta` | button label |
-| `href` | where a button or link goes (`/contact`, or a full https:// link) |
-| `image`, `src` | image path, starting with `/assets/...` (files live in `public/assets/`) |
-| `video` | video path, `/assets/...mp4` |
-| `poster` | still image shown before a video loads |
-| `alt` | description of an image for screen readers (always fill this in) |
-| `icon` | name of an icon from https://lucide.dev, e.g. `"HeartPulse"` |
+| Field            | What it is                                                               |
+| ---------------- | ------------------------------------------------------------------------ |
+| `eyebrow`        | small all-caps label above a heading                                     |
+| `title`          | the heading                                                              |
+| `titleAccent`    | the part of the heading shown in the accent color, after `title`         |
+| `titleLead`      | accent-colored part shown before `title`                                 |
+| `body` / `intro` | paragraph text                                                           |
+| `button`, `cta`  | button label                                                             |
+| `href`           | where a button or link goes (`/contact`, or a full https:// link)        |
+| `image`, `src`   | image path, starting with `/assets/...` (files live in `public/assets/`) |
+| `video`          | video path, `/assets/...mp4`                                             |
+| `poster`         | still image shown before a video loads                                   |
+| `alt`            | description of an image for screen readers (always fill this in)         |
+| `icon`           | name of an icon from https://lucide.dev, e.g. `"HeartPulse"`             |
 
 ## Rules
 

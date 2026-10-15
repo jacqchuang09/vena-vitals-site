@@ -7,7 +7,7 @@ import { StretchText } from "@/components/shared/StretchText";
 import { TiltCard } from "@/components/shared/TiltCard";
 // Copy that is the same on every solution page (the per-page copy arrives as
 // `content` from content/solutions/<page>.json):
-import shared from "@content/solutions/testimonials.json";
+import shared from "@content/solutions/shared.json";
 
 export type SolutionDetailContent = {
   eyebrow: string;

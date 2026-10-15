@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { StretchText } from "@/components/shared/StretchText";
-import shared from "@content/solutions/testimonials.json";
+import shared from "@content/solutions/shared.json";
 
 const text = shared.figures;
 

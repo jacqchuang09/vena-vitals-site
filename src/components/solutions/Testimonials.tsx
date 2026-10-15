@@ -1,9 +1,9 @@
 import { StretchText } from "@/components/shared/StretchText";
-import shared from "@content/solutions/testimonials.json";
+import shared from "@content/solutions/shared.json";
 
 const section = shared.testimonials;
 
-// Only attributed, approved quotes belong in content/solutions/testimonials.json.
+// Only attributed, approved quotes belong in content/solutions/shared.json.
 // An unnamed "Anesthesiologist, user research" quote and an empty third slot
 // used to sit beside Rinehart to balance a 3-up grid; both read as filler, so
 // the section now shows however many real quotes exist and the layout adapts

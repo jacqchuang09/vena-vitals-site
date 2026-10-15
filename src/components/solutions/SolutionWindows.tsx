@@ -1,5 +1,5 @@
 import { StretchText } from "@/components/shared/StretchText";
-import shared from "@content/solutions/testimonials.json";
+import shared from "@content/solutions/shared.json";
 
 export type SolutionWindow = {
   /** Looping clip source. When omitted, a styled placeholder window is shown. */

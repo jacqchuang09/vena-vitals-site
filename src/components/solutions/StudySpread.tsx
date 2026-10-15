@@ -3,7 +3,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Expand, X } from "lucide-react";
 import type { StudyFigure } from "@/components/solutions/StudyFigures";
 import { StretchText } from "@/components/shared/StretchText";
-import shared from "@content/solutions/testimonials.json";
+import shared from "@content/solutions/shared.json";
 
 const text = shared.gallery;
 

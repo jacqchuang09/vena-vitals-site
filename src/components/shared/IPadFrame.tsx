@@ -64,7 +64,12 @@ export function IPadFrame({
       >
         {children}
       </div>
-      <img src="/assets/shared/ipad-frame.png" alt="" aria-hidden className="relative block w-full" />
+      <img
+        src="/assets/shared/ipad-frame.png"
+        alt=""
+        aria-hidden
+        className="relative block w-full"
+      />
     </div>
   );
 }
