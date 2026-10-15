@@ -312,7 +312,9 @@ export function HomeEvidenceStrip({ content }: { content: typeof home.evidence }
           </TiltCard>
         </div>
 
-        <div className="reveal mt-10 grid grid-cols-2 gap-x-6 gap-y-8 text-center md:mt-14 md:grid-cols-4 md:gap-8">
+        {/* Five stats: two per row on phones with the odd last one centred
+            across both columns, all five in one row from md up. */}
+        <div className="reveal mt-10 grid grid-cols-2 gap-x-6 gap-y-8 text-center md:mt-14 md:grid-cols-5 md:gap-8 [&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:col-span-1">
           {content.stats.map((s) => (
             <CountStat key={s.label} {...s} />
           ))}
