@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { LegalPage } from "@/components/vena/LegalPage";
-import { privacyPolicy } from "@/components/vena/legal-text";
+import { LegalPage } from "@/components/layout/LegalPage";
+import { privacyPolicy } from "@/components/layout/legal-text";
 
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({

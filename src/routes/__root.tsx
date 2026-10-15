@@ -11,8 +11,8 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { Nav } from "@/components/vena/Nav";
-import { Footer } from "@/components/vena/Footer";
+import { Nav } from "@/components/layout/Nav";
+import { Footer } from "@/components/layout/Footer";
 
 export function NotFoundComponent() {
   return (

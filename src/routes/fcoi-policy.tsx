@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { LegalPage } from "@/components/vena/LegalPage";
-import { fcoiPolicy } from "@/components/vena/legal-text";
+import { LegalPage } from "@/components/layout/LegalPage";
+import { fcoiPolicy } from "@/components/layout/legal-text";
 
 export const Route = createFileRoute("/fcoi-policy")({
   head: () => ({

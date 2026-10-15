@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Hero } from "@/components/vena/Hero";
+import { Hero } from "@/components/home/Hero";
 import {
   HomeAudienceCards,
   HomeEvidenceStrip,
   HomeFinalCta,
   HomeOverview,
   HomeProblem,
-} from "@/components/vena/HomeSections";
-import { useReveal } from "@/components/vena/lib";
+} from "@/components/home/HomeSections";
+import { useReveal } from "@/components/shared/lib";
 
 export const Route = createFileRoute("/")({
   head: () => ({

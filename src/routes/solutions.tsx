@@ -1,5 +1,5 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
-import { useReveal } from "@/components/vena/lib";
+import { useReveal } from "@/components/shared/lib";
 
 // /solutions has no landing page of its own — Solutions exists only as the nav
 // dropdown, and this route survives purely as the layout parent for the

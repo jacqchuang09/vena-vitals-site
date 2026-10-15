@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SolutionDetail } from "@/components/vena/SolutionDetail";
-import { useReveal } from "@/components/vena/lib";
+import { SolutionDetail } from "@/components/solutions/SolutionDetail";
+import { useReveal } from "@/components/shared/lib";
 
 export const Route = createFileRoute("/solutions/critical-care")({
   head: () => ({

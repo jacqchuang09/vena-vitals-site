@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Technology } from "@/components/vena/Technology";
-import { useReveal } from "@/components/vena/lib";
+import { Technology } from "@/components/technology/Technology";
+import { useReveal } from "@/components/shared/lib";
 
 export const Route = createFileRoute("/technology")({
   head: () => ({

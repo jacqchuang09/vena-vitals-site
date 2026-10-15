@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Evidence } from "@/components/vena/Evidence";
-import { useReveal } from "@/components/vena/lib";
+import { Evidence } from "@/components/clinical-evidence/Evidence";
+import { useReveal } from "@/components/shared/lib";
 
 export const Route = createFileRoute("/clinical-evidence")({
   head: () => ({
