@@ -1,0 +1,148 @@
+{
+  "seo": {
+    "siteName": "Vēna Vitals",
+    "title": "Vēna Vitals | Continuous, noninvasive blood pressure",
+    "description": "A soft, skin-worn capacitive sensor that reads beat-to-beat blood pressure and vitals around the clock. Noninvasive, no catheter, no clinic."
+  },
+  "nav": {
+    "logo": {
+      "image": "/assets/brand/venavitals-logo-horizontal.png",
+      "alt": "Vēna Vitals",
+      "href": "/"
+    },
+    "items": [
+      { "label": "Home", "href": "/" },
+      { "label": "Technology", "href": "/technology" },
+      {
+        "label": "Clinical Studies",
+        "children": [
+          {
+            "label": "Perioperative monitoring",
+            "description": "Operating room and critical care",
+            "href": "/solutions/anesthesiology"
+          },
+          {
+            "label": "Sleep monitoring",
+            "description": "Research direction",
+            "href": "/solutions/sleep-medicine"
+          }
+        ]
+      },
+      { "label": "Partner With Us", "href": "/partner-with-us" },
+      { "label": "About", "href": "/about" }
+    ],
+    "openMenuLabel": "Open menu",
+    "closeMenuLabel": "Close menu",
+    "mobileMenu": {
+      "eyebrow": "[ Navigate ]",
+      "items": [
+        { "label": "Home", "href": "/" },
+        { "label": "Technology", "href": "/technology" },
+        { "label": "Perioperative monitoring", "href": "/solutions/anesthesiology" },
+        { "label": "Sleep monitoring", "href": "/solutions/sleep-medicine" },
+        { "label": "Partner With Us", "href": "/partner-with-us" },
+        { "label": "About", "href": "/about" },
+        { "label": "Contact", "href": "/contact" }
+      ],
+      "copyright": "vēna vitals © {year}",
+      "tagline": "continuous · noninvasive · beat-to-beat"
+    }
+  },
+  "footer": {
+    "backedBy": {
+      "eyebrow": "Backed by",
+      "logos": [
+        { "image": "/assets/brand/yc-logo.png", "alt": "Y Combinator", "large": true },
+        { "image": "/assets/brand/logo2.png", "alt": "National Institutes of Health" },
+        { "image": "/assets/brand/logo4.png", "alt": "MedTech Innovator" },
+        { "image": "/assets/brand/logo5.png", "alt": "EvoNexus" },
+        { "image": "/assets/brand/logo6.webp", "alt": "HeartX" },
+        { "image": "/assets/brand/logo7.png", "alt": "National Science Foundation" },
+        { "image": "/assets/brand/logo1.webp", "alt": "Samsung NEXT" }
+      ]
+    },
+    "linkGroups": [
+      {
+        "heading": "Product",
+        "links": [
+          { "label": "Technology", "href": "/technology" },
+          { "label": "Perioperative monitoring", "href": "/solutions/anesthesiology" },
+          { "label": "Sleep monitoring", "href": "/solutions/sleep-medicine" }
+        ]
+      },
+      {
+        "heading": "Company",
+        "links": [
+          { "label": "About", "href": "/about" },
+          { "label": "Partner With Us", "href": "/partner-with-us" },
+          { "label": "Contact", "href": "/contact" }
+        ]
+      },
+      {
+        "heading": "Connect",
+        "links": [
+          { "label": "Request a Demo", "href": "/contact" },
+          { "label": "Email", "href": "mailto:INFO@VENAVITALS.COM" },
+          { "label": "LinkedIn", "href": "https://www.linkedin.com/company/vena-vitals" },
+          { "label": "Privacy Policy", "href": "/privacy-policy" },
+          { "label": "FCOI Policy", "href": "/fcoi-policy" }
+        ]
+      }
+    ],
+    "disclaimer": "VeriTrack has been submitted for Food and Drug Administration 510(k) review and is not yet available for commercial sale.",
+    "copyright": "© {year} Vena Vitals. All rights reserved."
+  },
+  "notFound": {
+    "seo": {
+      "title": "Page not found | Vēna Vitals"
+    },
+    "code": "404",
+    "title": "Page not found",
+    "body": "The page you're looking for doesn't exist or has been moved.",
+    "button": "Go home",
+    "href": "/"
+  },
+  "error": {
+    "title": "This page didn't load",
+    "body": "Something went wrong on our end. You can try refreshing or head back home.",
+    "retryButton": "Try again",
+    "button": "Go home",
+    "href": "/"
+  },
+  "contactForm": {
+    "name": {
+      "label": "Name",
+      "placeholder": "Your name"
+    },
+    "organization": {
+      "label": "Organization",
+      "placeholder": "Hospital or company"
+    },
+    "role": {
+      "label": "Role",
+      "placeholder": "Select role",
+      "options": ["Clinician", "Hospital administrator", "Researcher", "Industry partner", "Other"]
+    },
+    "email": {
+      "label": "Work email",
+      "placeholder": "name@organization.com"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "Optional"
+    },
+    "message": {
+      "label": "Message",
+      "placeholder": "Tell us about the setting, timeline, or question you have."
+    },
+    "privacyNote": "We use this information only to respond to your request.",
+    "button": "Send request",
+    "sendingButton": "Sending...",
+    "errorMessage": "That did not send. Please try again, or email INFO@VENAVITALS.COM.",
+    "success": {
+      "title": "Request received.",
+      "body": "Thank you for reaching out, we will get back to you as soon as we can."
+    },
+    "spamTrapLabel": "Leave this field empty: "
+  }
+}

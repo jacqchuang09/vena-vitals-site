@@ -1,17 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { LegalPage } from "@/components/layout/LegalPage";
-import { privacyPolicy } from "@/components/layout/legal-text";
+import { LegalPage, type LegalDoc } from "@/components/layout/LegalPage";
+// The whole policy text lives in this file:
+import page from "@content/legal/privacy-policy.json";
+
+// JSON imports type `kind` as a plain string; the file follows LegalDoc.
+const doc = page as LegalDoc;
 
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
-    meta: [
-      { title: "Privacy Policy | Vēna Vitals" },
-      {
-        name: "description",
-        content: "How Vēna Vitals VeriTrack handles information, and your privacy rights.",
-      },
-    ],
+    meta: [{ title: page.seo.title }, { name: "description", content: page.seo.description }],
     links: [{ rel: "canonical", href: "/privacy-policy" }],
   }),
-  component: () => <LegalPage doc={privacyPolicy} />,
+  component: () => <LegalPage doc={doc} />,
 });

@@ -1,18 +1,15 @@
 import { StretchText } from "@/components/shared/StretchText";
+import shared from "@content/solutions/testimonials.json";
 
-// Only attributed, approved quotes belong here. An unnamed "Anesthesiologist,
-// user research" quote and an empty third slot used to sit beside Rinehart to
-// balance a 3-up grid; both read as filler, so the section now shows however
-// many real quotes exist and the layout adapts to the count.
-// [EDIT NEEDED: add further approved, attributed testimonials here.]
-const allQuotes = [
-  {
-    name: "Joseph Rinehart, MD",
-    role: "Anesthesiology, Clinical Advisor",
-    img: "/assets/clinical/joseph.jpeg",
-    text: "Currently in the operating room, if we need a continuous measure of blood pressure, the most common approach is to use an invasive arterial line. Not all patients necessarily need that level of intervention, however, but would still benefit from a continuous blood pressure measurement. This is where the Vena Vitals sensor may really have an opportunity to shine and fill in that gap in our current monitoring capabilities.",
-  },
-];
+const section = shared.testimonials;
+
+// Only attributed, approved quotes belong in content/solutions/testimonials.json.
+// An unnamed "Anesthesiologist, user research" quote and an empty third slot
+// used to sit beside Rinehart to balance a 3-up grid; both read as filler, so
+// the section now shows however many real quotes exist and the layout adapts
+// to the count. A quote without an `image` gets a quote-mark placeholder.
+// [EDIT NEEDED: add further approved, attributed testimonials to that file.]
+const allQuotes = section.quotes;
 
 /**
  * Attributed quotes from the clinical people behind a page.
@@ -40,14 +37,14 @@ export function Testimonials({
       <div className="container-x">
         <div className="mx-auto max-w-[430px] text-center reveal">
           <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-            Perspectives
+            {section.eyebrow}
           </div>
           <StretchText
             as="h2"
             className="font-display text-[clamp(22px,2.55vw,34px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
             segments={[
-              { text: "From the " },
-              { text: "field.", className: "text-[color:var(--accent)]" },
+              { text: `${section.title} ` },
+              { text: section.titleAccent, className: "text-[color:var(--accent)]" },
             ]}
           />
         </div>
@@ -60,9 +57,9 @@ export function Testimonials({
           {quotes.map((q, i) => (
             <figure key={q.name ?? i} className="reveal flex flex-col items-center text-center">
               <span className="relative grid aspect-square w-24 place-items-center overflow-hidden rounded-full bg-[color:var(--ink)] shadow-[0_10px_30px_-12px_rgba(43,43,43,0.3)] ring-1 ring-[color:var(--line)] md:w-28">
-                {"img" in q ? (
+                {q.image ? (
                   <img
-                    src={q.img}
+                    src={q.image}
                     alt={q.name ?? ""}
                     className="h-full w-full object-cover object-top"
                     loading="lazy"

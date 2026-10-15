@@ -1,45 +1,37 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
+import site from "@content/site.json";
+
+type NavItem = {
+  label: string;
+  href?: string;
+  children?: { label: string; description: string; href: string }[];
+};
 
 // Clinical Evidence and Solutions were separate nav items, merged into one
 // "Clinical Studies" entry. The label itself goes nowhere; only the two
 // settings in its dropdown are clickable. STUDIES is a key for that entry, not
-// a route.
+// a route. In site.json that entry is the one with `children` and no `href`.
 const STUDIES = "studies";
 
-const links = [
-  { to: "/", label: "Home" },
-  { to: "/technology", label: "Technology" },
-  { to: STUDIES, label: "Clinical Studies" },
-  { to: "/partner-with-us", label: "Partner With Us" },
-  { to: "/about", label: "About" },
-] as const;
+const navItems: NavItem[] = site.nav.items;
 
-const studyLinks = [
-  {
-    to: "/solutions/anesthesiology",
-    label: "Perioperative monitoring",
-    desc: "Operating room and critical care",
-  },
-  {
-    to: "/solutions/sleep-medicine",
-    label: "Sleep monitoring",
-    desc: "Research direction",
-  },
-] as const;
+const links = navItems.map((item) => ({
+  to: item.children ? STUDIES : (item.href ?? "/"),
+  label: item.label,
+}));
+
+const studyLinks = navItems.flatMap((item) =>
+  (item.children ?? []).map((c) => ({ to: c.href, label: c.label, desc: c.description })),
+);
 
 // The drawer has no dropdowns, so Clinical Studies and the two settings under
 // it are listed flat.
-const mobileLinks = [
-  { to: "/", label: "Home" },
-  { to: "/technology", label: "Technology" },
-  { to: "/solutions/anesthesiology", label: "Perioperative monitoring" },
-  { to: "/solutions/sleep-medicine", label: "Sleep monitoring" },
-  { to: "/partner-with-us", label: "Partner With Us" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
-] as const;
+const mobileLinks = site.nav.mobileMenu.items.map((item) => ({ to: item.href, label: item.label }));
+
+// The year is filled in at build time; "{year}" in site.json marks where.
+const [copyrightBefore, copyrightAfter] = site.nav.mobileMenu.copyright.split("{year}");
 
 export function Nav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -102,10 +94,10 @@ export function Nav() {
         }`}
       >
         <div className="container-x flex h-20 items-center justify-between md:h-24">
-          <Link to="/" onClick={goTop} className="shrink-0">
+          <Link to={site.nav.logo.href} onClick={goTop} className="shrink-0">
             <img
-              src="/assets/brand/venavitals-logo-horizontal.png"
-              alt="Vēna Vitals"
+              src={site.nav.logo.image}
+              alt={site.nav.logo.alt}
               className="h-[20px] w-auto object-contain md:h-[24px]"
             />
           </Link>
@@ -193,7 +185,7 @@ export function Nav() {
           </nav>
 
           <button
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? site.nav.closeMenuLabel : site.nav.openMenuLabel}
             onClick={() => setOpen((o) => !o)}
             className={`group inline-flex h-10 w-10 items-center justify-center transition hover:bg-white/10 lg:hidden ${navColor}`}
           >
@@ -210,7 +202,7 @@ export function Nav() {
       >
         <div className="absolute inset-0 bg-[color:var(--ink)]/95 backdrop-blur-2xl" />
         <div className="relative h-full flex flex-col justify-center container-x pt-20">
-          <div className="eyebrow mb-10">[ Navigate ]</div>
+          <div className="eyebrow mb-10">{site.nav.mobileMenu.eyebrow}</div>
           <nav className="flex flex-col">
             {mobileLinks.map((l, i) => {
               const active = pathname === l.to;
@@ -253,8 +245,12 @@ export function Nav() {
             })}
           </nav>
           <div className="mt-12 flex flex-wrap items-center justify-between gap-6 eyebrow">
-            <span>vēna vitals © {new Date().getFullYear()}</span>
-            <span>continuous · noninvasive · beat-to-beat</span>
+            <span>
+              {copyrightBefore}
+              {new Date().getFullYear()}
+              {copyrightAfter || null}
+            </span>
+            <span>{site.nav.mobileMenu.tagline}</span>
           </div>
         </div>
       </div>

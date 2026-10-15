@@ -5,6 +5,9 @@ import { StudySpread } from "@/components/solutions/StudySpread";
 import { SolutionWindows, type SolutionWindow } from "@/components/solutions/SolutionWindows";
 import { StretchText } from "@/components/shared/StretchText";
 import { TiltCard } from "@/components/shared/TiltCard";
+// Copy that is the same on every solution page (the per-page copy arrives as
+// `content` from content/solutions/<page>.json):
+import shared from "@content/solutions/testimonials.json";
 
 export type SolutionDetailContent = {
   eyebrow: string;
@@ -95,7 +98,7 @@ function Heading({
 function DemoButton({ label }: { label: string }) {
   return (
     <Link
-      to="/contact"
+      to={shared.demoHref}
       className="group inline-flex items-center gap-3 rounded-full bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
     >
       {label}{" "}
@@ -293,10 +296,10 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
                 {content.noteBody}
               </p>
               <Link
-                to="/clinical-evidence"
+                to={shared.fit.href}
                 className="group mt-6 inline-flex items-center gap-1.5 text-[11px] font-semibold text-[color:var(--accent)] transition-opacity hover:opacity-80"
               >
-                See the clinical studies
+                {shared.fit.link}
                 <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
                   →
                 </span>
@@ -320,7 +323,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
         >
           <div className="container-x">
             <SolutionWindows
-              eyebrow={content.windowsEyebrow ?? "In this setting"}
+              eyebrow={content.windowsEyebrow ?? shared.windows.defaultEyebrow}
               title={content.windowsTitle ?? content.fitTitle ?? ""}
               body={content.windowsBody}
               windows={content.windows}
@@ -336,7 +339,7 @@ export function SolutionDetail({ content }: { content: SolutionDetailContent }) 
         >
           <div className="container-x">
             <div className="mx-auto max-w-[560px] text-center reveal">
-              <Eyebrow>Get started</Eyebrow>
+              <Eyebrow>{shared.cta.eyebrow}</Eyebrow>
               <Heading
                 text={content.cta}
                 accent={content.ctaAccent}

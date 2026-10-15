@@ -3,6 +3,9 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Expand, X } from "lucide-react";
 import type { StudyFigure } from "@/components/solutions/StudyFigures";
 import { StretchText } from "@/components/shared/StretchText";
+import shared from "@content/solutions/testimonials.json";
+
+const text = shared.gallery;
 
 /**
  * Study figures as a spread: every figure on screen at once, caption beneath.
@@ -74,7 +77,9 @@ export function StudySpread({
                 <button
                   type="button"
                   onClick={() => setOpen(f)}
-                  aria-label={`Enlarge figure ${i + 1}: ${f.caption}`}
+                  aria-label={text.enlargeLabel
+                    .replace("{n}", String(i + 1))
+                    .replace("{caption}", f.caption)}
                   className="group relative block w-full cursor-zoom-in overflow-hidden rounded-none bg-[color:var(--ink)] p-3 shadow-[0_18px_50px_rgba(43,43,43,0.06)] outline-none ring-1 ring-[color:var(--line)] transition duration-300 hover:shadow-[0_24px_64px_rgba(43,43,43,0.12)] focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] md:p-4"
                 >
                   <img
@@ -88,7 +93,8 @@ export function StudySpread({
                     aria-hidden
                     className="pointer-events-none absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-[color:var(--paper)] px-3 py-1.5 text-[10px] font-semibold text-[color:var(--ink)] opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:bottom-4 md:right-4"
                   >
-                    <Expand className="size-3" strokeWidth={2.5} /> Enlarge
+                    <Expand className="size-3" strokeWidth={2.5} />
+                    {` ${text.enlargeHint}`}
                   </span>
                 </button>
 
@@ -134,7 +140,7 @@ export function StudySpread({
             )}
             <DialogPrimitive.Close className="absolute right-4 top-4 grid h-8 w-8 cursor-pointer place-items-center rounded-full bg-white/80 text-[color:var(--paper)]/60 outline-none transition hover:bg-[color:var(--ink-2)] hover:text-[color:var(--accent)] focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]">
               <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{text.closeLabel}</span>
             </DialogPrimitive.Close>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>

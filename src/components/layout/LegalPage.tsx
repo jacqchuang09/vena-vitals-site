@@ -1,6 +1,33 @@
 import { Link } from "@tanstack/react-router";
 import { useNoSnap } from "@/components/shared/lib";
-import type { LegalDoc } from "@/components/layout/legal-text";
+
+export type LegalNode =
+  | { kind: "heading"; text: string }
+  | { kind: "p"; text: string }
+  | { kind: "list"; items: string[] };
+
+/**
+ * One policy, as stored in content/legal/*.json.
+ *
+ * The text there is transcribed from the pages Vena Vitals already publishes
+ * at venavitals.com/privacy-policy and venavitals.com/terms-and-conditions on
+ * 29 Sep 2026. Transcribed, not rewritten: it was taken from the rendered
+ * pages character for character, including its own typos ("DEFINITONS", the
+ * spacing in "April 18 , 2022", and the malformed self-reference URL at the
+ * end of the privacy policy). Nothing is drafted, summarised or corrected,
+ * because this is legal and regulatory copy and neither is ours to change.
+ * Any edit should come from the Vena Vitals team.
+ */
+export type LegalDoc = {
+  /** Small label above the title. */
+  eyebrow: string;
+  title: string;
+  /** The document's own date line, shown under the title. */
+  date: string;
+  body: LegalNode[];
+  /** The link under the document. */
+  contact: { label: string; href: string };
+};
 
 /**
  * A policy document: one long column of text, not a deck of panels.
@@ -10,10 +37,11 @@ import type { LegalDoc } from "@/components/layout/legal-text";
  * has nothing to snap to, and mandatory snapping would drag the reader to the
  * footer as soon as they scrolled, so it opts out through useNoSnap.
  *
- * The text itself lives in legal-text.ts, transcribed from the published
- * policies. This component only sets it; it does not author any of it.
+ * The text itself lives in content/legal/*.json, transcribed from the
+ * published policies. This component only sets it; it does not author any of
+ * it.
  */
-export function LegalPage({ doc, eyebrow = "Legal" }: { doc: LegalDoc; eyebrow?: string }) {
+export function LegalPage({ doc }: { doc: LegalDoc }) {
   useNoSnap();
 
   return (
@@ -21,7 +49,7 @@ export function LegalPage({ doc, eyebrow = "Legal" }: { doc: LegalDoc; eyebrow?:
       <div className="container-x">
         <header className="max-w-[720px]">
           <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-            {eyebrow}
+            {doc.eyebrow}
           </div>
           <h1 className="font-display text-[clamp(28px,3.2vw,44px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)] text-balance">
             {doc.title}
@@ -74,10 +102,10 @@ export function LegalPage({ doc, eyebrow = "Legal" }: { doc: LegalDoc; eyebrow?:
 
         <div className="mt-14 max-w-[78ch] border-t border-[color:var(--line)]/60 pt-7">
           <Link
-            to="/contact"
+            to={doc.contact.href}
             className="group inline-flex items-center gap-1.5 text-[11px] font-semibold text-[color:var(--accent)] transition-opacity hover:opacity-80"
           >
-            Questions about this policy? Contact us
+            {doc.contact.label}
             <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
               →
             </span>

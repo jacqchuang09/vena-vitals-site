@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+// Every label, placeholder, option and message on the form:
+import site from "@content/site.json";
+
+const text = site.contactForm;
 
 type FormState = {
   name: string;
@@ -87,7 +91,7 @@ export function ContactForm({ className = "" }: { className?: string }) {
       if (!response.ok) throw new Error(String(response.status));
       setSent(true);
     } catch {
-      setError("That did not send. Please try again, or email INFO@VENAVITALS.COM.");
+      setError(text.errorMessage);
     } finally {
       setSending(false);
     }
@@ -101,10 +105,10 @@ export function ContactForm({ className = "" }: { className?: string }) {
         <div className="flex min-h-[460px] flex-col justify-center rounded-none bg-white p-8">
           <CheckCircle2 size={34} className="text-[color:var(--accent)]" />
           <h2 className="mt-6 font-display text-2xl font-bold tracking-tight text-[color:var(--paper)]">
-            Request received.
+            {text.success.title}
           </h2>
           <p className="mt-4 max-w-[460px] text-sm leading-relaxed text-[color:var(--mute)]">
-            Thank you for reaching out, we will get back to you as soon as we can.
+            {text.success.body}
           </p>
         </div>
       ) : (
@@ -121,28 +125,29 @@ export function ContactForm({ className = "" }: { className?: string }) {
           {/* Spam trap, hidden from people, so anything filling it is a bot. */}
           <p className="hidden">
             <label>
-              Leave this field empty: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+              {text.spamTrapLabel}
+              <input name="bot-field" tabIndex={-1} autoComplete="off" />
             </label>
           </p>
 
           <div className="grid gap-4 md:grid-cols-2">
             <FieldLabel>
-              Name
+              {text.name.label}
               <input
                 required
                 name="name"
-                placeholder="Your name"
+                placeholder={text.name.placeholder}
                 value={form.name}
                 onChange={(event) => setForm({ ...form, name: event.target.value })}
                 className={fieldClass}
               />
             </FieldLabel>
             <FieldLabel>
-              Organization
+              {text.organization.label}
               <input
                 required
                 name="organization"
-                placeholder="Hospital or company"
+                placeholder={text.organization.placeholder}
                 value={form.organization}
                 onChange={(event) => setForm({ ...form, organization: event.target.value })}
                 className={fieldClass}
@@ -152,7 +157,7 @@ export function ContactForm({ className = "" }: { className?: string }) {
 
           <div className="grid gap-4 md:grid-cols-2">
             <FieldLabel>
-              Role
+              {text.role.label}
               <select
                 required
                 name="role"
@@ -160,21 +165,19 @@ export function ContactForm({ className = "" }: { className?: string }) {
                 onChange={(event) => setForm({ ...form, role: event.target.value })}
                 className={fieldClass}
               >
-                <option value="">Select role</option>
-                <option>Clinician</option>
-                <option>Hospital administrator</option>
-                <option>Researcher</option>
-                <option>Industry partner</option>
-                <option>Other</option>
+                <option value="">{text.role.placeholder}</option>
+                {text.role.options.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
               </select>
             </FieldLabel>
             <FieldLabel>
-              Work email
+              {text.email.label}
               <input
                 required
                 name="email"
                 type="email"
-                placeholder="name@organization.com"
+                placeholder={text.email.placeholder}
                 value={form.email}
                 onChange={(event) => setForm({ ...form, email: event.target.value })}
                 className={fieldClass}
@@ -183,10 +186,10 @@ export function ContactForm({ className = "" }: { className?: string }) {
           </div>
 
           <FieldLabel>
-            Phone
+            {text.phone.label}
             <input
               name="phone"
-              placeholder="Optional"
+              placeholder={text.phone.placeholder}
               value={form.phone}
               onChange={(event) => setForm({ ...form, phone: event.target.value })}
               className={fieldClass}
@@ -194,11 +197,11 @@ export function ContactForm({ className = "" }: { className?: string }) {
           </FieldLabel>
 
           <FieldLabel>
-            Message
+            {text.message.label}
             <textarea
               name="message"
               rows={4}
-              placeholder="Tell us about the setting, timeline, or question you have."
+              placeholder={text.message.placeholder}
               value={form.message}
               onChange={(event) => setForm({ ...form, message: event.target.value })}
               className={`${fieldClass} resize-none`}
@@ -213,14 +216,14 @@ export function ContactForm({ className = "" }: { className?: string }) {
 
           <div className="flex flex-wrap items-center justify-between gap-4 pt-1">
             <p className="max-w-[380px] text-[11px] leading-relaxed text-[color:var(--mute)]">
-              We use this information only to respond to your request.
+              {text.privacyNote}
             </p>
             <button
               type="submit"
               disabled={sending}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--paper)] px-6 py-3 text-xs font-semibold text-white transition hover:bg-[color:var(--accent)] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {sending ? "Sending..." : "Send request"}
+              {sending ? text.sendingButton : text.button}
               <ArrowRight size={15} aria-hidden />
             </button>
           </div>

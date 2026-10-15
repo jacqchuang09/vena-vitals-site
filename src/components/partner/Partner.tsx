@@ -1,16 +1,13 @@
 import { StretchText } from "@/components/shared/StretchText";
 import { useNoSnap } from "@/components/shared/lib";
 import { ContactForm } from "@/components/shared/ContactForm";
+import page from "@content/partner.json";
+
+const { hero } = page;
 
 // The kinds of work the team takes on, rather than the job titles this list
 // used to name. Order is deliberate: clinical first, money last.
-const waysToWork = [
-  "Clinical collaborations",
-  "Industry projects",
-  "Strategic partnerships",
-  "Investment opportunities",
-  "General interest",
-];
+const waysToWork = page.waysToWork.items;
 
 /**
  * Partner With Us: one section, the pitch and the form side by side.
@@ -39,24 +36,23 @@ export function Partner() {
       <div className="container-x grid gap-10 md:grid-cols-[0.82fr_1.18fr] md:items-center md:gap-12">
         <div className="mx-auto max-w-[400px] text-center reveal md:mx-0 md:text-left">
           <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-            Partner with us
+            {hero.eyebrow}
           </div>
           <StretchText
             as="h1"
             className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)] text-balance"
             segments={[
-              { text: "Explore what continuous, noninvasive blood pressure " },
-              { text: "can make possible.", className: "text-[color:var(--accent)]" },
+              { text: `${hero.title} ` },
+              { text: hero.titleAccent, className: "text-[color:var(--accent)]" },
             ]}
           />
           <p className="mx-auto mt-5 max-w-[400px] text-xs leading-relaxed text-[color:var(--mute)] md:mx-0">
-            We collaborate with clinicians, researchers, and industry partners to study new
-            applications for continuous blood pressure monitoring and advance the technology.
+            {hero.body}
           </p>
 
           <div className="mt-8">
             <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Ways to work with us
+              {page.waysToWork.eyebrow}
             </div>
             <ul className="mt-4 space-y-1 text-left md:mt-5 md:space-y-1.5">
               {waysToWork.map((a, i) => (

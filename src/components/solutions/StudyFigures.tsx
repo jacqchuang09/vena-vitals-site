@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
 import { StretchText } from "@/components/shared/StretchText";
+import shared from "@content/solutions/testimonials.json";
+
+const text = shared.figures;
 
 export type StudyFigure = {
   src: string;
@@ -135,7 +138,8 @@ export function StudyFigures({
                 aria-hidden
                 className="pointer-events-none absolute bottom-4 right-4 flex items-center gap-1.5 rounded-full bg-[color:var(--paper)] px-3 py-1.5 text-[10px] font-semibold text-[color:var(--ink)] opacity-0 transition-opacity duration-200 group-hover:opacity-100 md:bottom-5 md:right-5"
               >
-                Next figure <span className="translate-y-[-0.5px]">→</span>
+                {`${text.nextHint} `}
+                <span className="translate-y-[-0.5px]">→</span>
               </span>
             </div>
 
@@ -150,7 +154,7 @@ export function StudyFigures({
               under the plate on a narrow one. */}
           <ol
             role="tablist"
-            aria-label="Operating room study figures"
+            aria-label={text.indexLabel}
             aria-orientation="vertical"
             onKeyDown={onKeyDown}
             onMouseLeave={() => setPreview(null)}
@@ -169,7 +173,10 @@ export function StudyFigures({
                     }}
                     aria-selected={i === selected}
                     aria-controls={`study-panel-${i}`}
-                    aria-label={`Figure ${i + 1} of ${total}. ${f.caption}`}
+                    aria-label={text.tabLabel
+                      .replace("{n}", String(i + 1))
+                      .replace("{total}", String(total))
+                      .replace("{caption}", f.caption)}
                     tabIndex={i === selected ? 0 : -1}
                     onClick={() => setSelected(i)}
                     onMouseEnter={() => setPreview(i)}

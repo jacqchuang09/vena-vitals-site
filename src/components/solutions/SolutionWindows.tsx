@@ -1,4 +1,5 @@
 import { StretchText } from "@/components/shared/StretchText";
+import shared from "@content/solutions/testimonials.json";
 
 export type SolutionWindow = {
   /** Looping clip source. When omitted, a styled placeholder window is shown. */
@@ -26,7 +27,7 @@ function WindowFrame({ src, label, feature = false }: SolutionWindow) {
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--ink),var(--ink-2))]">
-          <span className="eyebrow text-[color:var(--mute)]">Footage coming soon</span>
+          <span className="eyebrow text-[color:var(--mute)]">{shared.windows.placeholder}</span>
         </div>
       )}
       <figcaption className="absolute inset-x-3 bottom-3 rounded-full bg-black/55 px-3 py-1.5 text-[10px] font-semibold text-white backdrop-blur">

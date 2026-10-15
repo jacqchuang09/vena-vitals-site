@@ -2,6 +2,9 @@ import { CheckCircle2 } from "lucide-react";
 import { StretchText } from "@/components/shared/StretchText";
 import { useNoSnap } from "@/components/shared/lib";
 import { ContactForm } from "@/components/shared/ContactForm";
+import page from "@content/contact.json";
+
+const { hero } = page;
 
 export function Contact() {
   // Taller than a phone screen, so it opts out of the page snap.
@@ -14,18 +17,11 @@ export function Contact() {
             <StretchText
               as="h1"
               className="font-display text-[clamp(28px,3.2vw,44px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
-              segments={[{ text: "See VeriTrack in a clinical workflow." }]}
+              segments={[{ text: hero.title }]}
             />
-            <p className="mt-5 text-sm leading-relaxed text-[color:var(--mute)]">
-              Tell us about your setting and a member of the team will follow up with the right
-              evidence and evaluation materials.
-            </p>
+            <p className="mt-5 text-sm leading-relaxed text-[color:var(--mute)]">{hero.body}</p>
             <div className="mt-7 grid gap-3 text-left">
-              {[
-                "Operating room and anesthesia teams",
-                "Critical care and hospital pilots",
-                "Evidence and regulatory conversations",
-              ].map((item) => (
+              {hero.points.map((item) => (
                 <div
                   key={item}
                   className="flex items-center gap-3 text-xs text-[color:var(--paper)]"

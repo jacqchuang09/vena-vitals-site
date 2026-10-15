@@ -1,49 +1,22 @@
 import { Link } from "@tanstack/react-router";
+import site from "@content/site.json";
 
-const columns = [
-  {
-    title: "Product",
-    links: [
-      { to: "/technology", label: "Technology" },
-      { to: "/solutions/anesthesiology", label: "Perioperative monitoring" },
-      { to: "/solutions/sleep-medicine", label: "Sleep monitoring" },
-      // No /solutions entry — that path has no page, it is only the nav
-      // dropdown. The individual setting pages are linked from there.
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { to: "/about", label: "About" },
-      { to: "/partner-with-us", label: "Partner With Us" },
-      { to: "/contact", label: "Contact" },
-    ],
-  },
-  {
-    title: "Connect",
-    links: [
-      { to: "/contact", label: "Request a Demo" },
-      { href: "mailto:INFO@VENAVITALS.COM", label: "Email" },
-      { href: "https://www.linkedin.com/company/vena-vitals", label: "LinkedIn" },
-      { to: "/privacy-policy", label: "Privacy Policy" },
-      { to: "/fcoi-policy", label: "FCOI Policy" },
-    ],
-  },
-] as const;
+const { footer } = site;
 
-const trustLogos = [
-  { src: "/assets/brand/yc-logo.png", alt: "Y Combinator" },
-  { src: "/assets/brand/logo2.png", alt: "National Institutes of Health" },
-  { src: "/assets/brand/logo4.png", alt: "MedTech Innovator" },
-  { src: "/assets/brand/logo5.png", alt: "EvoNexus" },
-  { src: "/assets/brand/logo6.webp", alt: "HeartX" },
-  { src: "/assets/brand/logo7.png", alt: "National Science Foundation" },
-  { src: "/assets/brand/logo1.webp", alt: "Samsung NEXT" },
-];
+// No /solutions entry in the link groups — that path has no page, it is only
+// the nav dropdown. The individual setting pages are linked from there.
+// Paths starting with "/" go through the router; anything else (mailto:,
+// https://) is a plain anchor.
+const columns = footer.linkGroups;
+
+const trustLogos = footer.backedBy.logos;
 
 // Repeat the set wide enough that the -50% marquee loop never shows a gap.
 const marqueeHalf = [...trustLogos, ...trustLogos, ...trustLogos];
 const marqueeLogos = [...marqueeHalf, ...marqueeHalf];
+
+// The year is filled in at build time; "{year}" in site.json marks where.
+const [copyrightBefore, copyrightAfter] = footer.copyright.split("{year}");
 
 // The footer is locked to the viewport only from md up, where the link columns
 // sit in a row and the whole thing fits. Narrower than that they stack, the
@@ -58,17 +31,19 @@ export function Footer() {
         <div className="w-full pt-10 md:pt-12">
           <div className="mb-12 overflow-hidden border-b border-[color:var(--line)] pb-10">
             <div className="mb-5 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Backed by
+              {footer.backedBy.eyebrow}
             </div>
             <div className="logo-marquee flex w-max items-center gap-x-24">
               {marqueeLogos.map((logo, i) => (
                 <img
                   key={`${logo.alt}-${i}`}
-                  src={logo.src}
+                  src={logo.image}
                   alt={logo.alt}
                   aria-hidden={i >= marqueeHalf.length}
+                  // `large` marks a logo drawn taller than the rest (the YC
+                  // mark, whose artwork has more padding around it).
                   className={`w-auto shrink-0 object-contain ${
-                    logo.alt === "Y Combinator" ? "h-20 md:h-28" : "h-8 md:h-9"
+                    "large" in logo && logo.large ? "h-20 md:h-28" : "h-8 md:h-9"
                   }`}
                 />
               ))}
@@ -76,14 +51,14 @@ export function Footer() {
           </div>
           <div className="grid gap-10 md:grid-cols-3">
             {columns.map((column) => (
-              <div key={column.title}>
-                <h2 className="text-sm font-bold text-[color:var(--paper)]">{column.title}</h2>
+              <div key={column.heading}>
+                <h2 className="text-sm font-bold text-[color:var(--paper)]">{column.heading}</h2>
                 <ul className="mt-5 space-y-4">
                   {column.links.map((link) => (
                     <li key={link.label}>
-                      {"to" in link ? (
+                      {link.href.startsWith("/") ? (
                         <Link
-                          to={link.to}
+                          to={link.href}
                           className="text-sm text-[color:var(--accent)] transition hover:text-[color:var(--paper)]"
                         >
                           {link.label}
@@ -106,11 +81,12 @@ export function Footer() {
           </div>
 
           <p className="mt-12 text-xs leading-relaxed text-[color:var(--mute)]">
-            VeriTrack has been submitted for Food and Drug Administration 510(k) review and is not
-            yet available for commercial sale.
+            {footer.disclaimer}
           </p>
           <p className="mt-8 text-xs text-[color:var(--mute)]">
-            © {new Date().getFullYear()} Vena Vitals. All rights reserved.
+            {copyrightBefore}
+            {new Date().getFullYear()}
+            {copyrightAfter}
           </p>
         </div>
       </div>
