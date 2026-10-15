@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Check } from "lucide-react";
 import { TiltCard } from "./TiltCard";
 import { StretchText } from "./StretchText";
@@ -95,24 +95,6 @@ const research = [
     img: "/assets/technology/stretch-sensor.png",
   },
 ];
-
-// Research pipeline as a scroll-driven stack. The section pins to the viewport
-// while each study card rises from below and covers the one before it, so the
-// cards replace each other one by one as the page scrolls. Under
-// prefers-reduced-motion the pinning is dropped and the cards render as a plain
-// vertical list.
-//
-// The layout is: a tall `track` div whose extra height IS the scroll budget,
-// containing a `sticky` viewport-height stage. Progress through the track maps
-// to a float index into `research`.
-const SCROLL_PER_CARD_VH = 95; // scroll budget per card: dwell + swap
-const HOLD = 0.5; // fraction of a card's slot where it sits perfectly still
-const GAP = 22; // percent of card height held empty between consecutive cards
-
-// Position of the strip for a given float index, as a CSS transform. Shared by
-// the first paint and the scroll loop so they can't disagree.
-const cardTransform = (i: number, settled: number) =>
-  `translate3d(0,${(-(settled - i) * (100 + GAP)).toFixed(2)}%,0)`;
 
 // Research pipeline. Deliberately a plain static section — no pinning, no
 // scroll-driven motion. All five studies are visible at once.

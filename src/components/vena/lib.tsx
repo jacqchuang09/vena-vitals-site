@@ -114,23 +114,6 @@ export function useReveal() {
   }, []);
 }
 
-export function Wordmark({
-  className = "",
-  size = "text-base",
-}: {
-  className?: string;
-  size?: string;
-}) {
-  return (
-    <span
-      className={`font-display font-bold tracking-tight ${size} ${className}`}
-      style={{ letterSpacing: "0.04em" }}
-    >
-      vēna<span className="text-[color:var(--mute)] ml-1.5">vitals</span>
-    </span>
-  );
-}
-
 export function Eyebrow({
   children,
   className = "",
@@ -139,20 +122,4 @@ export function Eyebrow({
   className?: string;
 }) {
   return <div className={`eyebrow ${className}`}>{children}</div>;
-}
-
-export function VisualPlaceholder({
-  label,
-  className = "",
-}: {
-  label: string;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`flex h-full min-h-[220px] w-full items-center justify-center rounded-none bg-[linear-gradient(135deg,#f7f7f7,#eeeeee)] p-8 text-center text-sm leading-relaxed text-[color:var(--mute)] ${className}`}
-    >
-      {label}
-    </div>
-  );
 }
