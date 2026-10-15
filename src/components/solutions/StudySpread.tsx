@@ -39,9 +39,7 @@ export function StudySpread({
   // the segments are built up rather than branched on `titleAccent` alone.
   const headingSegments = [
     ...(title ? [{ text: titleAccent ? `${title} ` : title }] : []),
-    ...(titleAccent
-      ? [{ text: titleAccent, className: "text-[color:var(--accent)]" }]
-      : []),
+    ...(titleAccent ? [{ text: titleAccent, className: "text-[color:var(--accent)]" }] : []),
   ];
   const hasHeader = Boolean(eyebrow) || headingSegments.length > 0;
 

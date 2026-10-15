@@ -1,4 +1,3 @@
-
 import { Link } from "@tanstack/react-router";
 import { StretchText } from "@/components/shared/StretchText";
 
