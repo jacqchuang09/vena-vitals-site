@@ -86,8 +86,9 @@
     "stats": [
       { "from": 0, "to": 600, "suffix": "+", "label": "subjects tested" },
       { "from": 0, "to": 6, "suffix": "+", "linear": true, "label": "study sites" },
-      { "from": 18, "to": 89, "prefix": "18-", "label": "ages · BMI 17-48" },
-      { "from": 30, "to": 300, "prefix": "30-", "label": "mmHg BP range" }
+      { "from": 18, "to": 89, "prefix": "18-", "label": "ages" },
+      { "from": 30, "to": 300, "prefix": "30-", "label": "mmHg BP range" },
+      { "from": 17, "to": 48, "prefix": "17-", "label": "BMI range" }
     ]
   },
   "audiences": {
