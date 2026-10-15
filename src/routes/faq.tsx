@@ -1,23 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FAQ } from "@/components/faq/FAQ";
 import { useReveal } from "@/components/shared/lib";
+// All words, images and videos on this page live in this file:
+import faq from "@content/faq.json";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "Questions | Vēna Vitals" },
-      {
-        name: "description",
-        content: "Answers about the sensor, comfort, accuracy, data, and regulatory status.",
-      },
-      { property: "og:title", content: "Questions | Vēna Vitals" },
-      {
-        property: "og:description",
-        content: "How the sensor works, what it measures, and how the data flows.",
-      },
-      { property: "og:url", content: "/faq" },
+      { title: faq.seo.title },
+      { name: "description", content: faq.seo.description },
+      { property: "og:title", content: faq.seo.shareTitle },
+      { property: "og:description", content: faq.seo.shareDescription },
+      { property: "og:url", content: faq.seo.url },
     ],
-    links: [{ rel: "canonical", href: "/faq" }],
+    links: [{ rel: "canonical", href: faq.seo.url }],
   }),
   component: Page,
 });

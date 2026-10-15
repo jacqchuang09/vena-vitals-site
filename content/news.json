@@ -1,0 +1,67 @@
+{
+  "seo": {
+    "title": "News | Vēna Vitals",
+    "description": "Company updates, evidence news, press materials, and media contact for Vena Vitals.",
+    "shareTitle": "News | Vēna Vitals",
+    "shareDescription": "Company updates and approved press resources.",
+    "url": "/news"
+  },
+  "hero": {
+    "eyebrow": "Newsroom",
+    "title": "Company updates and ",
+    "titleAccent": "press resources.",
+    "body": "Announcements, evidence updates, and approved media materials for press and partners."
+  },
+  "latest": {
+    "eyebrow": "Latest",
+    "title": "Announcements, evidence, and ",
+    "titleAccent": "research notes.",
+    "posts": [
+      {
+        "label": "Company",
+        "title": "Company milestones",
+        "body": "Funding, pilots, and regulatory milestones will be posted here as they are announced."
+      },
+      {
+        "label": "Evidence",
+        "title": "Evidence & publications",
+        "body": "Abstracts, posters, and evidence summaries as publication permissions are confirmed."
+      },
+      {
+        "label": "Research",
+        "title": "Research notes",
+        "body": "Updates on research across perioperative and sleep monitoring."
+      }
+    ]
+  },
+  "pressKit": {
+    "eyebrow": "Press kit",
+    "title": "Approved assets for ",
+    "titleAccent": "media and partners.",
+    "items": [
+      {
+        "icon": "FileText",
+        "title": "Boilerplate",
+        "body": "Short company description and approved regulatory language."
+      },
+      {
+        "icon": "Image",
+        "title": "Logos and media",
+        "body": "Approved logos, product visuals, and leadership photos."
+      },
+      {
+        "icon": "Newspaper",
+        "title": "Press contact",
+        "body": "A clear path for interviews, announcements, and media questions."
+      }
+    ]
+  },
+  "pressContact": {
+    "eyebrow": "Press contact",
+    "title": "Need ",
+    "titleAccent": "approved material?",
+    "body": "Reach out for approved background, interviews, and media assets.",
+    "button": "Contact press",
+    "href": "mailto:INFO@VENAVITALS.COM"
+  }
+}

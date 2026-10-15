@@ -2,51 +2,24 @@ import { FileText, Image, Newspaper } from "lucide-react";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { StretchText } from "@/components/shared/StretchText";
 
-// The newsroom has no published items yet, so each card describes the kind of
-// update its category will carry rather than stating a fake headline. These are
-// forward-looking ("will be posted here"), not claims of anything having
-// happened — safe to show publicly.
-//
-// [EDIT NEEDED: replace these category placeholders with real, dated updates as
-//  they are approved. Company: funding, pilot, and regulatory milestones.
-//  Evidence: abstracts, posters, and evidence summaries once publication
-//  permissions are confirmed. Research: research-direction notes, kept distinct
-//  from cleared product claims.]
-const updates = [
-  {
-    label: "Company",
-    title: "Company milestones",
-    body: "Funding, pilots, and regulatory milestones will be posted here as they are announced.",
-  },
-  {
-    label: "Evidence",
-    title: "Evidence & publications",
-    body: "Abstracts, posters, and evidence summaries as publication permissions are confirmed.",
-  },
-  {
-    label: "Research",
-    title: "Research notes",
-    body: "Updates on research across perioperative and sleep monitoring.",
-  },
-];
+import news from "@content/news.json";
 
-const kit = [
-  {
-    icon: FileText,
-    title: "Boilerplate",
-    body: "Short company description and approved regulatory language.",
-  },
-  {
-    icon: Image,
-    title: "Logos and media",
-    body: "Approved logos, product visuals, and leadership photos.",
-  },
-  {
-    icon: Newspaper,
-    title: "Press contact",
-    body: "A clear path for interviews, announcements, and media questions.",
-  },
-];
+// The newsroom has no published items yet, so each card in latest.posts
+// (content/news.json) describes the kind of update its category will carry
+// rather than stating a fake headline. These are forward-looking ("will be
+// posted here"), not claims of anything having happened — safe to show
+// publicly.
+//
+// [EDIT NEEDED (content/news.json, latest.posts): replace these category
+//  placeholders with real, dated updates as they are approved. Company:
+//  funding, pilot, and regulatory milestones. Evidence: abstracts, posters, and
+//  evidence summaries once publication permissions are confirmed. Research:
+//  research-direction notes, kept distinct from cleared product claims.]
+
+// Icon names used in content/news.json, mapped to their lucide components.
+const icons = { FileText, Image, Newspaper } as const;
+
+const { hero, latest, pressKit, pressContact } = news;
 
 export function News() {
   return (
@@ -57,18 +30,18 @@ export function News() {
         <div className="container-x">
           <div className="mx-auto max-w-[600px] text-center reveal">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Newsroom
+              {hero.eyebrow}
             </div>
             <StretchText
               as="h1"
               className="font-display text-[clamp(28px,3.4vw,48px)] font-bold leading-[1.05] tracking-tight text-[color:var(--paper)]"
               segments={[
-                { text: "Company updates and " },
-                { text: "press resources.", className: "text-[color:var(--accent)]" },
+                { text: hero.title },
+                { text: hero.titleAccent, className: "text-[color:var(--accent)]" },
               ]}
             />
             <p className="mx-auto mt-5 max-w-[440px] text-sm leading-relaxed text-[color:var(--mute)]">
-              Announcements, evidence updates, and approved media materials for press and partners.
+              {hero.body}
             </p>
           </div>
         </div>
@@ -78,19 +51,19 @@ export function News() {
         <div className="container-x">
           <div className="mx-auto max-w-[500px] text-center reveal">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Latest
+              {latest.eyebrow}
             </div>
             <StretchText
               as="h2"
               className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
               segments={[
-                { text: "Announcements, evidence, and " },
-                { text: "research notes.", className: "text-[color:var(--accent)]" },
+                { text: latest.title },
+                { text: latest.titleAccent, className: "text-[color:var(--accent)]" },
               ]}
             />
           </div>
           <div className="mx-auto mt-10 grid max-w-[980px] gap-4 md:grid-cols-3">
-            {updates.map((update) => (
+            {latest.posts.map((update) => (
               <TiltCard
                 as="article"
                 key={update.title}
@@ -115,20 +88,20 @@ export function News() {
         <div className="container-x grid gap-8 md:grid-cols-[0.58fr_1.42fr] md:items-center">
           <div className="mx-auto max-w-[320px] text-center reveal md:text-left">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Press kit
+              {pressKit.eyebrow}
             </div>
             <StretchText
               as="h2"
               className="font-display text-[clamp(24px,2.6vw,36px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
               segments={[
-                { text: "Approved assets for " },
-                { text: "media and partners.", className: "text-[color:var(--accent)]" },
+                { text: pressKit.title },
+                { text: pressKit.titleAccent, className: "text-[color:var(--accent)]" },
               ]}
             />
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            {kit.map((item) => {
-              const Icon = item.icon;
+            {pressKit.items.map((item) => {
+              const Icon = icons[item.icon as keyof typeof icons];
               return (
                 <TiltCard
                   key={item.title}
@@ -152,24 +125,24 @@ export function News() {
         <div className="container-x">
           <div className="mx-auto max-w-[560px] text-center reveal">
             <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
-              Press contact
+              {pressContact.eyebrow}
             </div>
             <StretchText
               as="h2"
               className="font-display text-[clamp(26px,3vw,42px)] font-bold leading-none tracking-tight text-[color:var(--paper)]"
               segments={[
-                { text: "Need " },
-                { text: "approved material?", className: "text-[color:var(--accent)]" },
+                { text: pressContact.title },
+                { text: pressContact.titleAccent, className: "text-[color:var(--accent)]" },
               ]}
             />
             <p className="mx-auto mt-5 max-w-[420px] text-xs leading-relaxed text-[color:var(--paper)]">
-              Reach out for approved background, interviews, and media assets.
+              {pressContact.body}
             </p>
             <a
-              href="mailto:INFO@VENAVITALS.COM"
+              href={pressContact.href}
               className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
             >
-              Contact press{" "}
+              {pressContact.button}{" "}
               <span
                 aria-hidden
                 className="inline-block transition-transform group-hover:translate-x-1"

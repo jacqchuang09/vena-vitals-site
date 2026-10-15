@@ -1,35 +1,13 @@
 import { useState } from "react";
 
-// [EDIT NEEDED: add a calibration FAQ. The device requires calibration, so a
-// clear Q&A on how/when it is calibrated (and against what reference) should be
-// added here once the team confirms the details. Avoid any "no cuff / cuffless"
-// framing — the device is noninvasive and continuous, but not cuff-free.]
-const items = [
-  {
-    q: "How does Vēna measure blood pressure continuously?",
-    a: "A soft sensor is worn over an arterial site, such as the wrist or foot. The sensor detects pulse-related pressure changes and converts them into systolic, diastolic, and mean arterial pressure trends.",
-  },
-  {
-    q: "Is it accurate compared to invasive monitoring?",
-    a: "In validation studies, Vēna has shown mean error under 3 mmHg compared with radial arterial line measurements. Full study data are available on request.",
-  },
-  {
-    q: "Where is the sensor worn?",
-    a: "Either the inner wrist (over the radial artery) or the top of the foot. Both sites yield a clean beat-to-beat waveform; clinicians choose based on patient and workflow.",
-  },
-  {
-    q: "How does the data reach the chart?",
-    a: "The sensor sends data over Bluetooth to the bedside iPad. From there, readings can be forwarded to a monitor, dashboard, health record workflow, or research database.",
-  },
-  {
-    q: "What is the regulatory status?",
-    a: "Vēna is an investigational device. Performance claims reference internal validation and ongoing studies. Commercial availability is subject to regulatory clearance in each geography.",
-  },
-  {
-    q: "Can patients wear it at home?",
-    a: "Yes. Vēna is designed for hospital, ambulatory, and home use, including post-procedure follow-up, medication titration, and decentralized clinical trials.",
-  },
-];
+import faq from "@content/faq.json";
+
+// [EDIT NEEDED (content/faq.json, questions): add a calibration FAQ. The device
+// requires calibration, so a clear Q&A on how/when it is calibrated (and
+// against what reference) should be added here once the team confirms the
+// details. Avoid any "no cuff / cuffless" framing — the device is noninvasive
+// and continuous, but not cuff-free.]
+const { hero, questions } = faq;
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
@@ -39,26 +17,26 @@ export function FAQ() {
         <div>
           <div className="max-w-4xl reveal">
             <h1 className="section-heading mt-6 text-[color:var(--paper)]">
-              Common <span className="text-[color:var(--accent)]">questions.</span>
+              {hero.title}
+              <span className="text-[color:var(--accent)]">{hero.titleAccent}</span>
             </h1>
             <p className="mt-6 max-w-xl text-[color:var(--paper)] text-sm leading-relaxed">
-              Clear answers about the sensor, the measurements, data transfer, and current
-              availability.
+              {hero.body}
             </p>
           </div>
           <div className="mt-14 min-w-0">
             <ul className="hairline-b border-t border-[color:var(--line)]">
-              {items.map((it, i) => {
+              {questions.map((it, i) => {
                 const expanded = open === i;
                 return (
-                  <li key={it.q} className="hairline-b">
+                  <li key={it.question} className="hairline-b">
                     <button
                       onClick={() => setOpen(expanded ? null : i)}
                       className="w-full flex items-start justify-between gap-8 py-7 text-left group"
                       aria-expanded={expanded}
                     >
                       <span className="font-display text-[color:var(--paper)] text-base md:text-xl tracking-tight leading-[1.18] group-hover:text-[color:var(--accent)] transition-colors">
-                        {it.q}
+                        {it.question}
                       </span>
                       <span
                         aria-hidden
@@ -75,7 +53,7 @@ export function FAQ() {
                     >
                       <div className="overflow-hidden">
                         <p className="pb-7 max-w-2xl text-[color:var(--paper)] leading-relaxed">
-                          {it.a}
+                          {it.answer}
                         </p>
                       </div>
                     </div>

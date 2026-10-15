@@ -1,24 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Product } from "@/components/product/Product";
 import { useReveal } from "@/components/shared/lib";
+// All words, images and videos on this page live in this file:
+import product from "@content/product.json";
 
 export const Route = createFileRoute("/product")({
   head: () => ({
     meta: [
-      { title: "Product | Vēna Vitals" },
-      {
-        name: "description",
-        content:
-          "Wearable sensor, phone app, and clinician monitor for continuous vitals from skin to chart.",
-      },
-      { property: "og:title", content: "Product | Vēna Vitals" },
-      {
-        property: "og:description",
-        content: "Sensor, app, and clinician monitor working as one continuous vitals system.",
-      },
-      { property: "og:url", content: "/product" },
+      { title: product.seo.title },
+      { name: "description", content: product.seo.description },
+      { property: "og:title", content: product.seo.shareTitle },
+      { property: "og:description", content: product.seo.shareDescription },
+      { property: "og:url", content: product.seo.url },
     ],
-    links: [{ rel: "canonical", href: "/product" }],
+    links: [{ rel: "canonical", href: product.seo.url }],
   }),
   component: Page,
 });

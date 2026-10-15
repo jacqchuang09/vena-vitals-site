@@ -1,0 +1,40 @@
+{
+  "seo": {
+    "title": "Questions | Vēna Vitals",
+    "description": "Answers about the sensor, comfort, accuracy, data, and regulatory status.",
+    "shareTitle": "Questions | Vēna Vitals",
+    "shareDescription": "How the sensor works, what it measures, and how the data flows.",
+    "url": "/faq"
+  },
+  "hero": {
+    "title": "Common ",
+    "titleAccent": "questions.",
+    "body": "Clear answers about the sensor, the measurements, data transfer, and current availability."
+  },
+  "questions": [
+    {
+      "question": "How does Vēna measure blood pressure continuously?",
+      "answer": "A soft sensor is worn over an arterial site, such as the wrist or foot. The sensor detects pulse-related pressure changes and converts them into systolic, diastolic, and mean arterial pressure trends."
+    },
+    {
+      "question": "Is it accurate compared to invasive monitoring?",
+      "answer": "In validation studies, Vēna has shown mean error under 3 mmHg compared with radial arterial line measurements. Full study data are available on request."
+    },
+    {
+      "question": "Where is the sensor worn?",
+      "answer": "Either the inner wrist (over the radial artery) or the top of the foot. Both sites yield a clean beat-to-beat waveform; clinicians choose based on patient and workflow."
+    },
+    {
+      "question": "How does the data reach the chart?",
+      "answer": "The sensor sends data over Bluetooth to the bedside iPad. From there, readings can be forwarded to a monitor, dashboard, health record workflow, or research database."
+    },
+    {
+      "question": "What is the regulatory status?",
+      "answer": "Vēna is an investigational device. Performance claims reference internal validation and ongoing studies. Commercial availability is subject to regulatory clearance in each geography."
+    },
+    {
+      "question": "Can patients wear it at home?",
+      "answer": "Yes. Vēna is designed for hospital, ambulatory, and home use, including post-procedure follow-up, medication titration, and decentralized clinical trials."
+    }
+  ]
+}
