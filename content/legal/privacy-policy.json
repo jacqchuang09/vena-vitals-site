@@ -1,0 +1,93 @@
+{
+  "seo": {
+    "title": "Privacy Policy | Vēna Vitals",
+    "description": "How Vēna Vitals VeriTrack handles information, and your privacy rights."
+  },
+  "eyebrow": "Legal",
+  "title": "Privacy Policy",
+  "date": "Last updated: June 6, 2025",
+  "body": [
+    {
+      "kind": "p",
+      "text": "This privacy policy describes our policies and procedures on the collection, use and disclosure of your information when you use Vena Vitals VeriTrack and tells you about your privacy rights."
+    },
+    {
+      "kind": "heading",
+      "text": "VENA VITALS VERITRACK DOES NOT COLLECT INFORMATION"
+    },
+    {
+      "kind": "p",
+      "text": "Vena Vitals VeriTrack does not collect, retain, or share any personal information from users. We do not track your activity, location, or device usage, and we do not use any third-party analytics, advertising, or data storage services within the app."
+    },
+    {
+      "kind": "heading",
+      "text": "DO NOT TRACK SIGNALS"
+    },
+    {
+      "kind": "p",
+      "text": "Vena Vitals VeriTrack does not track users over time or across third-party websites, and therefore we do not respond to Do Not Track (DNT) signals. Since we do not collect personal data, data that relates to an identified or identifiable individual, DNT signals have no effect on how the Vena Vitals VeriTrack application operates."
+    },
+    {
+      "kind": "heading",
+      "text": "CALIFORNIA CONSUMER PRIVACY ACT (CCPA / CPRA) COMPLIANCE"
+    },
+    {
+      "kind": "p",
+      "text": "We are committed to complying with applicable U.S. state privacy laws, including those in California, Virginia, Colorado, Connecticut, Utah, and others. Since Vena Vitals VeriTrack does not collect any personal information, these laws currently do not apply. However, users may contact us with any questions about their privacy rights."
+    },
+    {
+      "kind": "heading",
+      "text": "YOUR RIGHTS UNDER CCPA/CPRA AND U.S. STATE PRIVACY LAWS (IF APPLICABLE)"
+    },
+    {
+      "kind": "list",
+      "items": [
+        "Right to Know – you may request details about the personal information we collect, use, disclose, and sell.",
+        "Right to Delete – you may request deletion of your personal information, subject to certain exceptions.",
+        "Right to Correct – you may request correction of inaccurate personal information.",
+        "Right to Opt-Out of Sale/Sharing – we do not sell or share your personal information.",
+        "Right to Non-Discrimination – we will not discriminate against you for exercising your privacy rights."
+      ]
+    },
+    {
+      "kind": "p",
+      "text": "Since we do not collect personal data, these rights currently do not apply. However, you may contact us at info@venavitals.com with any questions or concerns."
+    },
+    {
+      "kind": "heading",
+      "text": "CHILDREN'S PRIVACY"
+    },
+    {
+      "kind": "p",
+      "text": "We do not knowingly collect personally identifiable information from anyone, including those under the age of 13. If we become aware that we have collected personal data from anyone under the age of 13 without verification of parental consent, we take steps to remove that information from our servers."
+    },
+    {
+      "kind": "heading",
+      "text": "CHANGES TO THIS PRIVACY POLICY"
+    },
+    {
+      "kind": "p",
+      "text": "We may update our privacy policy from time to time. We will notify you of any changes by posting the new privacy policy on this page and updating the 'Last updated' date at the top. If changes are material, we will provide a prominent notice within the application or by other appropriate means prior to the change becoming effective."
+    },
+    {
+      "kind": "heading",
+      "text": "CONTACT US"
+    },
+    {
+      "kind": "p",
+      "text": "If you have any questions about this privacy policy, you can contact us:"
+    },
+    {
+      "kind": "p",
+      "text": "By email: info@venavitals.com"
+    },
+    {
+      "kind": "p",
+      "text": "By visiting this page on our website: https://www.venavitals/privacypolicy.com"
+    }
+  ],
+  "contact": {
+    "label": "Questions about this policy? Contact us",
+    "href": "/contact"
+  }
+}

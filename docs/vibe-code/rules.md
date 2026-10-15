@@ -5,14 +5,11 @@
 Before editing code, read:
 
 1. `CLAUDE.md`
-2. `docs/vibe-code/master-plan.md`
-3. `docs/vibe-code/implementation-plan.md`
-4. `docs/vibe-code/design-guidelines.md`
+2. `README.md` (folder map and site map)
+3. `content/README.md` (how content files work)
+4. `docs/vibe-code/master-plan.md`
 5. `docs/vibe-code/user-journeys.md`
 6. `docs/vibe-code/rules.md`
-7. `tasks.md`
-
-Then work on the next unchecked task in `tasks.md`.
 
 ## How To Work
 
@@ -21,7 +18,7 @@ Then work on the next unchecked task in `tasks.md`.
 3. Follow the design guidelines exactly.
 4. Do not invent clinical, regulatory, study, partner, advisor, or accuracy claims.
 5. Preserve all blue `EDIT NEEDED` markers until a human confirms the item.
-6. Update `tasks.md` after each task.
+6. Describe the change in the pull request.
 7. Report what changed and how to test it.
 8. Structure is locked. We are in the design phase. Populate every page with placeholders and real assets first, then stylize.
 
@@ -45,13 +42,13 @@ Notes:
 
 ## Testing Rules
 
-| Change Type | Required Check |
-|---|---|
-| Code or component change | `npm run build` |
-| Formatting or TypeScript/React change | `npm run lint` |
-| Visual layout change | Check desktop and mobile widths |
-| Form change | Test empty, invalid, and successful submission states |
-| Navigation change | Verify every nav link loads |
+| Change Type                           | Required Check                                        |
+| ------------------------------------- | ----------------------------------------------------- |
+| Code or component change              | `npm run build`                                       |
+| Formatting or TypeScript/React change | `npm run lint`                                        |
+| Visual layout change                  | Check desktop and mobile widths                       |
+| Form change                           | Test empty, invalid, and successful submission states |
+| Navigation change                     | Verify every nav link loads                           |
 
 ## Content Rules
 
@@ -70,7 +67,7 @@ Notes:
 
 ## Design Rules
 
-1. Use only approved colors from `design-guidelines.md`.
+1. Use only the color tokens defined in `src/styles.css`.
 2. Use only approved fonts.
 3. Keep the site clinical, not consumer wellness.
 4. No text overlap or clipping.
@@ -78,26 +75,17 @@ Notes:
 6. Do not create new component styles when an existing pattern works.
 7. Header and footer must stay shared and consistent.
 
-## Task Update Rules
-
-When finishing a task:
-
-1. Change `[ ]` to `[x]`.
-2. Add a short completion note under the task.
-3. Add newly discovered follow-up tasks if needed.
-4. Keep the next unchecked task obvious.
-
 ## If Blocked
 
 If blocked by missing copy, assets, citations, legal approval, or product decisions:
 
 1. Add or keep a blue `EDIT NEEDED` marker.
 2. Continue with a safe placeholder if possible.
-3. Add a follow-up task to `tasks.md`.
+3. Note the open item in the pull request description.
 4. Do not stop unless the task cannot proceed without a decision.
 
 ## Standard Prompt To Continue
 
 ```text
-Read CLAUDE.md, all docs in docs/vibe-code, and tasks.md. Proceed with the next unchecked task. Update tasks.md when done, run the required checks, and report what changed and how to test it.
+Read CLAUDE.md, README.md, content/README.md and the docs in docs/vibe-code. Then make this change: <describe it>. Run the required checks, open a pull request, and report what changed and how to test it.
 ```

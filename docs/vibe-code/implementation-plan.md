@@ -37,7 +37,7 @@ Prefer real Vena Vitals assets (figures, signal graphs, videos, device-on-foot i
 
 | Task | Notes |
 |---|---|
-| Lock CSS variables | Use values in `design-guidelines.md` |
+| Lock CSS variables | Use the tokens in `src/styles.css` |
 | Shared header | Logo, Technology, Evidence, Solutions dropdown (Hospital Settings: Anesthesiology, ICU; Home: Sleep Medicine), Partner, About, News, Request a Demo |
 | Shared footer | Nav, contact, LinkedIn, Privacy, FCOI, regulatory disclaimer. Backer logos may live here, see design decision below |
 | Shared CTAs | Request a Demo, See Evidence, Partner With Us |

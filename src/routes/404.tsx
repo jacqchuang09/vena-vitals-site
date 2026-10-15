@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NotFoundComponent } from "./__root";
+// The not-found page's words live in the `notFound` block of this file:
+import site from "@content/site.json";
 
 // A real route so the prerender can emit a static 404 document. The site is
 // fully prerendered, so there is no server left to render the root route's
@@ -8,7 +10,7 @@ import { NotFoundComponent } from "./__root";
 // still uses the router's own notFoundComponent, which this reuses.
 export const Route = createFileRoute("/404")({
   head: () => ({
-    meta: [{ title: "Page not found | Vēna Vitals" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: site.notFound.seo.title }, { name: "robots", content: "noindex" }],
   }),
   component: NotFoundComponent,
 });

@@ -1,24 +1,38 @@
-# Vena Vitals Site Agent Instructions
+# Vena Vitals site: agent instructions
 
-Before doing any implementation work, read these files in order:
+Before changing anything, read:
 
-1. `docs/vibe-code/master-plan.md`
-2. `docs/vibe-code/implementation-plan.md`
-3. `docs/vibe-code/design-guidelines.md`
-4. `docs/vibe-code/user-journeys.md`
-5. `docs/vibe-code/rules.md`
-6. `tasks.md`
+1. `README.md`: folder map, site map (page → content file → sections → components), how deploys work
+2. `content/README.md`: how content files are laid out and named
+3. `docs/vibe-code/rules.md`: content, design and testing rules
 
-Then do the next unchecked task in `tasks.md`.
+## Where things go
 
-After each task:
+- **Words, image/video paths, alt text, links, page titles** → `content/<page>.json`.
+  Never hardcode user-visible text in components. If a change needs a new
+  field, add it to the content file and read it in the component.
+- **Image and video files** → `public/assets/<page>/` (or `public/assets/shared/`
+  if more than one page uses it). Content files reference them as `/assets/...`.
+- **Layout, styling, animation** → `src/components/<page>/`. Things on every
+  page live in `src/components/layout/`; pieces several pages reuse live in
+  `src/components/shared/`.
+- **New page** → a route in `src/routes/`, a content file in `content/`, a
+  component folder in `src/components/`, and a media folder in
+  `public/assets/`. Add it to the site map table in `README.md`.
+- **Removing a section or page** → move it into `archive/sections/<page>/`
+  (and its media into `archive/media/`) instead of deleting it, and list it
+  in `archive/README.md`.
+- Colors, fonts and spacing come from the tokens in `src/styles.css`. Don't
+  add new colors or fonts.
 
-1. Update `tasks.md` with what changed.
-2. Update any planning doc if the project direction changed.
-3. Report the files changed.
-4. Report how to test the change.
-5. Run `npm run build` for implementation changes.
-6. Run `npm run lint` when code formatting or components changed.
+## After every change
+
+1. `npm run build` must pass (it prerenders every page and fails on broken ones).
+2. `npm run lint` must pass.
+3. Check the page at desktop and phone widths (`npm run dev`, or `npm run shots`).
+4. Work on a branch and open a pull request. Netlify posts a preview link on
+   the PR; nothing reaches the live site until it's merged into `main`.
+5. Report what changed and how to check it.
 
 Do not invent medical, regulatory, clinical, partner, advisor, or accuracy claims. Anything marked with:
 

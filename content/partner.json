@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Partner With Us | Vēna Vitals",
+    "description": "Pilot program, economic case, evidence packet, and demo request for hospitals evaluating Vena Vitals.",
+    "shareTitle": "Partner With Us | Vēna Vitals",
+    "shareDescription": "Start a hospital evaluation or demo conversation with Vena Vitals."
+  },
+  "hero": {
+    "eyebrow": "Partner with us",
+    "title": "Explore what continuous, noninvasive blood pressure",
+    "titleAccent": "can make possible.",
+    "body": "We collaborate with clinicians, researchers, and industry partners to study new applications for continuous blood pressure monitoring and advance the technology."
+  },
+  "waysToWork": {
+    "eyebrow": "Ways to work with us",
+    "items": [
+      "Clinical collaborations",
+      "Industry projects",
+      "Strategic partnerships",
+      "Investment opportunities",
+      "General interest"
+    ]
+  }
+}

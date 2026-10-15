@@ -1,0 +1,40 @@
+{
+  "seo": {
+    "title": "Product | Vēna Vitals",
+    "description": "Wearable sensor, phone app, and clinician monitor for continuous vitals from skin to chart.",
+    "shareTitle": "Product | Vēna Vitals",
+    "shareDescription": "Sensor, app, and clinician monitor working as one continuous vitals system.",
+    "url": "/product"
+  },
+  "hero": {
+    "title": "Wearable blood pressure",
+    "titleAccent": "monitoring system.",
+    "body": "Vēna includes the wearable sensor, patient app, and clinician-facing tools needed to collect and review continuous blood pressure data."
+  },
+  "features": {
+    "placeholderSuffix": " placeholder",
+    "items": [
+      {
+        "eyebrow": "01 · Sensor",
+        "title": "Wearable sensor",
+        "body": "Soft sensor worn on the wrist or foot. Designed for multi-day monitoring with wireless data transfer."
+      },
+      {
+        "eyebrow": "02 · Patient app",
+        "title": "Patient app",
+        "body": "Shows systolic, diastolic, mean arterial pressure, and pulse trends, with alerts and history for the patient or study workflow."
+      },
+      {
+        "eyebrow": "03 · Clinician monitor",
+        "title": "Clinician view",
+        "body": "Supports review on a monitor or dashboard, with data exports for clinical studies and treatment follow-up."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Built for ",
+    "titleAccent": "clinical workflows.",
+    "button": "Talk to our team",
+    "href": "/contact"
+  }
+}
