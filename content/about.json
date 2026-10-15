@@ -20,7 +20,7 @@
       {
         "name": "Ray Liu",
         "role": "CEO & Co-founder",
-        "image": "/assets/team/ray.jpg",
+        "image": "/assets/about/team/ray.jpg",
         "alt": "Ray Liu",
         "title": null,
         "href": null,
@@ -29,7 +29,7 @@
       {
         "name": "Michelle Khine",
         "role": "Co-founder",
-        "image": "/assets/team/michelle.jpg",
+        "image": "/assets/about/team/michelle.jpg",
         "alt": "Michelle Khine",
         "title": null,
         "href": null,
@@ -38,7 +38,7 @@
       {
         "name": "Josh Kim",
         "role": "Co-founder & CTO",
-        "image": "/assets/team/josh.jpg",
+        "image": "/assets/about/team/josh.jpg",
         "alt": "Josh Kim",
         "title": null,
         "href": null,
@@ -47,7 +47,7 @@
       {
         "name": "Sophia Lin, PhD",
         "role": "Head of Clinical Affairs",
-        "image": "/assets/team/sophia.jpg",
+        "image": "/assets/about/team/sophia.jpg",
         "alt": "Sophia Lin, PhD",
         "title": null,
         "href": null,
@@ -56,7 +56,7 @@
       {
         "name": "Eugene Lee, PhD",
         "role": "Head of Data Science",
-        "image": "/assets/team/eugene.jpg",
+        "image": "/assets/about/team/eugene.jpg",
         "alt": "Eugene Lee, PhD",
         "title": null,
         "href": null,
@@ -65,7 +65,7 @@
       {
         "name": "Jared Olivo",
         "role": "Head of Mechanical Engineering",
-        "image": "/assets/team/jared.jpg",
+        "image": "/assets/about/team/jared.jpg",
         "alt": "Jared Olivo",
         "title": null,
         "href": null,
@@ -79,22 +79,22 @@
     "titleAccent": "Vēna Vitals.",
     "photos": [
       {
-        "image": "/assets/about/team/team-3.jpg",
+        "image": "/assets/about/photos/team-3.jpg",
         "alt": "In the operating room",
         "caption": "In the operating room"
       },
       {
-        "image": "/assets/about/team/pitch-2023.jpg",
+        "image": "/assets/about/photos/pitch-2023.jpg",
         "alt": "Pitch. Launch. Grow. 2023",
         "caption": "Pitch. Launch. Grow. 2023"
       },
       {
-        "image": "/assets/about/team/team-2.jpg",
+        "image": "/assets/about/photos/team-2.jpg",
         "alt": "Scrubbed in on a study day",
         "caption": "Scrubbed in on a study day"
       },
       {
-        "image": "/assets/about/team/footgolf.jpg",
+        "image": "/assets/about/photos/footgolf.jpg",
         "alt": "Team footgolf, off the clock",
         "caption": "Team footgolf, off the clock"
       }

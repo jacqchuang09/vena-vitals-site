@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 /**
  * Device shell for screen content shown in landscape, shaped after an iPad.
  *
- * The shell is artwork rather than CSS: `public/assets/home/ipad-frame.png`,
+ * The shell is artwork rather than CSS: `public/assets/shared/ipad-frame.png`,
  * whose screen is a transparent cutout. The image is painted over the screen
  * well and the content shows through the hole, so the bezel, side rail, camera
  * and buttons all come from the artwork.
@@ -64,7 +64,7 @@ export function IPadFrame({
       >
         {children}
       </div>
-      <img src="/assets/home/ipad-frame.png" alt="" aria-hidden className="relative block w-full" />
+      <img src="/assets/shared/ipad-frame.png" alt="" aria-hidden className="relative block w-full" />
     </div>
   );
 }

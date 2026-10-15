@@ -43,7 +43,7 @@ export function About() {
           gradient with white type over it; it is now type on the page's own
           white, so Company and Mission can sit under the headline and read as
           one statement. The photo is still at
-          /assets/about/team/team-hero.jpg if it is wanted back. */}
+          archive/media/assets/about/team/team-hero.jpg (move it back into public/assets/about/photos/) if it is wanted back. */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[color:var(--ink)] py-16 md:py-20 hairline-b">
         <div className="container-x relative">
           <div className="mx-auto max-w-[680px] text-center reveal">

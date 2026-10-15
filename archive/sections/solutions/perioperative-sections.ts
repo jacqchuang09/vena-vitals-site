@@ -56,14 +56,14 @@ export const perioperativeArchive: Partial<SolutionDetailContent> = {
     "From placement on the foot to a continuous trace at the bedside, without occupying the arm or sterile field.",
   windows: [
     {
-      src: "/assets/operating-room/or-sensor-foot.mp4",
+      src: "/assets/solutions/operating-room/or-sensor-foot.mp4",
       label: "Applied to the foot, out of the field",
       feature: true,
     },
     {
-      src: "/assets/operating-room/or-monitor.mp4",
+      src: "/assets/shared/or-monitor.mp4",
       label: "Continuous pressure at the bedside",
     },
-    { src: "/assets/operating-room/or-monitor-2.mp4", label: "Eyes on every beat" },
+    { src: "/assets/shared/or-monitor-2.mp4", label: "Eyes on every beat" },
   ],
 };

@@ -6,7 +6,7 @@
   },
   "nav": {
     "logo": {
-      "image": "/assets/brand/venavitals-logo-horizontal.png",
+      "image": "/assets/shared/logos/venavitals-logo-horizontal.png",
       "alt": "Vēna Vitals",
       "href": "/"
     },
@@ -52,13 +52,13 @@
     "backedBy": {
       "eyebrow": "Backed by",
       "logos": [
-        { "image": "/assets/brand/yc-logo.png", "alt": "Y Combinator", "large": true },
-        { "image": "/assets/brand/logo2.png", "alt": "National Institutes of Health" },
-        { "image": "/assets/brand/logo4.png", "alt": "MedTech Innovator" },
-        { "image": "/assets/brand/logo5.png", "alt": "EvoNexus" },
-        { "image": "/assets/brand/logo6.webp", "alt": "HeartX" },
-        { "image": "/assets/brand/logo7.png", "alt": "National Science Foundation" },
-        { "image": "/assets/brand/logo1.webp", "alt": "Samsung NEXT" }
+        { "image": "/assets/shared/logos/yc-logo.png", "alt": "Y Combinator", "large": true },
+        { "image": "/assets/shared/logos/logo2.png", "alt": "National Institutes of Health" },
+        { "image": "/assets/shared/logos/logo4.png", "alt": "MedTech Innovator" },
+        { "image": "/assets/shared/logos/logo5.png", "alt": "EvoNexus" },
+        { "image": "/assets/shared/logos/logo6.webp", "alt": "HeartX" },
+        { "image": "/assets/shared/logos/logo7.png", "alt": "National Science Foundation" },
+        { "image": "/assets/shared/logos/logo1.webp", "alt": "Samsung NEXT" }
       ]
     },
     "linkGroups": [

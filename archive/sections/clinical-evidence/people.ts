@@ -6,7 +6,7 @@ export const advisors = [
     name: "Joseph Rinehart, MD",
     role: "Anesthesiology",
     sub: "Clinical Advisor",
-    img: "/assets/clinical/joseph.jpeg",
+    img: "/assets/solutions/shared/joseph.jpeg",
     url: "https://www.faculty.uci.edu/profile/?facultyId=6873",
     title:
       "Associate Professor & Vice Chair for Research, Anesthesiology & Perioperative Care, UC Irvine",

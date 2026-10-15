@@ -8,7 +8,7 @@ const videoFit: Record<string, string> = {
   "/assets/technology/setup-veritrack.mp4": "h-full w-full origin-left scale-[2.25] object-cover",
   "/assets/technology/stretchy-sensor.mp4":
     "h-full w-full object-cover object-center scale-y-[1.3]",
-  "/assets/home/journey-stream.mp4": "h-full w-full object-cover object-center scale-[1.4]",
+  "/assets/technology/journey-stream.mp4": "h-full w-full object-cover object-center scale-[1.4]",
   "/assets/technology/pulse-vid-480p.mp4": "h-full w-full object-cover object-center scale-[1.05]",
 };
 const defaultFit = "h-full w-full object-cover object-center";

@@ -57,8 +57,10 @@ content/
 
 - Keep the quotes and commas valid JSON. If the site fails to build after
   an edit, a missing comma or quote is the usual cause.
-- Images and videos go in `public/assets/<page>/`. Reference them as
-  `/assets/<page>/file.jpg` (no `public`).
+- Images and videos go in `public/assets/<page>/` (same names as the
+  content files: `home/`, `about/`, `solutions/operating-room/`...).
+  Files used on more than one page go in `public/assets/shared/`.
+  Reference them as `/assets/<page>/file.jpg` (no `public`).
 - Don't add a new field and expect it to show up. A new field needs code.
   Ask for it through the change request form instead.
 - Clinical, regulatory and accuracy claims must be confirmed by the team

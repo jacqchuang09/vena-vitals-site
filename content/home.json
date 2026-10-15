@@ -15,7 +15,7 @@
     "secondaryHref": "/contact",
     "scrollLabel": "Scroll to care journey",
     "scrollHref": "#care-journey",
-    "videos": ["/assets/operating-room/or-monitor.mp4", "/assets/operating-room/or-monitor-2.mp4"]
+    "videos": ["/assets/shared/or-monitor.mp4", "/assets/shared/or-monitor-2.mp4"]
   },
   "problem": {
     "eyebrow": "Problem & Solution",
