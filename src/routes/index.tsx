@@ -8,21 +8,16 @@ import {
   HomeProblem,
 } from "@/components/home/HomeSections";
 import { useReveal } from "@/components/shared/lib";
+// All words, images and videos on this page live in this file:
+import home from "@content/home.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vēna Vitals | Continuous, noninvasive blood pressure" },
-      {
-        name: "description",
-        content:
-          "Continuous blood pressure from the surface of the skin. A soft wearable sensor that streams beat-to-beat vitals to clinicians and care teams.",
-      },
-      { property: "og:title", content: "Vēna Vitals | Continuous, noninvasive blood pressure" },
-      {
-        property: "og:description",
-        content: "Continuous blood pressure from the surface of the skin.",
-      },
+      { title: home.seo.title },
+      { name: "description", content: home.seo.description },
+      { property: "og:title", content: home.seo.shareTitle },
+      { property: "og:description", content: home.seo.shareDescription },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
@@ -33,12 +28,12 @@ function Home() {
   useReveal();
   return (
     <>
-      <Hero />
-      <HomeProblem />
-      <HomeOverview />
-      <HomeEvidenceStrip />
-      <HomeAudienceCards />
-      <HomeFinalCta />
+      <Hero content={home.hero} />
+      <HomeProblem content={home.problem} />
+      <HomeOverview content={home.overview} />
+      <HomeEvidenceStrip content={home.evidence} />
+      <HomeAudienceCards content={home.audiences} />
+      <HomeFinalCta content={home.finalCta} />
     </>
   );
 }

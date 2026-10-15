@@ -74,7 +74,11 @@ const SPIKES = [0.03, 0.275, 0.51, 0.545, 0.7, 0.74, 0.83, 0.875, 0.95];
 const Y_TICKS = [50, 100, 150, 200, 250];
 const X_TICKS = [4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000];
 
-export function SurgeryComparison() {
+export function SurgeryComparison({
+  labels,
+}: {
+  labels: { alt: string; topLabel: string; bottomLabel: string; xAxisLabel: string };
+}) {
   const ref = useRef<SVGSVGElement>(null);
   const [progress, setProgress] = useState(0);
 
@@ -113,15 +117,15 @@ export function SurgeryComparison() {
       ref={ref}
       viewBox={`0 0 ${W} ${H}`}
       role="img"
-      aria-label="Arterial line versus Vena Vitals signal for an abdominal-mass-removal case, where the arterial line shows artifacts the Vena Vitals signal does not"
+      aria-label={labels.alt}
       className="h-auto w-full"
     >
       <rect x="2" y="2" width={W - 4} height={H - 4} rx="6" fill="#ffffff" stroke="#c9d6e8" />
 
       {/* Axes + labels (always visible) */}
       {[
-        { top: TOP_Y, label: "Arterial Line (mmHg)" },
-        { top: BOT_Y, label: "Vena Vitals Signal (mmHg)" },
+        { top: TOP_Y, label: labels.topLabel },
+        { top: BOT_Y, label: labels.bottomLabel },
       ].map((plot) => (
         <g key={plot.label}>
           {Y_TICKS.map((v) => (
@@ -202,7 +206,7 @@ export function SurgeryComparison() {
         fill="#1f1f1f"
         fontFamily="ui-sans-serif, system-ui"
       >
-        Time (sec)
+        {labels.xAxisLabel}
       </text>
 
       {/* Waveform data — clipped so it draws in left-to-right with scroll */}

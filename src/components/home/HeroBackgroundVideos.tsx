@@ -4,15 +4,16 @@ import { useEffect, useRef, useState } from "react";
  * Plays a set of clips on an endless loop, crossfading from one into the next a
  * moment before each clip ends so the transitions feel smooth rather than cut.
  */
-const sources = [
-  "/assets/operating-room/or-monitor.mp4",
-  "/assets/operating-room/or-monitor-2.mp4",
-];
-
 const FADE_MS = 700;
 const CROSSFADE_LEAD = 0.85; // seconds before a clip ends to begin the fade
 
-export function HeroBackgroundVideos({ className = "" }: { className?: string }) {
+export function HeroBackgroundVideos({
+  sources,
+  className = "",
+}: {
+  sources: string[];
+  className?: string;
+}) {
   const [active, setActive] = useState(0);
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
   const transitioning = useRef(false);

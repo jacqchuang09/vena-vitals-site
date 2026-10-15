@@ -1,11 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowDownRight } from "lucide-react";
 import { HeroBackgroundVideos } from "@/components/home/HeroBackgroundVideos";
+import type home from "@content/home.json";
 
-export function Hero() {
+export function Hero({ content }: { content: typeof home.hero }) {
   return (
     <section className="relative min-h-[100svh] w-full overflow-hidden bg-[color:var(--ink)]">
-      <HeroBackgroundVideos className="absolute inset-0 h-full w-full object-cover" />
+      <HeroBackgroundVideos
+        sources={content.videos}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       <div
         aria-hidden
         className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.82)_34%,rgba(0,0,0,0.5)_68%,rgba(0,0,0,0.32)_100%)]"
@@ -14,29 +18,29 @@ export function Hero() {
       <div className="relative container-x flex min-h-[100svh] flex-col justify-end pt-40 pb-28 md:pb-36">
         <div className="max-w-[560px] text-center reveal lg:text-left">
           <h1 className="hero-heading text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.6)]">
-            Advancing Continuous
+            {content.title}
             <br />
-            <span className="text-[color:var(--accent)]">Blood Pressure Monitoring</span>
+            <span className="text-[color:var(--accent)]">{content.titleAccent}</span>
           </h1>
           <p className="mx-auto mt-7 max-w-[440px] text-sm leading-relaxed text-white [text-shadow:0_1px_14px_rgba(0,0,0,0.65)] lg:mx-0">
-            Wearable non-invasive patient monitoring with beat-to-beat resolution.
+            {content.body}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
             <Link
-              to="/solutions/anesthesiology"
+              to={content.href}
               className="group inline-flex items-center gap-3 bg-[color:var(--accent)] text-white px-6 py-4 text-xs font-semibold tracking-normal hover:bg-[color:var(--accent)]/90 transition-colors"
             >
-              See the data
+              {content.button}
               <span aria-hidden className="transition-transform group-hover:translate-x-1">
                 →
               </span>
             </Link>
             <Link
-              to="/contact"
+              to={content.secondaryHref}
               className="group inline-flex items-center gap-3 bg-neutral-600/85 text-white px-6 py-4 text-xs font-semibold tracking-normal backdrop-blur-sm hover:bg-neutral-500/85 transition-colors"
             >
-              Contact us{" "}
+              {content.secondaryButton}{" "}
               <span
                 aria-hidden
                 className="inline-block transition-transform group-hover:translate-x-1"
@@ -49,8 +53,8 @@ export function Hero() {
       </div>
 
       <a
-        href="#care-journey"
-        aria-label="Scroll to care journey"
+        href={content.scrollHref}
+        aria-label={content.scrollLabel}
         className="absolute bottom-5 right-5 hidden h-11 w-11 items-center justify-center border border-[color:var(--paper)]/40 text-[color:var(--paper)] transition hover:border-[color:var(--accent)] md:flex"
       >
         <ArrowDownRight size={18} aria-hidden />
