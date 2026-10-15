@@ -39,3 +39,4 @@ dist-ssr
 
 # Local review screenshots (npm run shots)
 shots/
+.claude/worktrees/
