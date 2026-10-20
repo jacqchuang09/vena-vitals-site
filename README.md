@@ -12,6 +12,10 @@ step, with a template for every kind of change) and
 [docs/SITE-MAP.md](docs/SITE-MAP.md) (every section of every page, with
 screenshots).
 
+**Editing through forms?** See [docs/EDITING-WITH-PAGES-CMS.md](docs/EDITING-WITH-PAGES-CMS.md).
+The root `.pages.yml` configures the hosted Pages CMS editor for existing content.
+Save on an editing branch and review a PR before publishing.
+
 ## How a change goes live
 
 ```
