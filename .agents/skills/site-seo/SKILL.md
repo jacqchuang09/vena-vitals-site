@@ -1,13 +1,11 @@
 ---
-description: Change a page's browser-tab title, Google description, or link-preview text
-argument-hint: page, what should show in Google / the tab / link previews
+name: site-seo
+description: Change a page's browser-tab title, Google description, or link-preview text. Use for requests to edit the Vēna Vitals website.
 ---
 
-Page title / search / link preview request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: page, what should show in Google / the tab / link previews). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md.
+Follow "How to make a change" in AGENTS.md.
 
 - Every page's content file starts with an `seo` block: `title` (browser tab and
   Google headline), `description` (Google snippet), and on most pages

@@ -1,11 +1,9 @@
 ---
-description: Undo a change that already went live
-argument-hint: What to undo (PR number, date, or description) and why
+name: site-undo
+description: Undo a change that already went live. Use for requests to edit the Vēna Vitals website.
 ---
 
-Undo request:
-
-$ARGUMENTS
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: What to undo (PR number, date, or description) and why). If key details are missing, ask before editing.
 
 - Find the change: search merged pull requests and `git log` on `main` for the
   PR number, date or description. Before doing anything, reply with the PR or

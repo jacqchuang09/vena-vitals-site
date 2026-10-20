@@ -1,13 +1,11 @@
 ---
-description: Replace a photo or video on the site
-argument-hint: Page › Section, which image, the new file (attached), alt text
+name: site-image
+description: Replace a photo or video on the site. Use for requests to edit the Vēna Vitals website.
 ---
 
-Image or video swap request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: Page › Section, which image, the new file (attached), alt text). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md.
+Follow "How to make a change" in AGENTS.md.
 
 - Find the section in `docs/SITE-MAP.md` and the field that holds the current
   path (`image`, `src`, `video`, `poster`).

@@ -1,13 +1,11 @@
 ---
-description: Add a new page to the site
-argument-hint: Page name, URL, where it's linked from, sections top to bottom, copy
+name: site-new-page
+description: Add a new page to the site. Use for requests to edit the Vēna Vitals website.
 ---
 
-New page request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: Page name, URL, where it's linked from, sections top to bottom, copy). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md.
+Follow "How to make a change" in AGENTS.md.
 
 - Before building, reply with the plan: URL, menu and footer placement, the
   sections top to bottom and which existing section style each one reuses. Wait
