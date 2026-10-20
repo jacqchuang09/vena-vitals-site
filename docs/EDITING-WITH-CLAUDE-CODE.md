@@ -41,16 +41,22 @@ the small red label above its heading, e.g. `Home › Clinical Testing`.
 
 ### 2. Pick the right template
 
-| You want to...                                                                     | Command             | Template below                            |
+| You want to...                                                                     | Command             | Template                                  |
 | ---------------------------------------------------------------------------------- | ------------------- | ----------------------------------------- |
 | Change words, a number, a button label or a link                                   | `/site-text`        | [A](#a-change-text)                       |
 | Replace a photo or video                                                           | `/site-image`       | [B](#b-swap-an-image-or-video)            |
 | Add, remove or reorder an item in a list (team member, card, FAQ, news post, stat) | `/site-list`        | [C](#c-add-remove-or-reorder-a-list-item) |
 | Hide a section, or bring back a hidden or archived one                             | `/site-show-hide`   | [D](#d-hide-or-bring-back-a-section)      |
-| Add a new section                                                                  | `/site-new-section` | [E](#e-add-a-new-section)                 |
-| Change the layout or look of a section                                             | `/site-layout`      | [F](#f-change-a-layout)                   |
+| Add a new section that looks like ones already on the site                         | `/site-new-section` | [E](#e-add-a-new-section)                 |
+| Change the layout of a section (columns, spacing, phone vs. desktop)               | `/site-layout`      | [F](#f-change-a-layout)                   |
 | Add a new page                                                                     | `/site-new-page`    | [G](#g-add-a-new-page)                    |
 | Undo a change that already went live                                               | `/site-undo`        | [H](#h-undo-a-change)                     |
+| Add a section with a **new look**, based on a style you like                       | `/site-new-design`  | [I](#i-add-a-section-with-a-new-look)     |
+| Change menu bar or footer links, or a page's URL                                   | `/site-nav`         | [J](#j-menu-footer-or-url)                |
+| Change a page's tab title, Google text or link-preview text                        | `/site-seo`         | [K](#k-page-title-and-link-previews)      |
+| Add, remove or swap a logo                                                         | `/site-logo`        | [L](#l-logos)                             |
+| Change the contact form                                                            | `/site-form`        | [M](#m-contact-form)                      |
+| Anything else                                                                      | `/site-other`       | [N](#n-anything-else)                     |
 
 Type the command in Claude Code (type `/` to see the list), then paste the
 filled-in template after it. If the command doesn't show up, just paste the
@@ -156,7 +162,7 @@ Content:
 Images: (attach, or "none")
 ```
 
-Claude will reuse an existing section style unless you ask for something new.
+Claude reuses an existing section style. For a section with a new look, use [template I](#i-add-a-section-with-a-new-look) instead.
 
 ### F. Change a layout
 
@@ -193,6 +199,92 @@ Why: numbers need to be confirmed before publishing
 
 Claude finds the pull request and opens a new one that reverses it. You review
 and merge it like any other change.
+
+### I. Add a section with a new look
+
+```
+/site-new-design
+Page: Clinical Evidence
+Put it: after "Research Pipeline"
+Purpose: show our three publications
+Style reference:
+  Screenshot or link: (attach a screenshot, or paste a URL)
+  What I like about it: big numbers on the left, cards that slide in, lots of white space
+  Avoid: dark backgrounds, carousels
+Content: (paste it, or "draft it and mark EDIT NEEDED")
+Images: (attach, or "none")
+```
+
+Claude replies with a short brief (what it'll borrow from the reference, and
+what it won't), then builds **2 or 3 options**. Open the Deploy Preview link and
+add `/design-preview` to the end of the address to see them one after another.
+Reply with the one you want and any notes ("Option B, tighter spacing, no
+animation on phones"). Claude then puts that one on the real page, removes the
+others, and the pull request is reviewed like any other.
+
+It keeps the site's colors and fonts. Borrowing a layout or feel from another
+site is fine; copying its branding, images or wording is not.
+
+### J. Menu, footer or URL
+
+```
+/site-nav
+Where: menu bar / footer (which column) / page URL
+Action: add / rename / remove / move
+Label: Publications
+Links to: /publications
+Position: after "Clinical Studies"
+```
+
+Renaming a page's URL automatically sends the old address to the new one, so
+old links keep working.
+
+### K. Page title and link previews
+
+```
+/site-seo
+Page: Technology
+Browser tab / Google title: Technology | Vēna Vitals
+Google description: How VeriTrack measures beat-to-beat blood pressure from the skin.
+Link preview (LinkedIn, iMessage) title and text: (or "same as above")
+Preview image: (attach, 1200x630, or "none")
+```
+
+### L. Logos
+
+```
+/site-logo
+Where: footer "Backed by" / Clinical Evidence › Validation Program
+Action: add / remove / swap
+Organization: Example Health
+Logo file: (attach; SVG or transparent PNG)
+Permission to use the logo confirmed: yes / no / not sure
+Position: (optional)
+```
+
+### M. Contact form
+
+```
+/site-form
+Change: add "Hospital or institution" as a field after Organization
+        / add "Investor" to the role dropdown / change the thank-you message to "..."
+Required or optional: optional
+```
+
+Where form submissions are emailed is set in Netlify (Forms → Form
+notifications), not in the code; Claude will walk you through it if that's
+what you need.
+
+### N. Anything else
+
+```
+/site-other
+What you want: add Google Analytics
+Where: every page
+Why / extra details:
+```
+
+Claude replies with a plan first and waits for your OK before changing anything.
 
 ---
 

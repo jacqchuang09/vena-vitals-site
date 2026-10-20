@@ -9,6 +9,10 @@ $ARGUMENTS
 
 Follow "How to make a change" in CLAUDE.md.
 
+- If the request asks for a look that doesn't exist on the site yet, or gives a
+  style reference (screenshot, link), follow `.claude/commands/site-new-design.md`
+  instead.
+
 - Before building, reply with a short plan: the page, where the section goes
   (between which two sections), which existing section style you'll reuse (point
   to it in `docs/SITE-MAP.md`), its content key name, and the fields. Wait for an
