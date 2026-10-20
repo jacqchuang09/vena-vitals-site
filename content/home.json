@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Vēna Vitals | Continuous, noninvasive blood pressure",
-    "description": "Continuous blood pressure from the surface of the skin. A soft wearable sensor that streams beat-to-beat vitals to clinicians and care teams.",
+    "description": "Continuous blood pressure from the surface of the skin. ",
     "shareTitle": "Vēna Vitals | Continuous, noninvasive blood pressure",
     "shareDescription": "Continuous blood pressure from the surface of the skin."
   },
@@ -15,7 +15,10 @@
     "secondaryHref": "/contact",
     "scrollLabel": "Scroll to care journey",
     "scrollHref": "#care-journey",
-    "videos": ["/assets/shared/or-monitor.mp4", "/assets/shared/or-monitor-2.mp4"]
+    "videos": [
+      "/assets/shared/or-monitor.mp4",
+      "/assets/shared/or-monitor-2.mp4"
+    ]
   },
   "problem": {
     "eyebrow": "Problem & Solution",
@@ -26,7 +29,10 @@
       "cuffLabel": "Cuff",
       "venaLabel": "VeriTrack",
       "rows": [
-        { "cuff": "3-5 min between readings", "vena": "Continuous, beat-to-beat" },
+        {
+          "cuff": "3-5 min between readings",
+          "vena": "Continuous, beat-to-beat"
+        },
         {
           "cuff": "Hypotensive events can go undetected between cycles",
           "vena": "Every pressure change captured in real time"
@@ -84,11 +90,41 @@
       "legendVena": "Vena Vitals"
     },
     "stats": [
-      { "from": 0, "to": 600, "suffix": "+", "label": "subjects tested" },
-      { "from": 0, "to": 6, "suffix": "+", "linear": true, "label": "study sites" },
-      { "from": 18, "to": 89, "prefix": "18-", "label": "ages" },
-      { "from": 30, "to": 300, "prefix": "30-", "label": "mmHg BP range" },
-      { "from": 17, "to": 48, "prefix": "17-", "label": "BMI range" }
+      {
+        "from": 0,
+        "to": 600,
+        "suffix": "+",
+        "label": "subjects tested",
+        "linear": false
+      },
+      {
+        "from": 0,
+        "to": 6,
+        "suffix": "+",
+        "label": "study sites",
+        "linear": true
+      },
+      {
+        "from": 18,
+        "to": 89,
+        "label": "ages",
+        "linear": false,
+        "prefix": "18-"
+      },
+      {
+        "from": 30,
+        "to": 300,
+        "label": "mmHg BP range",
+        "linear": false,
+        "prefix": "30-"
+      },
+      {
+        "from": 17,
+        "to": 48,
+        "label": "BMI range",
+        "linear": false,
+        "prefix": "17-"
+      }
     ]
   },
   "audiences": {
