@@ -13,7 +13,7 @@ Follow "How to make a change" in CLAUDE.md.
   - Footer "Backed by" (every page): `content/site.json → footer.backedBy.logos`
     (`image`, `alt`, optional `large: true` for logos that read small)
   - Clinical Evidence › Validation Program: `content/clinical-evidence.json →
-    validation.sites` (`image`, `alt`)
+validation.sites` (`image`, `alt`)
   - Files: `public/assets/shared/logos/` (footer) or
     `public/assets/clinical-evidence/logos/`
 - **Permission:** partner, backer, hospital and institution logos need written
