@@ -6,6 +6,12 @@ Tailwind, every page prerendered to static HTML and hosted on Netlify.
 **To change what the site says or shows, edit the files in `content/`.**
 See [content/README.md](content/README.md) for how those files work.
 
+**Making changes with Claude Code?** Start with
+[docs/EDITING-WITH-CLAUDE-CODE.md](docs/EDITING-WITH-CLAUDE-CODE.md) (step by
+step, with a template for every kind of change) and
+[docs/SITE-MAP.md](docs/SITE-MAP.md) (every section of every page, with
+screenshots).
+
 ## How a change goes live
 
 ```
@@ -36,13 +42,20 @@ src/
   styles.css          colors, fonts, spacing tokens
   lib/                error handling
 archive/              old sections, pages and media we might want back (not on the site)
-docs/                 strategy docs and the AI-agent planning docs
+docs/
+  SITE-MAP.md         every section of every page, with screenshots and file locations
+  EDITING-WITH-CLAUDE-CODE.md   how to request a change, with templates
+  site-map/           the screenshots
+  strategy/ vibe-code/   strategy docs and the original AI-agent planning docs
+.claude/commands/     the /site-* request templates Claude Code uses
 scripts/shots.mjs     takes screenshots of every page locally (npm run shots)
 ```
 
 ## Site map
 
-Sections are listed top to bottom, by the name they have in the content file.
+Summary below; [docs/SITE-MAP.md](docs/SITE-MAP.md) has every section with a
+screenshot. Sections are listed top to bottom, by the name they have in the
+content file.
 
 | Page                 | URL                          | Content file                     | Sections                                                            | Components                                          |
 | -------------------- | ---------------------------- | -------------------------------- | ------------------------------------------------------------------- | --------------------------------------------------- |
