@@ -1,0 +1,116 @@
+name: Pages CMS publishing request
+
+# The schedule runs from main, so it also sees CMS saves on an older branch
+# that does not contain this workflow yet. GitHub schedules can be delayed.
+on:
+  push:
+    branches: [edit/site-pages-cms]
+    paths:
+      - content/**
+      - public/assets/**
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pages-cms-publishing-request
+  cancel-in-progress: false
+
+jobs:
+  publishing-request:
+    if: github.repository == 'jacqchuang09/vena-vitals-site'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # No checkout, branch code execution, personal token, merge, or approval.
+      - name: Open or reuse the publishing request
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const base = 'main';
+            const branch = 'edit/site-pages-cms';
+            const query = { owner, repo, base, head: `${owner}:${branch}` };
+            const report = async (message, url) => {
+              core.info(message);
+              core.summary.addHeading('Pages CMS publishing request');
+              core.summary.addRaw(message);
+              if (url) core.summary.addLink('Open publishing request', url);
+              await core.summary.write();
+            };
+
+            const open = await github.rest.pulls.list({ ...query, state: 'open', per_page: 1 });
+            if (open.data.length) {
+              await report('An open PR already receives new saves from this branch. No duplicate created.', open.data[0].html_url);
+              return;
+            }
+
+            let head;
+            try {
+              head = await github.rest.repos.getBranch({ owner, repo, branch });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await report('The CMS editing branch does not exist. Nothing to publish.');
+              return;
+            }
+
+            const comparison = await github.rest.repos.compareCommitsWithBasehead({
+              owner, repo, basehead: `${base}...${branch}`,
+            });
+            if (comparison.data.ahead_by === 0 || !comparison.data.files?.length) {
+              await report('No file changes to publish from the CMS branch.');
+              return;
+            }
+
+            const closed = await github.rest.pulls.list({
+              ...query, state: 'closed', sort: 'updated', direction: 'desc', per_page: 100,
+            });
+            const rejected = closed.data.find(pr => !pr.merged_at && pr.head.sha === head.data.commit.sha);
+            if (rejected) {
+              await report('This exact revision was already closed without merging. It will stay rejected until another save.', rejected.html_url);
+              return;
+            }
+
+            const files = comparison.data.files.map(file => `- \`${file.filename}\``).join('\n');
+            const body = [
+              'Pages CMS has saved changes on `edit/site-pages-cms`. This is a request to review and publish them, not an approval.',
+              '',
+              '## Preview',
+              '[Open the automatic branch preview](https://edit-site-pages-cms--venavitals.netlify.app/). Wait for the latest successful Netlify build, then refresh. Authorized Netlify access is required.',
+              '',
+              '## Before merging',
+              '- Review **Files changed** for the intended content/media edits and any CMS formatting or default-value changes.',
+              '- Check desktop and phone layouts, affected links, and image descriptions.',
+              '- Confirm clinical, regulatory, accuracy, partner, advisor, logo-permission, and legal wording with the team. Preserve unresolved EDIT NEEDED markers.',
+              '- Check Netlify build results. This workflow only opens the PR; it does not validate website content.',
+              '',
+              'Further saves update this same PR. Merge only when approved; merging into `main` triggers production deployment. To reject the current revision, close the PR without merging. Another save can open a new request.',
+              '',
+              '## Files in the proposal when opened',
+              files,
+            ].join('\n');
+
+            try {
+              const created = await github.rest.pulls.create({
+                owner, repo, base, head: branch,
+                title: 'Site: review Pages CMS updates', body, draft: false,
+              });
+              await report('Publishing request opened. No merge or approval was performed.', created.data.html_url);
+            } catch (error) {
+              if (error.status === 422) {
+                const existing = await github.rest.pulls.list({ ...query, state: 'open', per_page: 1 });
+                if (existing.data.length) {
+                  await report('A publishing request was opened concurrently. Reusing it.', existing.data[0].html_url);
+                  return;
+                }
+              }
+              if (error.status === 403) {
+                core.setFailed('GitHub refused PR creation. In repository Settings → Actions → General → Workflow permissions, enable “Allow GitHub Actions to create and approve pull requests”. This workflow only creates requests; it never approves or merges them.');
+                return;
+              }
+              throw error;
+            }

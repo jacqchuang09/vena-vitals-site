@@ -21,17 +21,24 @@ clone, Node/npm, or an AI subscription just to edit content.
 
 **Saving writes commits to the selected GitHub branch. Saving on `main` can
 publish immediately through Netlify.** This configuration does not enforce
-branch protection or automatically create pull requests.
+branch protection. The Pages CMS publishing-request workflow opens PRs for
+`edit/site-pages-cms` after it has been installed on `main` and enabled as below.
 
 For the review workflow:
 
-1. Create an `edit/<page>-<description>` branch from current `main` on GitHub
-   or ask your AI editor to create and push it.
+1. Use `edit/site-pages-cms` for the automatic CMS workflow. Before a new
+   batch, bring it up to date with `main` while preserving pending work. Other
+   branches can still be reviewed through manually opened PRs.
 2. Select that branch in Pages CMS before editing. Verify the branch name
    before each save, including image uploads.
 3. Edit the fields and save. Uploads and content saves can create separate
    commits; save the page after choosing a new image.
-4. Open a PR from that branch into `main` on GitHub, or ask the AI to open it.
+4. The publishing-request workflow opens a PR into `main` when there are
+   changes and no open PR. Later saves update the same PR, including a draft
+   PR opened manually. Find it in GitHub → Pull requests. If the editing branch
+   does not yet contain the workflow, the scheduled check on `main` still
+   finds the save. It runs about every five minutes, but GitHub can delay it.
+   For other editing branches, open the PR manually.
 5. Inspect **Files changed**: confirm only the intended content and media
    changed. Open Netlify's Deploy Preview when it is ready (often ~2 minutes).
 6. Check desktop (1280px), phone (390px), image crops, links, and build checks.
@@ -42,6 +49,51 @@ Configure GitHub branch protection/rulesets separately if the team wants to
 require PRs before changes reach `main`. `AGENTS.md` is guidance for AI agents;
 Pages CMS does not execute those instructions, run local checks, or obtain
 clinical/legal approval for you.
+
+## Automatic preview and publishing requests
+
+Netlify branch deploys are enabled for `edit/site-pages-cms` on the
+`venavitals` project. Save there, wait for the build, and refresh:
+
+https://edit-site-pages-cms--venavitals.netlify.app/
+
+This preview does not require a PR, but it does require authorized Netlify
+access. A failed build can leave the last successful preview visible.
+
+The GitHub workflow `.github/workflows/pages-cms-publishing.yml` handles the
+publishing request separately. It must first be merged into `main`. The
+repository must allow GitHub Actions to create PRs: **Settings → Actions →
+General → Workflow permissions → Allow GitHub Actions to create and approve
+pull requests**. Keep default token permissions read-only; the workflow grants
+only contents read and pull-requests write to its job. Despite the setting's
+name, this workflow never approves or merges anything and does not push files.
+
+The workflow uses the built-in GITHUB_TOKEN and does not require personal
+access-token secrets. Runs triggered by pushes are immediate when the workflow
+exists on that branch. The default-branch schedule provides a fallback for the
+long-lived editing branch. You can also run **Actions → Pages CMS publishing
+request → Run workflow** on `main` for an immediate check. GitHub may disable
+scheduled workflows in inactive public repositories; re-enable the workflow
+there if needed.
+
+- One open PR per CMS branch; further saves automatically appear in it.
+- No new PR if the branch is missing, is already incorporated, or has no file
+  changes relative to `main`.
+- A PR closed without merging stays closed for that exact revision. Another
+  save can create a new request; closing is not a permanent mute for the branch.
+- After a merge, new unpublished edits can generate another PR. Keep the
+  long-lived branch up to date with main before starting a new batch.
+- An existing draft PR remains a draft; automation does not mark it ready.
+- The PR description lists files as of creation; the live Files changed tab
+  is the authoritative diff after later saves.
+- GitHub Actions checks triggered by a bot-created PR may require a human to
+  approve running them. The independent Netlify branch preview remains the
+  preview path; inspect its actual result before approving publication.
+
+Nothing automatically publishes. A person still reviews the latest diff and
+preview and decides whether to merge. To reject all edits, close the PR and
+restore the branch's content before beginning another task; do not assume a
+closed PR resets the CMS form values.
 
 ## What is editable
 
