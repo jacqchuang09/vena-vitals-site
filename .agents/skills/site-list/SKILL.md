@@ -1,13 +1,11 @@
 ---
-description: Add, remove or reorder an item in a list (team member, card, FAQ, news post, stat)
-argument-hint: Page › Section, add/remove/move, the item details, where it goes
+name: site-list
+description: Add, remove or reorder an item in a list (team member, card, FAQ, news post, stat). Use for requests to edit the Vēna Vitals website.
 ---
 
-List change request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: Page › Section, add/remove/move, the item details, where it goes). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md.
+Follow "How to make a change" in AGENTS.md.
 
 - Find the list in the section's content file (`docs/SITE-MAP.md` lists the
   fields, e.g. `team.members`, `evidence.stats`, `questions`, `latest.posts`).

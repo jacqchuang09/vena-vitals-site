@@ -1,13 +1,11 @@
 ---
-description: Change how a section looks or is laid out (spacing, columns, order, phone vs desktop)
-argument-hint: Page › Section, what's wrong, how it should look, desktop/phone/both
+name: site-layout
+description: Change how a section looks or is laid out (spacing, columns, order, phone vs desktop). Use for requests to edit the Vēna Vitals website.
 ---
 
-Layout change request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: Page › Section, what's wrong, how it should look, desktop/phone/both). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md.
+Follow "How to make a change" in AGENTS.md.
 
 - Find the section's component in `docs/SITE-MAP.md`.
 - Before editing, reply with what you'll change in plain words (e.g. "stats go

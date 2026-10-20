@@ -1,7 +1,9 @@
-# Editing the site with Claude Code
+# Editing the site with an AI agent (Claude Code or Codex)
 
-How to change the Vēna Vitals website by asking Claude, step by step, with a
-template for every kind of change.
+How to change the Vēna Vitals website by asking an AI coding agent, step by
+step, with a template for every kind of change. Everything here works the same
+in **Claude Code** and **OpenAI Codex**; the only difference is how you start a
+template (see step 2).
 
 Use this for anything bigger than a quick text or photo swap: new sections,
 layout tweaks, moving things around, new pages. (Small text and photo edits can
@@ -10,26 +12,40 @@ also go through the visual editor once it's set up.)
 ## How a change goes live
 
 ```
-1. Ask      you fill in a request template in Claude Code
-2. Edit     Claude finds the section, makes the change on its own branch
-3. Preview  Claude opens a pull request; Netlify builds a preview link (~2 min)
+1. Ask      you fill in a request template in Claude Code or Codex
+2. Edit     the agent finds the section, makes the change on its own branch
+3. Preview  it opens a pull request; Netlify builds a preview link (~2 min)
 4. Approve  you check the preview on desktop and phone, then click Merge
 5. Live     Netlify publishes main to the real site (~2 min)
 ```
 
 Nothing reaches the live site until someone clicks **Merge**. If the preview
-looks wrong, tell Claude what to fix in the same chat, or close the pull
-request and nothing happens.
+looks wrong, say what to fix in the same chat, or close the pull request and
+nothing happens.
 
 ## One-time setup
 
-1. Go to **claude.ai/code** and sign in.
+Pick whichever tool you have. Both need a paid plan (Claude Pro or higher for
+Claude Code; a ChatGPT plan that includes Codex).
+
+**Claude Code**
+
+1. Go to **claude.ai/code** (or open the Claude desktop app) and sign in.
 2. Connect GitHub when it asks, and give it access to
    `jacqchuang09/vena-vitals-site`.
 3. Start a new session on that repository.
 
-Claude automatically reads `CLAUDE.md` in the repo, which tells it where
-everything lives and the rules to follow.
+**Codex**
+
+1. Open Codex: the ChatGPT desktop app, the Codex extension in VS Code, or
+   **chatgpt.com/codex** in the browser.
+2. Connect GitHub and give it access to `jacqchuang09/vena-vitals-site`
+   (or, in VS Code, open your local copy of the repo).
+3. Start a task on that repository.
+
+Both read the repo's rules automatically: Codex reads `AGENTS.md`, Claude Code
+reads `CLAUDE.md`, which points to the same `AGENTS.md`. The templates are
+shared too, in `.agents/skills/`.
 
 ## Step by step
 
@@ -41,26 +57,34 @@ the small red label above its heading, e.g. `Home › Clinical Testing`.
 
 ### 2. Pick the right template
 
-| You want to...                                                                     | Command             | Template                                  |
-| ---------------------------------------------------------------------------------- | ------------------- | ----------------------------------------- |
-| Change words, a number, a button label or a link                                   | `/site-text`        | [A](#a-change-text)                       |
-| Replace a photo or video                                                           | `/site-image`       | [B](#b-swap-an-image-or-video)            |
-| Add, remove or reorder an item in a list (team member, card, FAQ, news post, stat) | `/site-list`        | [C](#c-add-remove-or-reorder-a-list-item) |
-| Hide a section, or bring back a hidden or archived one                             | `/site-show-hide`   | [D](#d-hide-or-bring-back-a-section)      |
-| Add a new section that looks like ones already on the site                         | `/site-new-section` | [E](#e-add-a-new-section)                 |
-| Change the layout of a section (columns, spacing, phone vs. desktop)               | `/site-layout`      | [F](#f-change-a-layout)                   |
-| Add a new page                                                                     | `/site-new-page`    | [G](#g-add-a-new-page)                    |
-| Undo a change that already went live                                               | `/site-undo`        | [H](#h-undo-a-change)                     |
-| Add a section with a **new look**, based on a style you like                       | `/site-new-design`  | [I](#i-add-a-section-with-a-new-look)     |
-| Change menu bar or footer links, or a page's URL                                   | `/site-nav`         | [J](#j-menu-footer-or-url)                |
-| Change a page's tab title, Google text or link-preview text                        | `/site-seo`         | [K](#k-page-title-and-link-previews)      |
-| Add, remove or swap a logo                                                         | `/site-logo`        | [L](#l-logos)                             |
-| Change the contact form                                                            | `/site-form`        | [M](#m-contact-form)                      |
-| Anything else                                                                      | `/site-other`       | [N](#n-anything-else)                     |
+| You want to...                                                                     | Skill              | Template                                  |
+| ---------------------------------------------------------------------------------- | ------------------ | ----------------------------------------- |
+| Change words, a number, a button label or a link                                   | `site-text`        | [A](#a-change-text)                       |
+| Replace a photo or video                                                           | `site-image`       | [B](#b-swap-an-image-or-video)            |
+| Add, remove or reorder an item in a list (team member, card, FAQ, news post, stat) | `site-list`        | [C](#c-add-remove-or-reorder-a-list-item) |
+| Hide a section, or bring back a hidden or archived one                             | `site-show-hide`   | [D](#d-hide-or-bring-back-a-section)      |
+| Add a new section that looks like ones already on the site                         | `site-new-section` | [E](#e-add-a-new-section)                 |
+| Change the layout of a section (columns, spacing, phone vs. desktop)               | `site-layout`      | [F](#f-change-a-layout)                   |
+| Add a new page                                                                     | `site-new-page`    | [G](#g-add-a-new-page)                    |
+| Undo a change that already went live                                               | `site-undo`        | [H](#h-undo-a-change)                     |
+| Add a section with a **new look**, based on a style you like                       | `site-new-design`  | [I](#i-add-a-section-with-a-new-look)     |
+| Change menu bar or footer links, or a page's URL                                   | `site-nav`         | [J](#j-menu-footer-or-url)                |
+| Change a page's tab title, Google text or link-preview text                        | `site-seo`         | [K](#k-page-title-and-link-previews)      |
+| Add, remove or swap a logo                                                         | `site-logo`        | [L](#l-logos)                             |
+| Change the contact form                                                            | `site-form`        | [M](#m-contact-form)                      |
+| Anything else                                                                      | `site-other`       | [N](#n-anything-else)                     |
 
-Type the command in Claude Code (type `/` to see the list), then paste the
-filled-in template after it. If the command doesn't show up, just paste the
-template on its own; it works the same.
+How to start a template:
+
+| Tool                                     | Type                                         | Example                                      |
+| ---------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| Claude Code                              | `/` + skill name                             | `/site-text`                                 |
+| Codex (desktop app, VS Code, CLI)        | `$` + skill name                             | `$site-text`                                 |
+| Codex in the browser (chatgpt.com/codex) | the sentence on the right, then the template | `Use the site-text skill in .agents/skills.` |
+
+The templates below start with `/site-...` (Claude Code). In Codex, swap the `/`
+for `$`. If a skill doesn't show up in either tool, just paste the template on
+its own and add "follow `.agents/skills/site-text/SKILL.md`"; it works the same.
 
 ### 3. Fill it in and send
 
@@ -71,11 +95,15 @@ should become. Attach images straight into the chat.
 request; changes to different pages should be separate requests so each one can
 be checked and undone on its own.
 
-### 4. Check what Claude says back
+### 4. Check what the agent says back
 
-Before editing, Claude restates the change and what's there now. If it picked
+Before editing, the agent restates the change and what's there now. If it picked
 the wrong section, say so. When it's done, it replies with the pull request
 link and what to check.
+
+**Codex in the browser** works a little differently: it usually runs the whole
+task without stopping to confirm, then shows a summary and the changes. Read the
+summary; if it's right, click **Create PR**. If not, reply with what to fix.
 
 ### 5. Review the preview
 
@@ -162,7 +190,7 @@ Content:
 Images: (attach, or "none")
 ```
 
-Claude reuses an existing section style. For a section with a new look, use [template I](#i-add-a-section-with-a-new-look) instead.
+The agent reuses an existing section style. For a section with a new look, use [template I](#i-add-a-section-with-a-new-look) instead.
 
 ### F. Change a layout
 
@@ -197,7 +225,7 @@ What to undo: the BMI stat change from last week (PR #6)
 Why: numbers need to be confirmed before publishing
 ```
 
-Claude finds the pull request and opens a new one that reverses it. You review
+The agent finds the pull request and opens a new one that reverses it. You review
 and merge it like any other change.
 
 ### I. Add a section with a new look
@@ -215,11 +243,11 @@ Content: (paste it, or "draft it and mark EDIT NEEDED")
 Images: (attach, or "none")
 ```
 
-Claude replies with a short brief (what it'll borrow from the reference, and
+The agent replies with a short brief (what it'll borrow from the reference, and
 what it won't), then builds **2 or 3 options**. Open the Deploy Preview link and
 add `/design-preview` to the end of the address to see them one after another.
 Reply with the one you want and any notes ("Option B, tighter spacing, no
-animation on phones"). Claude then puts that one on the real page, removes the
+animation on phones"). It then puts that one on the real page, removes the
 others, and the pull request is reviewed like any other.
 
 It keeps the site's colors and fonts. Borrowing a layout or feel from another
@@ -272,7 +300,7 @@ Required or optional: optional
 ```
 
 Where form submissions are emailed is set in Netlify (Forms → Form
-notifications), not in the code; Claude will walk you through it if that's
+notifications), not in the code; the agent will walk you through it if that's
 what you need.
 
 ### N. Anything else
@@ -284,7 +312,7 @@ Where: every page
 Why / extra details:
 ```
 
-Claude replies with a plan first and waits for your OK before changing anything.
+The agent replies with a plan first and waits for your OK before changing anything.
 
 ---
 
@@ -292,19 +320,19 @@ Claude replies with a plan first and waits for your OK before changing anything.
 
 - **Never merge without opening the preview.**
 - **Clinical, regulatory, accuracy, partner and advisor claims** need team
-  sign-off before merging. Claude marks anything unconfirmed as
+  sign-off before merging. The agent marks anything unconfirmed as
   `EDIT NEEDED`.
 - **Use real Vēna assets** (photos, figures, videos) over AI-generated ones.
 - **Colors and fonts are fixed.** Ask for a change in look, not a new color.
-- Claude never pushes straight to `main`; everything goes through a pull
+- The agent never pushes straight to `main`; everything goes through a pull
   request.
 
 ## When something goes wrong
 
 | Problem                                     | What to do                                                                                                           |
 | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Claude changed the wrong section            | Reply in the same chat with the right `Page › Section` and a screenshot                                              |
-| The preview link never shows up             | The build probably failed. Ask Claude: "the Netlify preview failed, check the build log and fix it"                  |
+| The agent changed the wrong section         | Reply in the same chat with the right `Page › Section` and a screenshot                                              |
+| The preview link never shows up             | The build probably failed. Ask the agent: "the Netlify preview failed, check the build log and fix it"               |
 | Live site didn't change after merging       | Wait 2 minutes, hard-refresh (Cmd+Shift+R). Still old? Check Netlify → Deploys                                       |
 | Something broke after merging               | Use template H right away, or in Netlify → Deploys click an older deploy → **Publish deploy** to roll back instantly |
-| Screenshots in the site map are out of date | Ask Claude: "refresh the screenshots in docs/site-map and update docs/SITE-MAP.md"                                   |
+| Screenshots in the site map are out of date | Ask the agent: "refresh the screenshots in docs/site-map and update docs/SITE-MAP.md"                                |

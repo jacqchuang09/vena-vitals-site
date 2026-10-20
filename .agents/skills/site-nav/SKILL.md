@@ -1,13 +1,11 @@
 ---
-description: Change menu bar or footer links, or a page's URL (with a redirect from the old one)
-argument-hint: menu or footer, add/rename/remove/move, label and where it links
+name: site-nav
+description: Change menu bar or footer links, or a page's URL (with a redirect from the old one). Use for requests to edit the Vēna Vitals website.
 ---
 
-Menu, footer or URL request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: menu or footer, add/rename/remove/move, label and where it links). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md.
+Follow "How to make a change" in AGENTS.md.
 
 - **Menu bar:** `content/site.json → nav.items` (`label`, `href`; dropdowns use
   `children` with `label`, `description`, `href`). The phone menu is

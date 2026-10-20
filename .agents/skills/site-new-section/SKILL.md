@@ -1,16 +1,14 @@
 ---
-description: Add a new section to a page
-argument-hint: Page, where it goes, purpose, what it should look like, the content
+name: site-new-section
+description: Add a new section to a page. Use for requests to edit the Vēna Vitals website.
 ---
 
-New section request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: Page, where it goes, purpose, what it should look like, the content). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md.
+Follow "How to make a change" in AGENTS.md.
 
 - If the request asks for a look that doesn't exist on the site yet, or gives a
-  style reference (screenshot, link), follow `.claude/commands/site-new-design.md`
+  style reference (screenshot, link), follow the `site-new-design` skill (`.agents/skills/site-new-design/SKILL.md`)
   instead.
 
 - Before building, reply with a short plan: the page, where the section goes

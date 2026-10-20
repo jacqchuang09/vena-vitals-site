@@ -1,13 +1,11 @@
 ---
-description: Change the contact form (labels, dropdown options, messages, or add a field)
-argument-hint: what to change on the form
+name: site-form
+description: Change the contact form (labels, dropdown options, messages, or add a field). Use for requests to edit the Vēna Vitals website.
 ---
 
-Contact form request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: what to change on the form). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md.
+Follow "How to make a change" in AGENTS.md.
 
 - The same form is on Contact and Partner With Us. Its text is in
   `content/site.json → contactForm` (labels, placeholders, the "role" dropdown

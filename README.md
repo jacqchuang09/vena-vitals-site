@@ -6,8 +6,8 @@ Tailwind, every page prerendered to static HTML and hosted on Netlify.
 **To change what the site says or shows, edit the files in `content/`.**
 See [content/README.md](content/README.md) for how those files work.
 
-**Making changes with Claude Code?** Start with
-[docs/EDITING-WITH-CLAUDE-CODE.md](docs/EDITING-WITH-CLAUDE-CODE.md) (step by
+**Making changes with Claude Code or Codex?** Start with
+[docs/EDITING-WITH-AI.md](docs/EDITING-WITH-AI.md) (step by
 step, with a template for every kind of change) and
 [docs/SITE-MAP.md](docs/SITE-MAP.md) (every section of every page, with
 screenshots).
@@ -15,7 +15,7 @@ screenshots).
 ## How a change goes live
 
 ```
-your edit (VS Code, Claude Code, or the GitHub website)
+your edit (VS Code, Claude Code, Codex, or the GitHub website)
    │  commit + push
    ▼
 GitHub: jacqchuang09/vena-vitals-site
@@ -44,10 +44,12 @@ src/
 archive/              old sections, pages and media we might want back (not on the site)
 docs/
   SITE-MAP.md         every section of every page, with screenshots and file locations
-  EDITING-WITH-CLAUDE-CODE.md   how to request a change, with templates
+  EDITING-WITH-AI.md  how to request a change with Claude Code or Codex, with templates
   site-map/           the screenshots
   strategy/ vibe-code/   strategy docs and the original AI-agent planning docs
-.claude/commands/     the /site-* request templates Claude Code uses
+AGENTS.md             rules every AI agent follows (Codex reads it; CLAUDE.md imports it)
+.agents/skills/       the site-* request templates (Codex: $site-text; Claude Code: /site-text
+                      via the .claude/skills link)
 scripts/shots.mjs     takes screenshots of every page locally (npm run shots)
 ```
 

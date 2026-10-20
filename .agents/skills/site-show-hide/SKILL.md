@@ -1,13 +1,11 @@
 ---
-description: Hide a section, or bring back a hidden or archived section
-argument-hint: Page › Section, show or hide
+name: site-show-hide
+description: Hide a section, or bring back a hidden or archived section. Use for requests to edit the Vēna Vitals website.
 ---
 
-Show/hide request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: Page › Section, show or hide). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md.
+Follow "How to make a change" in AGENTS.md.
 
 - **Hide:** keep the code and content; don't delete either.
   - Solution pages (`/solutions/*`): a section shows only if its fields are in

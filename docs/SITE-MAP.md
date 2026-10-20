@@ -1,6 +1,6 @@
 # Site map
 
-Every page and every section, top to bottom, with what it looks like and where it lives. Use it to tell Claude exactly what to change.
+Every page and every section, top to bottom, with what it looks like and where it lives. Use it to tell the AI agent (Claude Code or Codex) exactly what to change.
 
 **How to name a section:** `Page › Section`, using the small red label you see above the heading on the site, e.g. `Home › Clinical Testing` or `Operating Room › The Problem`.
 
@@ -10,7 +10,7 @@ Every page and every section, top to bottom, with what it looks like and where i
 - Image and video files → `public/assets/<page>/`
 - Layout, colors, animation → the **code** file (`src/components/...`)
 
-Screenshots were taken on 19 Oct 2026. If the site has changed since, ask Claude to refresh them (see `docs/EDITING-WITH-CLAUDE-CODE.md`).
+Screenshots were taken on 19 Oct 2026. If the site has changed since, ask the agent to refresh them (see `docs/EDITING-WITH-AI.md`).
 
 ## Contents
 

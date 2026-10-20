@@ -1,13 +1,11 @@
 ---
-description: Add a section with a new look, based on a style reference (screenshot, link or description)
-argument-hint: page, placement, purpose, style reference and what you like about it, content
+name: site-new-design
+description: Add a section with a new look, based on a style reference (screenshot, link or description). Use for requests to edit the Vēna Vitals website.
 ---
 
-New-design section request:
+Use this skill when someone asks for this kind of change to the Vēna Vitals website. The request is in their message (it should give: page, placement, purpose, style reference and what you like about it, content). If key details are missing, ask before editing.
 
-$ARGUMENTS
-
-Follow "How to make a change" in CLAUDE.md, with these extra steps.
+Follow "How to make a change" in AGENTS.md, with these extra steps.
 
 1. **Read the reference.** Look at any attached screenshots or linked pages.
    Reply with a short brief before building:
