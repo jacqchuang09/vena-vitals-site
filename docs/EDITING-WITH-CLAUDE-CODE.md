@@ -23,6 +23,11 @@ request and nothing happens.
 
 ## One-time setup
 
+### Editing in the browser
+
+The web workflow below does not require installing tools on your computer.
+For editing locally, use the local setup section instead.
+
 1. Go to **claude.ai/code** and sign in.
 2. Connect GitHub when it asks, and give it access to
    `jacqchuang09/vena-vitals-site`.
@@ -30,6 +35,70 @@ request and nothing happens.
 
 Claude automatically reads `CLAUDE.md` in the repo, which tells it where
 everything lives and the rules to follow.
+
+### Local editing: tools and GitHub sign-in
+
+Do this once on each computer used to make edits locally. If you only review
+Deploy Previews and merge pull requests on GitHub, you only need a browser
+and the appropriate repository permissions; skip the local setup.
+
+1. Ask the repository owner for access to
+   `jacqchuang09/vena-vitals-site`. Use your own GitHub account.
+2. Install [Git](https://git-scm.com/downloads), a supported
+   [Node.js LTS release](https://nodejs.org/en/download) (version 20 or newer
+   for this project; includes npm), and
+   [GitHub CLI](https://cli.github.com/).
+   On a Mac with [Homebrew](https://brew.sh/) installed, you can run:
+
+   ```sh
+   brew install git node gh
+   ```
+
+3. In Terminal, sign in to GitHub:
+
+   ```sh
+   gh auth login
+   ```
+
+   Choose **GitHub.com → HTTPS → Log in with a web browser**. Complete the
+   browser sign-in and allow GitHub CLI to authenticate Git when prompted.
+   You do not need to paste a password or token into the AI chat.
+4. Verify that the tools and sign-in work:
+
+   ```sh
+   git --version
+   node --version
+   npm --version
+   gh --version
+   gh auth status
+   gh repo view jacqchuang09/vena-vitals-site
+   ```
+
+   If a command is not found after installation, reopen Terminal and the AI
+   editor, then try again. If repository access fails, check that you signed
+   in with the account invited to the repository.
+5. If you do not already have a local copy, run this from the folder where
+   you keep projects:
+
+   ```sh
+   gh repo clone jacqchuang09/vena-vitals-site
+   cd vena-vitals-site
+   npm install
+   ```
+
+   If you already have a copy, open that folder and run `npm install` there.
+6. Open the repository folder in your AI editor. Before requesting changes,
+   ask it to verify that it can run Git, npm, and `gh auth status`. GitHub
+   CLI lets the agent open pull requests; Node/npm lets it build and check
+   the site. The editor may request permission to run commands or access
+   the network.
+
+This setup is for local editing. Reviewers can open the PR and Netlify preview
+in their browser. If a branch has been pushed but automatic PR creation is
+unavailable, you can also
+[create the pull request on GitHub](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request).
+See GitHub's [CLI sign-in instructions](https://cli.github.com/manual/gh_auth_login)
+for more details.
 
 ## Step by step
 
