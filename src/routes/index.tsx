@@ -4,6 +4,7 @@ import {
   HomeAudienceCards,
   HomeEvidenceStrip,
   HomeFinalCta,
+  HomeTeam,
   HomeOverview,
   HomeProblem,
 } from "@/components/home/HomeSections";
@@ -33,6 +34,7 @@ function Home() {
       <HomeOverview content={home.overview} />
       <HomeEvidenceStrip content={home.evidence} />
       <HomeAudienceCards content={home.audiences} />
+      <HomeTeam content={home.team} />
       <HomeFinalCta content={home.finalCta} />
     </>
   );

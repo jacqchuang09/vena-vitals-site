@@ -395,6 +395,47 @@ export function HomeAudienceCards({ content }: { content: typeof home.audiences 
   );
 }
 
+export function HomeTeam({ content }: { content: typeof home.team }) {
+  return (
+    <section
+      id="behind-the-work"
+      className="flex min-h-screen items-center bg-[color:var(--ink-2)] py-16 md:py-20 hairline-b"
+    >
+      <div className="container-x grid items-center gap-10 md:grid-cols-2 md:gap-12">
+        <div className="reveal">
+          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--accent)]">
+            {content.eyebrow}
+          </div>
+          <h2 className="section-heading text-[color:var(--paper)]">{content.title}</h2>
+          <p className="mt-6 text-sm leading-relaxed text-[color:var(--paper)]">{content.body}</p>
+          <Link
+            to={content.href}
+            className="group mt-8 inline-flex items-center gap-3 bg-[color:var(--paper)] px-6 py-4 text-xs font-semibold tracking-normal text-[color:var(--ink)] transition hover:bg-[color:var(--accent)]"
+          >
+            {content.button}
+            <span
+              aria-hidden
+              className="inline-block transition-transform group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </Link>
+        </div>
+        <div className="reveal">
+          <img
+            src={content.image}
+            alt={content.alt}
+            width={1524}
+            height={802}
+            loading="lazy"
+            className="h-auto w-full"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function HomeFinalCta({ content }: { content: typeof home.finalCta }) {
   return (
     <section className="flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] py-24">

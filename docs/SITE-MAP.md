@@ -101,7 +101,18 @@ _two cards (OR, sleep/home)_
 - **Content:** `content/home.json → audiences`: eyebrow, title, titleAccent, cards (eyebrow, title, body, button, href, image, alt)
 - **Code:** `src/components/home/HomeSections.tsx` → HomeAudienceCards
 
-### 6. Home › Collaborate With Us
+### 6. Home › Behind the Work
+
+_team introduction, with the full picnic photo beside the text on desktop and stacked on phones_
+
+![](site-map/home/06-team.png)
+
+[Phone screenshot](site-map/home/06-team-phone.png)
+
+- **Content:** `content/home.json → team`: eyebrow, title, body, button + href, image, alt
+- **Code:** `src/components/home/HomeSections.tsx` → HomeTeam
+
+### 7. Home › Collaborate With Us
 
 _closing call to action_
 

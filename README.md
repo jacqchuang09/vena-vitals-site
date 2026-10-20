@@ -61,7 +61,7 @@ content file.
 
 | Page                 | URL                          | Content file                     | Sections                                                            | Components                                          |
 | -------------------- | ---------------------------- | -------------------------------- | ------------------------------------------------------------------- | --------------------------------------------------- |
-| Home                 | `/`                          | `home.json`                      | hero, problem, overview, evidence, audiences, finalCta              | `home/Hero`, `home/HomeSections`                    |
+| Home                 | `/`                          | `home.json`                      | hero, problem, overview, evidence, audiences, team, finalCta              | `home/Hero`, `home/HomeSections`                    |
 | About                | `/about`                     | `about.json`                     | hero, team, moments, careers                                        | `about/About`                                       |
 | Technology           | `/technology`                | `technology.json`                | hero, signalJourney, sensingMechanism                               | `technology/Technology`, `technology/SignalJourney` |
 | Clinical Evidence    | `/clinical-evidence`         | `clinical-evidence.json`         | hero, validation, research, methodology                             | `clinical-evidence/Evidence`                        |

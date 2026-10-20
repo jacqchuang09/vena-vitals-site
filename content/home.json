@@ -116,6 +116,15 @@
       }
     ]
   },
+  "team": {
+    "eyebrow": "behind the work",
+    "title": "meet the team behind vena vitals",
+    "body": "get to know the people behind our work",
+    "button": "meet our team",
+    "href": "/about",
+    "image": "/assets/home/team-picnic.png",
+    "alt": "full company picture during picnic"
+  },
   "finalCta": {
     "eyebrow": "Collaborate With Us",
     "title": "Interested in evaluating continuous blood pressure at",
