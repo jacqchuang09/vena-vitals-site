@@ -58,7 +58,11 @@
         { "image": "/assets/shared/logos/logo5.png", "alt": "EvoNexus" },
         { "image": "/assets/shared/logos/logo6.webp", "alt": "HeartX" },
         { "image": "/assets/shared/logos/logo7.png", "alt": "National Science Foundation" },
-        { "image": "/assets/shared/logos/logo1.webp", "alt": "Samsung NEXT" }
+        { "image": "/assets/shared/logos/logo1.webp", "alt": "Samsung NEXT" },
+        { "image": "/assets/shared/logos/desert-forge-ventures.svg", "alt": "Desert Forge Ventures" },
+        { "image": "/assets/shared/logos/battle-born-venture.png", "alt": "Battle Born Venture" },
+        { "image": "/assets/shared/logos/morado-ventures.png", "alt": "Morado Ventures" },
+        { "image": "/assets/shared/logos/ame-cloud-ventures.png", "alt": "AME Cloud Ventures" }
       ]
     },
     "linkGroups": [
